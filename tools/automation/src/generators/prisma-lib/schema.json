@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "PrismaLib",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use?"
+    },
+    "provider": {
+      "type": "string",
+      "description": "Database provider to use",
+      "default": "postgresql",
+      "x-prompt": {
+        "message": "What is the database provider to use?",
+        "type": "list",
+        "items": [
+          {
+            "value": "postgresql",
+            "label": "Postgresql"
+          },
+          {
+            "value": "mongodb",
+            "label": "Mongodb"
+          }
+        ]
+      },
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      }
+    },
+    "databaseUrlEnvKey": {
+      "type": "string",
+      "description": "Database URL env key",
+      "$default": {
+        "$source": "argv",
+        "index": 2
+      },
+      "x-prompt": "What is the database URL env key to use?"
+    }
+  },
+  "required": ["name", "provider", "databaseUrlEnvKey"]
+}

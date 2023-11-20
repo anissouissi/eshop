@@ -1,0 +1,9 @@
+{
+  "executors": {
+    "prisma-generate": {
+      "implementation": "./src/executors/prisma-generate/executor",
+      "schema": "./src/executors/prisma-generate/schema.json",
+      "description": "Executes prisma generate command using nestgraphql"
+    }
+  }
+}

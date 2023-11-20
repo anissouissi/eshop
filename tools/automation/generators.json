@@ -1,0 +1,9 @@
+{
+  "generators": {
+    "prisma-lib": {
+      "factory": "./src/generators/prisma-lib/generator",
+      "schema": "./src/generators/prisma-lib/schema.json",
+      "description": "Generates a prisma library"
+    }
+  }
+}
