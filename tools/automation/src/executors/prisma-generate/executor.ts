@@ -7,7 +7,7 @@ export default async function runExecutor(
 ) {
   console.log('Executor ran for PrismaGenerate', options);
   const { stdout, stderr } = await promisify(exec)(
-    `npx env-cmd -f .local.env npx prisma generate`
+    `npx env-cmd -f .local.env npx prisma generate --schema=${options.schemaPath}`
   );
   console.log(stdout);
   console.error(stderr);

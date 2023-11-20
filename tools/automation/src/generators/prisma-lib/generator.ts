@@ -56,6 +56,7 @@ function updateDataAccessLibTargets(host: Tree, projectRoot: string): void {
     const targets = json.targets;
     targets['generate-db-types'] = {
       executor: '@aso/automation:prisma-generate',
+      options: { schemaPath: `${projectRoot}/src/lib/schema.prisma` },
     };
 
     return json;

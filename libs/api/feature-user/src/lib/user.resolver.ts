@@ -6,7 +6,7 @@ import {
   FindUniqueUserArgs,
   UpdateOneUserArgs,
   User,
-} from '@aso/generated-db-types';
+} from '@aso/api-identity-generated-db-types';
 
 @Resolver(() => User)
 export class UserResolver {

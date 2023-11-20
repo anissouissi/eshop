@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '@aso/api/data-access-db';
+import { PrismaService } from '@aso/api-identity-data-access-db';
 import {
   CreateOneUserArgs,
   DeleteOneUserArgs,
   FindUniqueUserArgs,
   UpdateOneUserArgs,
-} from '@aso/generated-db-types';
+} from '@aso/api-identity-generated-db-types';
 
 @Injectable()
 export class UserService {

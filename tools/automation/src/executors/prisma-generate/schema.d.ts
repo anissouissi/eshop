@@ -1,1 +1,3 @@
-export interface PrismaGenerateExecutorSchema {} // eslint-disable-line
+export interface PrismaGenerateExecutorSchema {
+  schemaPath: string;
+}
