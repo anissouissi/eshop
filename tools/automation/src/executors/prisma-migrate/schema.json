@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "version": 2,
+  "title": "PrismaMigrate executor",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "migrationName": {
+      "type": "string",
+      "description": "Migration name",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What migration name would you like to use?"
+    }
+  },
+  "required": ["migrationName"]
+}

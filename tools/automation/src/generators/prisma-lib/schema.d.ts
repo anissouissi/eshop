@@ -1,5 +1,5 @@
 export interface PrismaLibGeneratorSchema {
   name: string;
-  provider: string;
+  provider: 'postgresql' | 'mongodb';
   databaseUrlEnvKey: string;
 }

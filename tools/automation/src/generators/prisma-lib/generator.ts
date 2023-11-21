@@ -31,7 +31,7 @@ export async function prismaLibGenerator(
   tree.delete(join(projectConfig.root, './src/lib'));
   generateFiles(tree, path.join(__dirname, 'files'), projectRoot, options);
   // update project.json targets
-  updateDataAccessLibTargets(tree, projectRoot);
+  updateDataAccessLibTargets(tree, projectRoot, options);
 
   // generate generated-db-types library
   projectRoot = `libs/api/${options.name}/generated-db-types`;
@@ -51,13 +51,23 @@ export async function prismaLibGenerator(
   await formatFiles(tree);
 }
 
-function updateDataAccessLibTargets(host: Tree, projectRoot: string): void {
+function updateDataAccessLibTargets(
+  host: Tree,
+  projectRoot: string,
+  options: PrismaLibGeneratorSchema
+): void {
   updateJson(host, `./${projectRoot}/project.json`, (json) => {
     const targets = json.targets;
     targets['generate-db-types'] = {
       executor: '@aso/automation:prisma-generate',
       options: { schemaPath: `${projectRoot}/src/lib/schema.prisma` },
     };
+    if (options.provider === 'postgresql') {
+      targets['generate-db-migration'] = {
+        executor: '@aso/automation:prisma-migrate',
+        options: { schemaPath: `${projectRoot}/src/lib/schema.prisma` },
+      };
+    }
 
     return json;
   });

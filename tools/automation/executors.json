@@ -4,6 +4,11 @@
       "implementation": "./src/executors/prisma-generate/executor",
       "schema": "./src/executors/prisma-generate/schema.json",
       "description": "Executes prisma generate command using nestgraphql"
+    },
+    "prisma-migrate": {
+      "implementation": "./src/executors/prisma-migrate/executor",
+      "schema": "./src/executors/prisma-migrate/schema.json",
+      "description": "Executes prisma migrate command"
     }
   }
 }
