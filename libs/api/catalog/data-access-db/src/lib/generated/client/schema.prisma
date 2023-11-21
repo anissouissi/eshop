@@ -1,0 +1,53 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("CATALOG_DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output = "./generated/client"
+}
+
+model Product {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  /// @Validator.IsString()
+  /// @Validator.MaxLength(50)
+  name String
+
+  /// @Validator.IsString()
+  description String
+
+  /// @Validator.IsNumber()
+  /// @Validator.Min(1)
+  price Float
+
+  /// @Validator.IsString()
+  picture String
+
+  /// @Validator.IsString()
+  brand String
+
+  /// @Validator.IsNumber()
+  stock Int
+}
+
+generator nestgraphql {
+    provider                = "node node_modules/prisma-nestjs-graphql"
+    output                  = "../../../generated-db-types/src"
+    purgeOutput                   = false
+    combineScalarFilters          = true
+    emitSingle                    = true
+    noAtomicOperations            = true
+    // field validator
+    fields_Validator_input        = true
+    fields_Validator_output       = true
+    fields_Validator_model        = true
+    fields_Validator_from         = "class-validator"
+    // Args where|data nested validator
+    decorate_1_type               = "*Args"
+    decorate_1_field              = "@(data|where)"
+    decorate_1_name               = ValidateNested
+    decorate_1_from               = "class-validator"
+    decorate_1_arguments          = "[]"
+}
