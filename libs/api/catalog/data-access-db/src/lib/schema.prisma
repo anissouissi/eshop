@@ -7,7 +7,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Item {
+model Product {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
   /// @Validator.IsString()

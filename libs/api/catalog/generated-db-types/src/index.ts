@@ -1,16 +1,25 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
+import { Int } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import { GraphQLJSON } from 'graphql-type-json';
+import { InputType } from '@nestjs/graphql';
+import { Float } from '@nestjs/graphql';
+import { registerEnumType } from '@nestjs/graphql';
 import { Type } from 'class-transformer';
 import { ValidateNested } from 'class-validator';
 import { Prisma } from '@prisma/client';
-import { Int } from '@nestjs/graphql';
-import { InputType } from '@nestjs/graphql';
-import { Float } from '@nestjs/graphql';
 import * as Validator from 'class-validator';
-import { registerEnumType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
-import { GraphQLJSON } from 'graphql-type-json';
+
+export enum ProductScalarFieldEnum {
+    id = "id",
+    name = "name",
+    description = "description",
+    price = "price",
+    picture = "picture",
+    brand = "brand"
+}
 
 export enum SortOrder {
     asc = "asc",
@@ -22,738 +31,9 @@ export enum QueryMode {
     insensitive = "insensitive"
 }
 
-export enum ItemScalarFieldEnum {
-    id = "id",
-    name = "name",
-    description = "description",
-    price = "price",
-    picture = "picture",
-    brand = "brand"
-}
-
-registerEnumType(ItemScalarFieldEnum, { name: 'ItemScalarFieldEnum', description: undefined })
 registerEnumType(QueryMode, { name: 'QueryMode', description: undefined })
 registerEnumType(SortOrder, { name: 'SortOrder', description: undefined })
-
-@ObjectType()
-export class AggregateItem {
-    @Field(() => ItemCountAggregate, {nullable:true})
-    _count?: InstanceType<typeof ItemCountAggregate>;
-    @Field(() => ItemAvgAggregate, {nullable:true})
-    _avg?: InstanceType<typeof ItemAvgAggregate>;
-    @Field(() => ItemSumAggregate, {nullable:true})
-    _sum?: InstanceType<typeof ItemSumAggregate>;
-    @Field(() => ItemMinAggregate, {nullable:true})
-    _min?: InstanceType<typeof ItemMinAggregate>;
-    @Field(() => ItemMaxAggregate, {nullable:true})
-    _max?: InstanceType<typeof ItemMaxAggregate>;
-}
-
-@ArgsType()
-export class CreateManyItemArgs {
-    @Field(() => [ItemCreateManyInput], {nullable:false})
-    @Type(() => ItemCreateManyInput)
-    @ValidateNested()
-    data!: Array<ItemCreateManyInput>;
-}
-
-@ArgsType()
-export class CreateOneItemArgs {
-    @Field(() => ItemCreateInput, {nullable:false})
-    @Type(() => ItemCreateInput)
-    @ValidateNested()
-    data!: InstanceType<typeof ItemCreateInput>;
-}
-
-@ArgsType()
-export class DeleteManyItemArgs {
-    @Field(() => ItemWhereInput, {nullable:true})
-    @Type(() => ItemWhereInput)
-    @ValidateNested()
-    where?: InstanceType<typeof ItemWhereInput>;
-}
-
-@ArgsType()
-export class DeleteOneItemArgs {
-    @Field(() => ItemWhereUniqueInput, {nullable:false})
-    @Type(() => ItemWhereUniqueInput)
-    @ValidateNested()
-    where!: Prisma.AtLeast<ItemWhereUniqueInput, 'id'>;
-}
-
-@ArgsType()
-export class FindFirstItemOrThrowArgs {
-    @Field(() => ItemWhereInput, {nullable:true})
-    @Type(() => ItemWhereInput)
-    @ValidateNested()
-    where?: InstanceType<typeof ItemWhereInput>;
-    @Field(() => [ItemOrderByWithRelationInput], {nullable:true})
-    orderBy?: Array<ItemOrderByWithRelationInput>;
-    @Field(() => ItemWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<ItemWhereUniqueInput, 'id'>;
-    @Field(() => Int, {nullable:true})
-    take?: number;
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-    @Field(() => [ItemScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof ItemScalarFieldEnum>;
-}
-
-@ArgsType()
-export class FindFirstItemArgs {
-    @Field(() => ItemWhereInput, {nullable:true})
-    @Type(() => ItemWhereInput)
-    @ValidateNested()
-    where?: InstanceType<typeof ItemWhereInput>;
-    @Field(() => [ItemOrderByWithRelationInput], {nullable:true})
-    orderBy?: Array<ItemOrderByWithRelationInput>;
-    @Field(() => ItemWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<ItemWhereUniqueInput, 'id'>;
-    @Field(() => Int, {nullable:true})
-    take?: number;
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-    @Field(() => [ItemScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof ItemScalarFieldEnum>;
-}
-
-@ArgsType()
-export class FindManyItemArgs {
-    @Field(() => ItemWhereInput, {nullable:true})
-    @Type(() => ItemWhereInput)
-    @ValidateNested()
-    where?: InstanceType<typeof ItemWhereInput>;
-    @Field(() => [ItemOrderByWithRelationInput], {nullable:true})
-    orderBy?: Array<ItemOrderByWithRelationInput>;
-    @Field(() => ItemWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<ItemWhereUniqueInput, 'id'>;
-    @Field(() => Int, {nullable:true})
-    take?: number;
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-    @Field(() => [ItemScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof ItemScalarFieldEnum>;
-}
-
-@ArgsType()
-export class FindUniqueItemOrThrowArgs {
-    @Field(() => ItemWhereUniqueInput, {nullable:false})
-    @Type(() => ItemWhereUniqueInput)
-    @ValidateNested()
-    where!: Prisma.AtLeast<ItemWhereUniqueInput, 'id'>;
-}
-
-@ArgsType()
-export class FindUniqueItemArgs {
-    @Field(() => ItemWhereUniqueInput, {nullable:false})
-    @Type(() => ItemWhereUniqueInput)
-    @ValidateNested()
-    where!: Prisma.AtLeast<ItemWhereUniqueInput, 'id'>;
-}
-
-@ArgsType()
-export class ItemAggregateArgs {
-    @Field(() => ItemWhereInput, {nullable:true})
-    @Type(() => ItemWhereInput)
-    @ValidateNested()
-    where?: InstanceType<typeof ItemWhereInput>;
-    @Field(() => [ItemOrderByWithRelationInput], {nullable:true})
-    orderBy?: Array<ItemOrderByWithRelationInput>;
-    @Field(() => ItemWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<ItemWhereUniqueInput, 'id'>;
-    @Field(() => Int, {nullable:true})
-    take?: number;
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-    @Field(() => ItemCountAggregateInput, {nullable:true})
-    _count?: InstanceType<typeof ItemCountAggregateInput>;
-    @Field(() => ItemAvgAggregateInput, {nullable:true})
-    _avg?: InstanceType<typeof ItemAvgAggregateInput>;
-    @Field(() => ItemSumAggregateInput, {nullable:true})
-    _sum?: InstanceType<typeof ItemSumAggregateInput>;
-    @Field(() => ItemMinAggregateInput, {nullable:true})
-    _min?: InstanceType<typeof ItemMinAggregateInput>;
-    @Field(() => ItemMaxAggregateInput, {nullable:true})
-    _max?: InstanceType<typeof ItemMaxAggregateInput>;
-}
-
-@InputType()
-export class ItemAvgAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    price?: true;
-}
-
-@ObjectType()
-export class ItemAvgAggregate {
-    @Field(() => Float, {nullable:true})
-    @Validator.IsNumber()
-    @Validator.Min(1)
-    price?: number;
-}
-
-@InputType()
-export class ItemAvgOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    price?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class ItemCountAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    id?: true;
-    @Field(() => Boolean, {nullable:true})
-    name?: true;
-    @Field(() => Boolean, {nullable:true})
-    description?: true;
-    @Field(() => Boolean, {nullable:true})
-    price?: true;
-    @Field(() => Boolean, {nullable:true})
-    picture?: true;
-    @Field(() => Boolean, {nullable:true})
-    brand?: true;
-    @Field(() => Boolean, {nullable:true})
-    _all?: true;
-}
-
-@ObjectType()
-export class ItemCountAggregate {
-    @Field(() => Int, {nullable:false})
-    id!: number;
-    @Field(() => Int, {nullable:false})
-    name!: number;
-    @Field(() => Int, {nullable:false})
-    description!: number;
-    @Field(() => Int, {nullable:false})
-    price!: number;
-    @Field(() => Int, {nullable:false})
-    picture!: number;
-    @Field(() => Int, {nullable:false})
-    brand!: number;
-    @Field(() => Int, {nullable:false})
-    _all!: number;
-}
-
-@InputType()
-export class ItemCountOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    description?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    price?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    picture?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    brand?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class ItemCreateManyInput {
-    @Field(() => String, {nullable:true})
-    id?: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    @Validator.MaxLength(50)
-    name!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    description!: string;
-    @Field(() => Float, {nullable:false})
-    @Validator.IsNumber()
-    @Validator.Min(1)
-    price!: number;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    picture!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    brand!: string;
-}
-
-@InputType()
-export class ItemCreateInput {
-    @Field(() => String, {nullable:true})
-    id?: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    @Validator.MaxLength(50)
-    name!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    description!: string;
-    @Field(() => Float, {nullable:false})
-    @Validator.IsNumber()
-    @Validator.Min(1)
-    price!: number;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    picture!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    brand!: string;
-}
-
-@ArgsType()
-export class ItemGroupByArgs {
-    @Field(() => ItemWhereInput, {nullable:true})
-    @Type(() => ItemWhereInput)
-    @ValidateNested()
-    where?: InstanceType<typeof ItemWhereInput>;
-    @Field(() => [ItemOrderByWithAggregationInput], {nullable:true})
-    orderBy?: Array<ItemOrderByWithAggregationInput>;
-    @Field(() => [ItemScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof ItemScalarFieldEnum>;
-    @Field(() => ItemScalarWhereWithAggregatesInput, {nullable:true})
-    having?: InstanceType<typeof ItemScalarWhereWithAggregatesInput>;
-    @Field(() => Int, {nullable:true})
-    take?: number;
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-    @Field(() => ItemCountAggregateInput, {nullable:true})
-    _count?: InstanceType<typeof ItemCountAggregateInput>;
-    @Field(() => ItemAvgAggregateInput, {nullable:true})
-    _avg?: InstanceType<typeof ItemAvgAggregateInput>;
-    @Field(() => ItemSumAggregateInput, {nullable:true})
-    _sum?: InstanceType<typeof ItemSumAggregateInput>;
-    @Field(() => ItemMinAggregateInput, {nullable:true})
-    _min?: InstanceType<typeof ItemMinAggregateInput>;
-    @Field(() => ItemMaxAggregateInput, {nullable:true})
-    _max?: InstanceType<typeof ItemMaxAggregateInput>;
-}
-
-@ObjectType()
-export class ItemGroupBy {
-    @Field(() => String, {nullable:false})
-    id!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    @Validator.MaxLength(50)
-    name!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    description!: string;
-    @Field(() => Float, {nullable:false})
-    @Validator.IsNumber()
-    @Validator.Min(1)
-    price!: number;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    picture!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    brand!: string;
-    @Field(() => ItemCountAggregate, {nullable:true})
-    _count?: InstanceType<typeof ItemCountAggregate>;
-    @Field(() => ItemAvgAggregate, {nullable:true})
-    _avg?: InstanceType<typeof ItemAvgAggregate>;
-    @Field(() => ItemSumAggregate, {nullable:true})
-    _sum?: InstanceType<typeof ItemSumAggregate>;
-    @Field(() => ItemMinAggregate, {nullable:true})
-    _min?: InstanceType<typeof ItemMinAggregate>;
-    @Field(() => ItemMaxAggregate, {nullable:true})
-    _max?: InstanceType<typeof ItemMaxAggregate>;
-}
-
-@InputType()
-export class ItemMaxAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    id?: true;
-    @Field(() => Boolean, {nullable:true})
-    name?: true;
-    @Field(() => Boolean, {nullable:true})
-    description?: true;
-    @Field(() => Boolean, {nullable:true})
-    price?: true;
-    @Field(() => Boolean, {nullable:true})
-    picture?: true;
-    @Field(() => Boolean, {nullable:true})
-    brand?: true;
-}
-
-@ObjectType()
-export class ItemMaxAggregate {
-    @Field(() => String, {nullable:true})
-    id?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    @Validator.MaxLength(50)
-    name?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    description?: string;
-    @Field(() => Float, {nullable:true})
-    @Validator.IsNumber()
-    @Validator.Min(1)
-    price?: number;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    picture?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    brand?: string;
-}
-
-@InputType()
-export class ItemMaxOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    description?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    price?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    picture?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    brand?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class ItemMinAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    id?: true;
-    @Field(() => Boolean, {nullable:true})
-    name?: true;
-    @Field(() => Boolean, {nullable:true})
-    description?: true;
-    @Field(() => Boolean, {nullable:true})
-    price?: true;
-    @Field(() => Boolean, {nullable:true})
-    picture?: true;
-    @Field(() => Boolean, {nullable:true})
-    brand?: true;
-}
-
-@ObjectType()
-export class ItemMinAggregate {
-    @Field(() => String, {nullable:true})
-    id?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    @Validator.MaxLength(50)
-    name?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    description?: string;
-    @Field(() => Float, {nullable:true})
-    @Validator.IsNumber()
-    @Validator.Min(1)
-    price?: number;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    picture?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    brand?: string;
-}
-
-@InputType()
-export class ItemMinOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    description?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    price?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    picture?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    brand?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class ItemOrderByWithAggregationInput {
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    description?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    price?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    picture?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    brand?: keyof typeof SortOrder;
-    @Field(() => ItemCountOrderByAggregateInput, {nullable:true})
-    _count?: InstanceType<typeof ItemCountOrderByAggregateInput>;
-    @Field(() => ItemAvgOrderByAggregateInput, {nullable:true})
-    _avg?: InstanceType<typeof ItemAvgOrderByAggregateInput>;
-    @Field(() => ItemMaxOrderByAggregateInput, {nullable:true})
-    _max?: InstanceType<typeof ItemMaxOrderByAggregateInput>;
-    @Field(() => ItemMinOrderByAggregateInput, {nullable:true})
-    _min?: InstanceType<typeof ItemMinOrderByAggregateInput>;
-    @Field(() => ItemSumOrderByAggregateInput, {nullable:true})
-    _sum?: InstanceType<typeof ItemSumOrderByAggregateInput>;
-}
-
-@InputType()
-export class ItemOrderByWithRelationInput {
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    description?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    price?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    picture?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    brand?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class ItemScalarWhereWithAggregatesInput {
-    @Field(() => [ItemScalarWhereWithAggregatesInput], {nullable:true})
-    AND?: Array<ItemScalarWhereWithAggregatesInput>;
-    @Field(() => [ItemScalarWhereWithAggregatesInput], {nullable:true})
-    OR?: Array<ItemScalarWhereWithAggregatesInput>;
-    @Field(() => [ItemScalarWhereWithAggregatesInput], {nullable:true})
-    NOT?: Array<ItemScalarWhereWithAggregatesInput>;
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    id?: InstanceType<typeof StringWithAggregatesFilter>;
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    name?: InstanceType<typeof StringWithAggregatesFilter>;
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    description?: InstanceType<typeof StringWithAggregatesFilter>;
-    @Field(() => FloatWithAggregatesFilter, {nullable:true})
-    price?: InstanceType<typeof FloatWithAggregatesFilter>;
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    picture?: InstanceType<typeof StringWithAggregatesFilter>;
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    brand?: InstanceType<typeof StringWithAggregatesFilter>;
-}
-
-@InputType()
-export class ItemSumAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    price?: true;
-}
-
-@ObjectType()
-export class ItemSumAggregate {
-    @Field(() => Float, {nullable:true})
-    @Validator.IsNumber()
-    @Validator.Min(1)
-    price?: number;
-}
-
-@InputType()
-export class ItemSumOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    price?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class ItemUncheckedCreateInput {
-    @Field(() => String, {nullable:true})
-    id?: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    @Validator.MaxLength(50)
-    name!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    description!: string;
-    @Field(() => Float, {nullable:false})
-    @Validator.IsNumber()
-    @Validator.Min(1)
-    price!: number;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    picture!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    brand!: string;
-}
-
-@InputType()
-export class ItemUncheckedUpdateManyInput {
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    @Validator.MaxLength(50)
-    name?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    description?: string;
-    @Field(() => Float, {nullable:true})
-    @Validator.IsNumber()
-    @Validator.Min(1)
-    price?: number;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    picture?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    brand?: string;
-}
-
-@InputType()
-export class ItemUncheckedUpdateInput {
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    @Validator.MaxLength(50)
-    name?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    description?: string;
-    @Field(() => Float, {nullable:true})
-    @Validator.IsNumber()
-    @Validator.Min(1)
-    price?: number;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    picture?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    brand?: string;
-}
-
-@InputType()
-export class ItemUpdateManyMutationInput {
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    @Validator.MaxLength(50)
-    name?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    description?: string;
-    @Field(() => Float, {nullable:true})
-    @Validator.IsNumber()
-    @Validator.Min(1)
-    price?: number;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    picture?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    brand?: string;
-}
-
-@InputType()
-export class ItemUpdateInput {
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    @Validator.MaxLength(50)
-    name?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    description?: string;
-    @Field(() => Float, {nullable:true})
-    @Validator.IsNumber()
-    @Validator.Min(1)
-    price?: number;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    picture?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    brand?: string;
-}
-
-@InputType()
-export class ItemWhereUniqueInput {
-    @Field(() => String, {nullable:true})
-    id?: string;
-    @Field(() => [ItemWhereInput], {nullable:true})
-    AND?: Array<ItemWhereInput>;
-    @Field(() => [ItemWhereInput], {nullable:true})
-    OR?: Array<ItemWhereInput>;
-    @Field(() => [ItemWhereInput], {nullable:true})
-    NOT?: Array<ItemWhereInput>;
-    @Field(() => StringFilter, {nullable:true})
-    name?: InstanceType<typeof StringFilter>;
-    @Field(() => StringFilter, {nullable:true})
-    description?: InstanceType<typeof StringFilter>;
-    @Field(() => FloatFilter, {nullable:true})
-    price?: InstanceType<typeof FloatFilter>;
-    @Field(() => StringFilter, {nullable:true})
-    picture?: InstanceType<typeof StringFilter>;
-    @Field(() => StringFilter, {nullable:true})
-    brand?: InstanceType<typeof StringFilter>;
-}
-
-@InputType()
-export class ItemWhereInput {
-    @Field(() => [ItemWhereInput], {nullable:true})
-    AND?: Array<ItemWhereInput>;
-    @Field(() => [ItemWhereInput], {nullable:true})
-    OR?: Array<ItemWhereInput>;
-    @Field(() => [ItemWhereInput], {nullable:true})
-    NOT?: Array<ItemWhereInput>;
-    @Field(() => StringFilter, {nullable:true})
-    id?: InstanceType<typeof StringFilter>;
-    @Field(() => StringFilter, {nullable:true})
-    name?: InstanceType<typeof StringFilter>;
-    @Field(() => StringFilter, {nullable:true})
-    description?: InstanceType<typeof StringFilter>;
-    @Field(() => FloatFilter, {nullable:true})
-    price?: InstanceType<typeof FloatFilter>;
-    @Field(() => StringFilter, {nullable:true})
-    picture?: InstanceType<typeof StringFilter>;
-    @Field(() => StringFilter, {nullable:true})
-    brand?: InstanceType<typeof StringFilter>;
-}
-
-@ObjectType()
-export class Item {
-    @Field(() => ID, {nullable:false})
-    id!: string;
-    @Field(() => String, {nullable:false})
-    name!: string;
-    @Field(() => String, {nullable:false})
-    description!: string;
-    @Field(() => Float, {nullable:false})
-    price!: number;
-    @Field(() => String, {nullable:false})
-    picture!: string;
-    @Field(() => String, {nullable:false})
-    brand!: string;
-}
-
-@ArgsType()
-export class UpdateManyItemArgs {
-    @Field(() => ItemUpdateManyMutationInput, {nullable:false})
-    @Type(() => ItemUpdateManyMutationInput)
-    @ValidateNested()
-    data!: InstanceType<typeof ItemUpdateManyMutationInput>;
-    @Field(() => ItemWhereInput, {nullable:true})
-    @Type(() => ItemWhereInput)
-    @ValidateNested()
-    where?: InstanceType<typeof ItemWhereInput>;
-}
-
-@ArgsType()
-export class UpdateOneItemArgs {
-    @Field(() => ItemUpdateInput, {nullable:false})
-    @Type(() => ItemUpdateInput)
-    @ValidateNested()
-    data!: InstanceType<typeof ItemUpdateInput>;
-    @Field(() => ItemWhereUniqueInput, {nullable:false})
-    @Type(() => ItemWhereUniqueInput)
-    @ValidateNested()
-    where!: Prisma.AtLeast<ItemWhereUniqueInput, 'id'>;
-}
-
-@ArgsType()
-export class UpsertOneItemArgs {
-    @Field(() => ItemWhereUniqueInput, {nullable:false})
-    @Type(() => ItemWhereUniqueInput)
-    @ValidateNested()
-    where!: Prisma.AtLeast<ItemWhereUniqueInput, 'id'>;
-    @Field(() => ItemCreateInput, {nullable:false})
-    @Type(() => ItemCreateInput)
-    create!: InstanceType<typeof ItemCreateInput>;
-    @Field(() => ItemUpdateInput, {nullable:false})
-    @Type(() => ItemUpdateInput)
-    update!: InstanceType<typeof ItemUpdateInput>;
-}
+registerEnumType(ProductScalarFieldEnum, { name: 'ProductScalarFieldEnum', description: undefined })
 
 @ObjectType()
 export class AffectedRows {
@@ -762,7 +42,7 @@ export class AffectedRows {
 }
 
 @ArgsType()
-export class AggregateItemRawArgs {
+export class AggregateProductRawArgs {
     @Field(() => [GraphQLJSON], {nullable:true})
     pipeline?: Array<any>;
     @Field(() => GraphQLJSON, {nullable:true})
@@ -770,7 +50,7 @@ export class AggregateItemRawArgs {
 }
 
 @ArgsType()
-export class FindItemRawArgs {
+export class FindProductRawArgs {
     @Field(() => GraphQLJSON, {nullable:true})
     filter?: any;
     @Field(() => GraphQLJSON, {nullable:true})
@@ -893,4 +173,724 @@ export class StringWithAggregatesFilter {
     _min?: InstanceType<typeof StringFilter>;
     @Field(() => StringFilter, {nullable:true})
     _max?: InstanceType<typeof StringFilter>;
+}
+
+@ObjectType()
+export class AggregateProduct {
+    @Field(() => ProductCountAggregate, {nullable:true})
+    _count?: InstanceType<typeof ProductCountAggregate>;
+    @Field(() => ProductAvgAggregate, {nullable:true})
+    _avg?: InstanceType<typeof ProductAvgAggregate>;
+    @Field(() => ProductSumAggregate, {nullable:true})
+    _sum?: InstanceType<typeof ProductSumAggregate>;
+    @Field(() => ProductMinAggregate, {nullable:true})
+    _min?: InstanceType<typeof ProductMinAggregate>;
+    @Field(() => ProductMaxAggregate, {nullable:true})
+    _max?: InstanceType<typeof ProductMaxAggregate>;
+}
+
+@ArgsType()
+export class CreateManyProductArgs {
+    @Field(() => [ProductCreateManyInput], {nullable:false})
+    @Type(() => ProductCreateManyInput)
+    @ValidateNested()
+    data!: Array<ProductCreateManyInput>;
+}
+
+@ArgsType()
+export class CreateOneProductArgs {
+    @Field(() => ProductCreateInput, {nullable:false})
+    @Type(() => ProductCreateInput)
+    @ValidateNested()
+    data!: InstanceType<typeof ProductCreateInput>;
+}
+
+@ArgsType()
+export class DeleteManyProductArgs {
+    @Field(() => ProductWhereInput, {nullable:true})
+    @Type(() => ProductWhereInput)
+    @ValidateNested()
+    where?: InstanceType<typeof ProductWhereInput>;
+}
+
+@ArgsType()
+export class DeleteOneProductArgs {
+    @Field(() => ProductWhereUniqueInput, {nullable:false})
+    @Type(() => ProductWhereUniqueInput)
+    @ValidateNested()
+    where!: Prisma.AtLeast<ProductWhereUniqueInput, 'id'>;
+}
+
+@ArgsType()
+export class FindFirstProductOrThrowArgs {
+    @Field(() => ProductWhereInput, {nullable:true})
+    @Type(() => ProductWhereInput)
+    @ValidateNested()
+    where?: InstanceType<typeof ProductWhereInput>;
+    @Field(() => [ProductOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<ProductOrderByWithRelationInput>;
+    @Field(() => ProductWhereUniqueInput, {nullable:true})
+    cursor?: Prisma.AtLeast<ProductWhereUniqueInput, 'id'>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => [ProductScalarFieldEnum], {nullable:true})
+    distinct?: Array<keyof typeof ProductScalarFieldEnum>;
+}
+
+@ArgsType()
+export class FindFirstProductArgs {
+    @Field(() => ProductWhereInput, {nullable:true})
+    @Type(() => ProductWhereInput)
+    @ValidateNested()
+    where?: InstanceType<typeof ProductWhereInput>;
+    @Field(() => [ProductOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<ProductOrderByWithRelationInput>;
+    @Field(() => ProductWhereUniqueInput, {nullable:true})
+    cursor?: Prisma.AtLeast<ProductWhereUniqueInput, 'id'>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => [ProductScalarFieldEnum], {nullable:true})
+    distinct?: Array<keyof typeof ProductScalarFieldEnum>;
+}
+
+@ArgsType()
+export class FindManyProductArgs {
+    @Field(() => ProductWhereInput, {nullable:true})
+    @Type(() => ProductWhereInput)
+    @ValidateNested()
+    where?: InstanceType<typeof ProductWhereInput>;
+    @Field(() => [ProductOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<ProductOrderByWithRelationInput>;
+    @Field(() => ProductWhereUniqueInput, {nullable:true})
+    cursor?: Prisma.AtLeast<ProductWhereUniqueInput, 'id'>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => [ProductScalarFieldEnum], {nullable:true})
+    distinct?: Array<keyof typeof ProductScalarFieldEnum>;
+}
+
+@ArgsType()
+export class FindUniqueProductOrThrowArgs {
+    @Field(() => ProductWhereUniqueInput, {nullable:false})
+    @Type(() => ProductWhereUniqueInput)
+    @ValidateNested()
+    where!: Prisma.AtLeast<ProductWhereUniqueInput, 'id'>;
+}
+
+@ArgsType()
+export class FindUniqueProductArgs {
+    @Field(() => ProductWhereUniqueInput, {nullable:false})
+    @Type(() => ProductWhereUniqueInput)
+    @ValidateNested()
+    where!: Prisma.AtLeast<ProductWhereUniqueInput, 'id'>;
+}
+
+@ArgsType()
+export class ProductAggregateArgs {
+    @Field(() => ProductWhereInput, {nullable:true})
+    @Type(() => ProductWhereInput)
+    @ValidateNested()
+    where?: InstanceType<typeof ProductWhereInput>;
+    @Field(() => [ProductOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<ProductOrderByWithRelationInput>;
+    @Field(() => ProductWhereUniqueInput, {nullable:true})
+    cursor?: Prisma.AtLeast<ProductWhereUniqueInput, 'id'>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => ProductCountAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof ProductCountAggregateInput>;
+    @Field(() => ProductAvgAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof ProductAvgAggregateInput>;
+    @Field(() => ProductSumAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof ProductSumAggregateInput>;
+    @Field(() => ProductMinAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof ProductMinAggregateInput>;
+    @Field(() => ProductMaxAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof ProductMaxAggregateInput>;
+}
+
+@InputType()
+export class ProductAvgAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    price?: true;
+}
+
+@ObjectType()
+export class ProductAvgAggregate {
+    @Field(() => Float, {nullable:true})
+    @Validator.IsNumber()
+    @Validator.Min(1)
+    price?: number;
+}
+
+@InputType()
+export class ProductAvgOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    price?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class ProductCountAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+    @Field(() => Boolean, {nullable:true})
+    name?: true;
+    @Field(() => Boolean, {nullable:true})
+    description?: true;
+    @Field(() => Boolean, {nullable:true})
+    price?: true;
+    @Field(() => Boolean, {nullable:true})
+    picture?: true;
+    @Field(() => Boolean, {nullable:true})
+    brand?: true;
+    @Field(() => Boolean, {nullable:true})
+    _all?: true;
+}
+
+@ObjectType()
+export class ProductCountAggregate {
+    @Field(() => Int, {nullable:false})
+    id!: number;
+    @Field(() => Int, {nullable:false})
+    name!: number;
+    @Field(() => Int, {nullable:false})
+    description!: number;
+    @Field(() => Int, {nullable:false})
+    price!: number;
+    @Field(() => Int, {nullable:false})
+    picture!: number;
+    @Field(() => Int, {nullable:false})
+    brand!: number;
+    @Field(() => Int, {nullable:false})
+    _all!: number;
+}
+
+@InputType()
+export class ProductCountOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    name?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    description?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    price?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    picture?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    brand?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class ProductCreateManyInput {
+    @Field(() => String, {nullable:true})
+    id?: string;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    @Validator.MaxLength(50)
+    name!: string;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    description!: string;
+    @Field(() => Float, {nullable:false})
+    @Validator.IsNumber()
+    @Validator.Min(1)
+    price!: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    picture!: string;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    brand!: string;
+}
+
+@InputType()
+export class ProductCreateInput {
+    @Field(() => String, {nullable:true})
+    id?: string;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    @Validator.MaxLength(50)
+    name!: string;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    description!: string;
+    @Field(() => Float, {nullable:false})
+    @Validator.IsNumber()
+    @Validator.Min(1)
+    price!: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    picture!: string;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    brand!: string;
+}
+
+@ArgsType()
+export class ProductGroupByArgs {
+    @Field(() => ProductWhereInput, {nullable:true})
+    @Type(() => ProductWhereInput)
+    @ValidateNested()
+    where?: InstanceType<typeof ProductWhereInput>;
+    @Field(() => [ProductOrderByWithAggregationInput], {nullable:true})
+    orderBy?: Array<ProductOrderByWithAggregationInput>;
+    @Field(() => [ProductScalarFieldEnum], {nullable:false})
+    by!: Array<keyof typeof ProductScalarFieldEnum>;
+    @Field(() => ProductScalarWhereWithAggregatesInput, {nullable:true})
+    having?: InstanceType<typeof ProductScalarWhereWithAggregatesInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => ProductCountAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof ProductCountAggregateInput>;
+    @Field(() => ProductAvgAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof ProductAvgAggregateInput>;
+    @Field(() => ProductSumAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof ProductSumAggregateInput>;
+    @Field(() => ProductMinAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof ProductMinAggregateInput>;
+    @Field(() => ProductMaxAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof ProductMaxAggregateInput>;
+}
+
+@ObjectType()
+export class ProductGroupBy {
+    @Field(() => String, {nullable:false})
+    id!: string;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    @Validator.MaxLength(50)
+    name!: string;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    description!: string;
+    @Field(() => Float, {nullable:false})
+    @Validator.IsNumber()
+    @Validator.Min(1)
+    price!: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    picture!: string;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    brand!: string;
+    @Field(() => ProductCountAggregate, {nullable:true})
+    _count?: InstanceType<typeof ProductCountAggregate>;
+    @Field(() => ProductAvgAggregate, {nullable:true})
+    _avg?: InstanceType<typeof ProductAvgAggregate>;
+    @Field(() => ProductSumAggregate, {nullable:true})
+    _sum?: InstanceType<typeof ProductSumAggregate>;
+    @Field(() => ProductMinAggregate, {nullable:true})
+    _min?: InstanceType<typeof ProductMinAggregate>;
+    @Field(() => ProductMaxAggregate, {nullable:true})
+    _max?: InstanceType<typeof ProductMaxAggregate>;
+}
+
+@InputType()
+export class ProductMaxAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+    @Field(() => Boolean, {nullable:true})
+    name?: true;
+    @Field(() => Boolean, {nullable:true})
+    description?: true;
+    @Field(() => Boolean, {nullable:true})
+    price?: true;
+    @Field(() => Boolean, {nullable:true})
+    picture?: true;
+    @Field(() => Boolean, {nullable:true})
+    brand?: true;
+}
+
+@ObjectType()
+export class ProductMaxAggregate {
+    @Field(() => String, {nullable:true})
+    id?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    @Validator.MaxLength(50)
+    name?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    description?: string;
+    @Field(() => Float, {nullable:true})
+    @Validator.IsNumber()
+    @Validator.Min(1)
+    price?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    picture?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    brand?: string;
+}
+
+@InputType()
+export class ProductMaxOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    name?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    description?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    price?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    picture?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    brand?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class ProductMinAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+    @Field(() => Boolean, {nullable:true})
+    name?: true;
+    @Field(() => Boolean, {nullable:true})
+    description?: true;
+    @Field(() => Boolean, {nullable:true})
+    price?: true;
+    @Field(() => Boolean, {nullable:true})
+    picture?: true;
+    @Field(() => Boolean, {nullable:true})
+    brand?: true;
+}
+
+@ObjectType()
+export class ProductMinAggregate {
+    @Field(() => String, {nullable:true})
+    id?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    @Validator.MaxLength(50)
+    name?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    description?: string;
+    @Field(() => Float, {nullable:true})
+    @Validator.IsNumber()
+    @Validator.Min(1)
+    price?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    picture?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    brand?: string;
+}
+
+@InputType()
+export class ProductMinOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    name?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    description?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    price?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    picture?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    brand?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class ProductOrderByWithAggregationInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    name?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    description?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    price?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    picture?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    brand?: keyof typeof SortOrder;
+    @Field(() => ProductCountOrderByAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof ProductCountOrderByAggregateInput>;
+    @Field(() => ProductAvgOrderByAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof ProductAvgOrderByAggregateInput>;
+    @Field(() => ProductMaxOrderByAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof ProductMaxOrderByAggregateInput>;
+    @Field(() => ProductMinOrderByAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof ProductMinOrderByAggregateInput>;
+    @Field(() => ProductSumOrderByAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof ProductSumOrderByAggregateInput>;
+}
+
+@InputType()
+export class ProductOrderByWithRelationInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    name?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    description?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    price?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    picture?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    brand?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class ProductScalarWhereWithAggregatesInput {
+    @Field(() => [ProductScalarWhereWithAggregatesInput], {nullable:true})
+    AND?: Array<ProductScalarWhereWithAggregatesInput>;
+    @Field(() => [ProductScalarWhereWithAggregatesInput], {nullable:true})
+    OR?: Array<ProductScalarWhereWithAggregatesInput>;
+    @Field(() => [ProductScalarWhereWithAggregatesInput], {nullable:true})
+    NOT?: Array<ProductScalarWhereWithAggregatesInput>;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    id?: InstanceType<typeof StringWithAggregatesFilter>;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    name?: InstanceType<typeof StringWithAggregatesFilter>;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    description?: InstanceType<typeof StringWithAggregatesFilter>;
+    @Field(() => FloatWithAggregatesFilter, {nullable:true})
+    price?: InstanceType<typeof FloatWithAggregatesFilter>;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    picture?: InstanceType<typeof StringWithAggregatesFilter>;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    brand?: InstanceType<typeof StringWithAggregatesFilter>;
+}
+
+@InputType()
+export class ProductSumAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    price?: true;
+}
+
+@ObjectType()
+export class ProductSumAggregate {
+    @Field(() => Float, {nullable:true})
+    @Validator.IsNumber()
+    @Validator.Min(1)
+    price?: number;
+}
+
+@InputType()
+export class ProductSumOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    price?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class ProductUncheckedCreateInput {
+    @Field(() => String, {nullable:true})
+    id?: string;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    @Validator.MaxLength(50)
+    name!: string;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    description!: string;
+    @Field(() => Float, {nullable:false})
+    @Validator.IsNumber()
+    @Validator.Min(1)
+    price!: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    picture!: string;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    brand!: string;
+}
+
+@InputType()
+export class ProductUncheckedUpdateManyInput {
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    @Validator.MaxLength(50)
+    name?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    description?: string;
+    @Field(() => Float, {nullable:true})
+    @Validator.IsNumber()
+    @Validator.Min(1)
+    price?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    picture?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    brand?: string;
+}
+
+@InputType()
+export class ProductUncheckedUpdateInput {
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    @Validator.MaxLength(50)
+    name?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    description?: string;
+    @Field(() => Float, {nullable:true})
+    @Validator.IsNumber()
+    @Validator.Min(1)
+    price?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    picture?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    brand?: string;
+}
+
+@InputType()
+export class ProductUpdateManyMutationInput {
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    @Validator.MaxLength(50)
+    name?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    description?: string;
+    @Field(() => Float, {nullable:true})
+    @Validator.IsNumber()
+    @Validator.Min(1)
+    price?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    picture?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    brand?: string;
+}
+
+@InputType()
+export class ProductUpdateInput {
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    @Validator.MaxLength(50)
+    name?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    description?: string;
+    @Field(() => Float, {nullable:true})
+    @Validator.IsNumber()
+    @Validator.Min(1)
+    price?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    picture?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    brand?: string;
+}
+
+@InputType()
+export class ProductWhereUniqueInput {
+    @Field(() => String, {nullable:true})
+    id?: string;
+    @Field(() => [ProductWhereInput], {nullable:true})
+    AND?: Array<ProductWhereInput>;
+    @Field(() => [ProductWhereInput], {nullable:true})
+    OR?: Array<ProductWhereInput>;
+    @Field(() => [ProductWhereInput], {nullable:true})
+    NOT?: Array<ProductWhereInput>;
+    @Field(() => StringFilter, {nullable:true})
+    name?: InstanceType<typeof StringFilter>;
+    @Field(() => StringFilter, {nullable:true})
+    description?: InstanceType<typeof StringFilter>;
+    @Field(() => FloatFilter, {nullable:true})
+    price?: InstanceType<typeof FloatFilter>;
+    @Field(() => StringFilter, {nullable:true})
+    picture?: InstanceType<typeof StringFilter>;
+    @Field(() => StringFilter, {nullable:true})
+    brand?: InstanceType<typeof StringFilter>;
+}
+
+@InputType()
+export class ProductWhereInput {
+    @Field(() => [ProductWhereInput], {nullable:true})
+    AND?: Array<ProductWhereInput>;
+    @Field(() => [ProductWhereInput], {nullable:true})
+    OR?: Array<ProductWhereInput>;
+    @Field(() => [ProductWhereInput], {nullable:true})
+    NOT?: Array<ProductWhereInput>;
+    @Field(() => StringFilter, {nullable:true})
+    id?: InstanceType<typeof StringFilter>;
+    @Field(() => StringFilter, {nullable:true})
+    name?: InstanceType<typeof StringFilter>;
+    @Field(() => StringFilter, {nullable:true})
+    description?: InstanceType<typeof StringFilter>;
+    @Field(() => FloatFilter, {nullable:true})
+    price?: InstanceType<typeof FloatFilter>;
+    @Field(() => StringFilter, {nullable:true})
+    picture?: InstanceType<typeof StringFilter>;
+    @Field(() => StringFilter, {nullable:true})
+    brand?: InstanceType<typeof StringFilter>;
+}
+
+@ObjectType()
+export class Product {
+    @Field(() => ID, {nullable:false})
+    id!: string;
+    @Field(() => String, {nullable:false})
+    name!: string;
+    @Field(() => String, {nullable:false})
+    description!: string;
+    @Field(() => Float, {nullable:false})
+    price!: number;
+    @Field(() => String, {nullable:false})
+    picture!: string;
+    @Field(() => String, {nullable:false})
+    brand!: string;
+}
+
+@ArgsType()
+export class UpdateManyProductArgs {
+    @Field(() => ProductUpdateManyMutationInput, {nullable:false})
+    @Type(() => ProductUpdateManyMutationInput)
+    @ValidateNested()
+    data!: InstanceType<typeof ProductUpdateManyMutationInput>;
+    @Field(() => ProductWhereInput, {nullable:true})
+    @Type(() => ProductWhereInput)
+    @ValidateNested()
+    where?: InstanceType<typeof ProductWhereInput>;
+}
+
+@ArgsType()
+export class UpdateOneProductArgs {
+    @Field(() => ProductUpdateInput, {nullable:false})
+    @Type(() => ProductUpdateInput)
+    @ValidateNested()
+    data!: InstanceType<typeof ProductUpdateInput>;
+    @Field(() => ProductWhereUniqueInput, {nullable:false})
+    @Type(() => ProductWhereUniqueInput)
+    @ValidateNested()
+    where!: Prisma.AtLeast<ProductWhereUniqueInput, 'id'>;
+}
+
+@ArgsType()
+export class UpsertOneProductArgs {
+    @Field(() => ProductWhereUniqueInput, {nullable:false})
+    @Type(() => ProductWhereUniqueInput)
+    @ValidateNested()
+    where!: Prisma.AtLeast<ProductWhereUniqueInput, 'id'>;
+    @Field(() => ProductCreateInput, {nullable:false})
+    @Type(() => ProductCreateInput)
+    create!: InstanceType<typeof ProductCreateInput>;
+    @Field(() => ProductUpdateInput, {nullable:false})
+    @Type(() => ProductUpdateInput)
+    update!: InstanceType<typeof ProductUpdateInput>;
 }
