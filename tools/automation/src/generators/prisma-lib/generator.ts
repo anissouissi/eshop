@@ -62,6 +62,10 @@ function updateDataAccessLibTargets(
       executor: '@aso/automation:prisma-generate',
       options: { schemaPath: `${projectRoot}/src/lib/schema.prisma` },
     };
+    targets['push-db'] = {
+      executor: '@aso/automation:prisma-push',
+      options: { schemaPath: `${projectRoot}/src/lib/schema.prisma` },
+    };
     if (options.provider === 'postgresql') {
       targets['generate-db-migration'] = {
         executor: '@aso/automation:prisma-migrate',

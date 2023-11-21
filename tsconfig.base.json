@@ -15,6 +15,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@aso/api-catalog-data-access-db": [
+        "libs/api/catalog/data-access-db/src/index.ts"
+      ],
+      "@aso/api-catalog-generated-db-types": [
+        "libs/api/catalog/generated-db-types/src/index.ts"
+      ],
       "@aso/api-identity-data-access-db": [
         "libs/api/identity/data-access-db/src/index.ts"
       ],

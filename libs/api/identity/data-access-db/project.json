@@ -30,6 +30,12 @@
         "schemaPath": "libs/api/identity/data-access-db/src/lib/schema.prisma"
       }
     },
+    "push-db": {
+      "executor": "@aso/automation:prisma-push",
+      "options": {
+        "schemaPath": "libs/api/identity/data-access-db/src/lib/schema.prisma"
+      }
+    },
     "generate-db-migration": {
       "executor": "@aso/automation:prisma-migrate",
       "options": {

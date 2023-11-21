@@ -1,0 +1,29 @@
+{
+  "name": "api-catalog-generated-db-types",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/api/catalog/generated-db-types/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/api/catalog/generated-db-types",
+        "main": "libs/api/catalog/generated-db-types/src/index.ts",
+        "tsConfig": "libs/api/catalog/generated-db-types/tsconfig.lib.json",
+        "assets": ["libs/api/catalog/generated-db-types/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/api/catalog/generated-db-types/**/*.ts",
+          "libs/api/catalog/generated-db-types/package.json"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:api"]
+}

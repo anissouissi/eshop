@@ -9,6 +9,11 @@
       "implementation": "./src/executors/prisma-migrate/executor",
       "schema": "./src/executors/prisma-migrate/schema.json",
       "description": "Executes prisma migrate command"
+    },
+    "prisma-push": {
+      "implementation": "./src/executors/prisma-push/executor",
+      "schema": "./src/executors/prisma-push/schema.json",
+      "description": "Executes prisma db push command"
     }
   }
 }
