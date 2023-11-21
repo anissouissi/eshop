@@ -18,12 +18,12 @@ export class ProductResolver {
   }
 
   @Query(() => [Product])
-  findAll() {
+  findAllProducts() {
     return this.productService.findAll();
   }
 
   @Query(() => Product)
-  findOne(@Args() findUniqueProductArgs: FindUniqueProductArgs) {
+  findOneProduct(@Args() findUniqueProductArgs: FindUniqueProductArgs) {
     return this.productService.findOne(findUniqueProductArgs);
   }
 

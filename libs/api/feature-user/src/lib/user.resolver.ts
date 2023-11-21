@@ -18,12 +18,12 @@ export class UserResolver {
   }
 
   @Query(() => [User])
-  findAll() {
+  findAllUsers() {
     return this.userService.findAll();
   }
 
   @Query(() => User)
-  findOne(@Args() findUniqueUserArgs: FindUniqueUserArgs) {
+  findOneUser(@Args() findUniqueUserArgs: FindUniqueUserArgs) {
     return this.userService.findOne(findUniqueUserArgs);
   }
 
