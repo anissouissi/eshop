@@ -26,6 +26,9 @@ model Product {
 
   /// @Validator.IsString()
   brand String
+
+  /// @Validator.IsNumber()
+  stock Int
 }
 
 generator nestgraphql {

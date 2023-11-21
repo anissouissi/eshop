@@ -1,11 +1,20 @@
 import { Module } from '@nestjs/common';
-
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { GraphQLModule } from '@nestjs/graphql';
+import {
+  ApolloFederationDriverConfig,
+  ApolloFederationDriver,
+} from '@nestjs/apollo';
+import { ProductModule } from '@aso/feature-product';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    GraphQLModule.forRoot<ApolloFederationDriverConfig>({
+      driver: ApolloFederationDriver,
+      autoSchemaFile: {
+        federation: 2,
+      },
+    }),
+    ProductModule,
+  ],
 })
 export class AppModule {}

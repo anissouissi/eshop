@@ -18,7 +18,8 @@ export enum ProductScalarFieldEnum {
     description = "description",
     price = "price",
     picture = "picture",
-    brand = "brand"
+    brand = "brand",
+    stock = "stock"
 }
 
 export enum SortOrder {
@@ -105,6 +106,56 @@ export class FloatWithAggregatesFilter {
     _min?: InstanceType<typeof FloatFilter>;
     @Field(() => FloatFilter, {nullable:true})
     _max?: InstanceType<typeof FloatFilter>;
+}
+
+@InputType()
+export class IntFilter {
+    @Field(() => Int, {nullable:true})
+    equals?: number;
+    @Field(() => [Int], {nullable:true})
+    in?: Array<number>;
+    @Field(() => [Int], {nullable:true})
+    notIn?: Array<number>;
+    @Field(() => Int, {nullable:true})
+    lt?: number;
+    @Field(() => Int, {nullable:true})
+    lte?: number;
+    @Field(() => Int, {nullable:true})
+    gt?: number;
+    @Field(() => Int, {nullable:true})
+    gte?: number;
+    @Field(() => IntFilter, {nullable:true})
+    not?: InstanceType<typeof IntFilter>;
+}
+
+@InputType()
+export class IntWithAggregatesFilter {
+    @Field(() => Int, {nullable:true})
+    equals?: number;
+    @Field(() => [Int], {nullable:true})
+    in?: Array<number>;
+    @Field(() => [Int], {nullable:true})
+    notIn?: Array<number>;
+    @Field(() => Int, {nullable:true})
+    lt?: number;
+    @Field(() => Int, {nullable:true})
+    lte?: number;
+    @Field(() => Int, {nullable:true})
+    gt?: number;
+    @Field(() => Int, {nullable:true})
+    gte?: number;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    not?: InstanceType<typeof IntWithAggregatesFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    _count?: InstanceType<typeof IntFilter>;
+    @Field(() => FloatFilter, {nullable:true})
+    _avg?: InstanceType<typeof FloatFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    _sum?: InstanceType<typeof IntFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    _min?: InstanceType<typeof IntFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    _max?: InstanceType<typeof IntFilter>;
 }
 
 @ArgsType()
@@ -321,6 +372,8 @@ export class ProductAggregateArgs {
 export class ProductAvgAggregateInput {
     @Field(() => Boolean, {nullable:true})
     price?: true;
+    @Field(() => Boolean, {nullable:true})
+    stock?: true;
 }
 
 @ObjectType()
@@ -329,12 +382,16 @@ export class ProductAvgAggregate {
     @Validator.IsNumber()
     @Validator.Min(1)
     price?: number;
+    @Field(() => Float, {nullable:true})
+    stock?: number;
 }
 
 @InputType()
 export class ProductAvgOrderByAggregateInput {
     @Field(() => SortOrder, {nullable:true})
     price?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    stock?: keyof typeof SortOrder;
 }
 
 @InputType()
@@ -351,6 +408,8 @@ export class ProductCountAggregateInput {
     picture?: true;
     @Field(() => Boolean, {nullable:true})
     brand?: true;
+    @Field(() => Boolean, {nullable:true})
+    stock?: true;
     @Field(() => Boolean, {nullable:true})
     _all?: true;
 }
@@ -370,6 +429,9 @@ export class ProductCountAggregate {
     @Field(() => Int, {nullable:false})
     brand!: number;
     @Field(() => Int, {nullable:false})
+    @Validator.IsNumber()
+    stock!: number;
+    @Field(() => Int, {nullable:false})
     _all!: number;
 }
 
@@ -387,6 +449,8 @@ export class ProductCountOrderByAggregateInput {
     picture?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     brand?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    stock?: keyof typeof SortOrder;
 }
 
 @InputType()
@@ -410,6 +474,9 @@ export class ProductCreateManyInput {
     @Field(() => String, {nullable:false})
     @Validator.IsString()
     brand!: string;
+    @Field(() => Int, {nullable:false})
+    @Validator.IsNumber()
+    stock!: number;
 }
 
 @InputType()
@@ -433,6 +500,9 @@ export class ProductCreateInput {
     @Field(() => String, {nullable:false})
     @Validator.IsString()
     brand!: string;
+    @Field(() => Int, {nullable:false})
+    @Validator.IsNumber()
+    stock!: number;
 }
 
 @ArgsType()
@@ -484,6 +554,9 @@ export class ProductGroupBy {
     @Field(() => String, {nullable:false})
     @Validator.IsString()
     brand!: string;
+    @Field(() => Int, {nullable:false})
+    @Validator.IsNumber()
+    stock!: number;
     @Field(() => ProductCountAggregate, {nullable:true})
     _count?: InstanceType<typeof ProductCountAggregate>;
     @Field(() => ProductAvgAggregate, {nullable:true})
@@ -510,6 +583,8 @@ export class ProductMaxAggregateInput {
     picture?: true;
     @Field(() => Boolean, {nullable:true})
     brand?: true;
+    @Field(() => Boolean, {nullable:true})
+    stock?: true;
 }
 
 @ObjectType()
@@ -533,6 +608,9 @@ export class ProductMaxAggregate {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     brand?: string;
+    @Field(() => Int, {nullable:true})
+    @Validator.IsNumber()
+    stock?: number;
 }
 
 @InputType()
@@ -549,6 +627,8 @@ export class ProductMaxOrderByAggregateInput {
     picture?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     brand?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    stock?: keyof typeof SortOrder;
 }
 
 @InputType()
@@ -565,6 +645,8 @@ export class ProductMinAggregateInput {
     picture?: true;
     @Field(() => Boolean, {nullable:true})
     brand?: true;
+    @Field(() => Boolean, {nullable:true})
+    stock?: true;
 }
 
 @ObjectType()
@@ -588,6 +670,9 @@ export class ProductMinAggregate {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     brand?: string;
+    @Field(() => Int, {nullable:true})
+    @Validator.IsNumber()
+    stock?: number;
 }
 
 @InputType()
@@ -604,6 +689,8 @@ export class ProductMinOrderByAggregateInput {
     picture?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     brand?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    stock?: keyof typeof SortOrder;
 }
 
 @InputType()
@@ -620,6 +707,8 @@ export class ProductOrderByWithAggregationInput {
     picture?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     brand?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    stock?: keyof typeof SortOrder;
     @Field(() => ProductCountOrderByAggregateInput, {nullable:true})
     _count?: InstanceType<typeof ProductCountOrderByAggregateInput>;
     @Field(() => ProductAvgOrderByAggregateInput, {nullable:true})
@@ -646,6 +735,8 @@ export class ProductOrderByWithRelationInput {
     picture?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     brand?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    stock?: keyof typeof SortOrder;
 }
 
 @InputType()
@@ -668,12 +759,16 @@ export class ProductScalarWhereWithAggregatesInput {
     picture?: InstanceType<typeof StringWithAggregatesFilter>;
     @Field(() => StringWithAggregatesFilter, {nullable:true})
     brand?: InstanceType<typeof StringWithAggregatesFilter>;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    stock?: InstanceType<typeof IntWithAggregatesFilter>;
 }
 
 @InputType()
 export class ProductSumAggregateInput {
     @Field(() => Boolean, {nullable:true})
     price?: true;
+    @Field(() => Boolean, {nullable:true})
+    stock?: true;
 }
 
 @ObjectType()
@@ -682,12 +777,17 @@ export class ProductSumAggregate {
     @Validator.IsNumber()
     @Validator.Min(1)
     price?: number;
+    @Field(() => Int, {nullable:true})
+    @Validator.IsNumber()
+    stock?: number;
 }
 
 @InputType()
 export class ProductSumOrderByAggregateInput {
     @Field(() => SortOrder, {nullable:true})
     price?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    stock?: keyof typeof SortOrder;
 }
 
 @InputType()
@@ -711,6 +811,9 @@ export class ProductUncheckedCreateInput {
     @Field(() => String, {nullable:false})
     @Validator.IsString()
     brand!: string;
+    @Field(() => Int, {nullable:false})
+    @Validator.IsNumber()
+    stock!: number;
 }
 
 @InputType()
@@ -732,6 +835,9 @@ export class ProductUncheckedUpdateManyInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     brand?: string;
+    @Field(() => Int, {nullable:true})
+    @Validator.IsNumber()
+    stock?: number;
 }
 
 @InputType()
@@ -753,6 +859,9 @@ export class ProductUncheckedUpdateInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     brand?: string;
+    @Field(() => Int, {nullable:true})
+    @Validator.IsNumber()
+    stock?: number;
 }
 
 @InputType()
@@ -774,6 +883,9 @@ export class ProductUpdateManyMutationInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     brand?: string;
+    @Field(() => Int, {nullable:true})
+    @Validator.IsNumber()
+    stock?: number;
 }
 
 @InputType()
@@ -795,6 +907,9 @@ export class ProductUpdateInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     brand?: string;
+    @Field(() => Int, {nullable:true})
+    @Validator.IsNumber()
+    stock?: number;
 }
 
 @InputType()
@@ -817,6 +932,8 @@ export class ProductWhereUniqueInput {
     picture?: InstanceType<typeof StringFilter>;
     @Field(() => StringFilter, {nullable:true})
     brand?: InstanceType<typeof StringFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    stock?: InstanceType<typeof IntFilter>;
 }
 
 @InputType()
@@ -839,6 +956,8 @@ export class ProductWhereInput {
     picture?: InstanceType<typeof StringFilter>;
     @Field(() => StringFilter, {nullable:true})
     brand?: InstanceType<typeof StringFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    stock?: InstanceType<typeof IntFilter>;
 }
 
 @ObjectType()
@@ -855,6 +974,8 @@ export class Product {
     picture!: string;
     @Field(() => String, {nullable:false})
     brand!: string;
+    @Field(() => Int, {nullable:false})
+    stock!: number;
 }
 
 @ArgsType()

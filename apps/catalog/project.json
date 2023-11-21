@@ -1,5 +1,5 @@
 {
-  "name": "apps/catalog",
+  "name": "catalog",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/catalog/src",
   "projectType": "application",
@@ -27,14 +27,14 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "apps/catalog:build"
+        "buildTarget": "catalog:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "apps/catalog:build:development"
+          "buildTarget": "catalog:build:development"
         },
         "production": {
-          "buildTarget": "apps/catalog:build:production"
+          "buildTarget": "catalog:build:production"
         }
       }
     },
