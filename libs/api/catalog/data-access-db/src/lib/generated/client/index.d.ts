@@ -834,41 +834,55 @@ export namespace Prisma {
 
   export type ProductAvgAggregateOutputType = {
     price: number | null
+    discountPercentage: number | null
+    rating: number | null
     stock: number | null
   }
 
   export type ProductSumAggregateOutputType = {
     price: number | null
+    discountPercentage: number | null
+    rating: number | null
     stock: number | null
   }
 
   export type ProductMinAggregateOutputType = {
     id: string | null
-    name: string | null
+    title: string | null
     description: string | null
-    price: number | null
-    picture: string | null
     brand: string | null
+    price: number | null
+    discountPercentage: number | null
+    rating: number | null
+    thumbnail: string | null
+    category: string | null
     stock: number | null
   }
 
   export type ProductMaxAggregateOutputType = {
     id: string | null
-    name: string | null
+    title: string | null
     description: string | null
-    price: number | null
-    picture: string | null
     brand: string | null
+    price: number | null
+    discountPercentage: number | null
+    rating: number | null
+    thumbnail: string | null
+    category: string | null
     stock: number | null
   }
 
   export type ProductCountAggregateOutputType = {
     id: number
-    name: number
+    title: number
     description: number
-    price: number
-    picture: number
     brand: number
+    price: number
+    discountPercentage: number
+    rating: number
+    thumbnail: number
+    images: number
+    category: number
     stock: number
     _all: number
   }
@@ -876,41 +890,55 @@ export namespace Prisma {
 
   export type ProductAvgAggregateInputType = {
     price?: true
+    discountPercentage?: true
+    rating?: true
     stock?: true
   }
 
   export type ProductSumAggregateInputType = {
     price?: true
+    discountPercentage?: true
+    rating?: true
     stock?: true
   }
 
   export type ProductMinAggregateInputType = {
     id?: true
-    name?: true
+    title?: true
     description?: true
-    price?: true
-    picture?: true
     brand?: true
+    price?: true
+    discountPercentage?: true
+    rating?: true
+    thumbnail?: true
+    category?: true
     stock?: true
   }
 
   export type ProductMaxAggregateInputType = {
     id?: true
-    name?: true
+    title?: true
     description?: true
-    price?: true
-    picture?: true
     brand?: true
+    price?: true
+    discountPercentage?: true
+    rating?: true
+    thumbnail?: true
+    category?: true
     stock?: true
   }
 
   export type ProductCountAggregateInputType = {
     id?: true
-    name?: true
+    title?: true
     description?: true
-    price?: true
-    picture?: true
     brand?: true
+    price?: true
+    discountPercentage?: true
+    rating?: true
+    thumbnail?: true
+    images?: true
+    category?: true
     stock?: true
     _all?: true
   }
@@ -1003,11 +1031,15 @@ export namespace Prisma {
 
   export type ProductGroupByOutputType = {
     id: string
-    name: string
+    title: string
     description: string
-    price: number
-    picture: string
     brand: string
+    price: number
+    discountPercentage: number
+    rating: number
+    thumbnail: string
+    images: string[]
+    category: string
     stock: number
     _count: ProductCountAggregateOutputType | null
     _avg: ProductAvgAggregateOutputType | null
@@ -1032,21 +1064,29 @@ export namespace Prisma {
 
   export type ProductSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
+    title?: boolean
     description?: boolean
-    price?: boolean
-    picture?: boolean
     brand?: boolean
+    price?: boolean
+    discountPercentage?: boolean
+    rating?: boolean
+    thumbnail?: boolean
+    images?: boolean
+    category?: boolean
     stock?: boolean
   }, ExtArgs["result"]["product"]>
 
   export type ProductSelectScalar = {
     id?: boolean
-    name?: boolean
+    title?: boolean
     description?: boolean
-    price?: boolean
-    picture?: boolean
     brand?: boolean
+    price?: boolean
+    discountPercentage?: boolean
+    rating?: boolean
+    thumbnail?: boolean
+    images?: boolean
+    category?: boolean
     stock?: boolean
   }
 
@@ -1060,24 +1100,40 @@ export namespace Prisma {
        * @Validator.IsString()
        * @Validator.MaxLength(50)
        */
-      name: string
+      title: string
       /**
        * @Validator.IsString()
        */
       description: string
+      /**
+       * @Validator.IsString()
+       */
+      brand: string
       /**
        * @Validator.IsNumber()
        * @Validator.Min(1)
        */
       price: number
       /**
-       * @Validator.IsString()
+       * @Validator.IsNumber()
        */
-      picture: string
+      discountPercentage: number
+      /**
+       * @Validator.IsNumber()
+       */
+      rating: number
       /**
        * @Validator.IsString()
        */
-      brand: string
+      thumbnail: string
+      /**
+       * @Validator.IsArray()
+       */
+      images: string[]
+      /**
+       * @Validator.IsString()
+       */
+      category: string
       /**
        * @Validator.IsNumber()
        */
@@ -1504,11 +1560,15 @@ export namespace Prisma {
    */ 
   interface ProductFieldRefs {
     readonly id: FieldRef<"Product", 'String'>
-    readonly name: FieldRef<"Product", 'String'>
+    readonly title: FieldRef<"Product", 'String'>
     readonly description: FieldRef<"Product", 'String'>
-    readonly price: FieldRef<"Product", 'Float'>
-    readonly picture: FieldRef<"Product", 'String'>
     readonly brand: FieldRef<"Product", 'String'>
+    readonly price: FieldRef<"Product", 'Float'>
+    readonly discountPercentage: FieldRef<"Product", 'Float'>
+    readonly rating: FieldRef<"Product", 'Float'>
+    readonly thumbnail: FieldRef<"Product", 'String'>
+    readonly images: FieldRef<"Product", 'String[]'>
+    readonly category: FieldRef<"Product", 'String'>
     readonly stock: FieldRef<"Product", 'Int'>
   }
     
@@ -1832,11 +1892,15 @@ export namespace Prisma {
 
   export const ProductScalarFieldEnum: {
     id: 'id',
-    name: 'name',
+    title: 'title',
     description: 'description',
-    price: 'price',
-    picture: 'picture',
     brand: 'brand',
+    price: 'price',
+    discountPercentage: 'discountPercentage',
+    rating: 'rating',
+    thumbnail: 'thumbnail',
+    images: 'images',
+    category: 'category',
     stock: 'stock'
   };
 
@@ -1914,21 +1978,29 @@ export namespace Prisma {
     OR?: ProductWhereInput[]
     NOT?: ProductWhereInput | ProductWhereInput[]
     id?: StringFilter<"Product"> | string
-    name?: StringFilter<"Product"> | string
+    title?: StringFilter<"Product"> | string
     description?: StringFilter<"Product"> | string
-    price?: FloatFilter<"Product"> | number
-    picture?: StringFilter<"Product"> | string
     brand?: StringFilter<"Product"> | string
+    price?: FloatFilter<"Product"> | number
+    discountPercentage?: FloatFilter<"Product"> | number
+    rating?: FloatFilter<"Product"> | number
+    thumbnail?: StringFilter<"Product"> | string
+    images?: StringNullableListFilter<"Product">
+    category?: StringFilter<"Product"> | string
     stock?: IntFilter<"Product"> | number
   }
 
   export type ProductOrderByWithRelationInput = {
     id?: SortOrder
-    name?: SortOrder
+    title?: SortOrder
     description?: SortOrder
-    price?: SortOrder
-    picture?: SortOrder
     brand?: SortOrder
+    price?: SortOrder
+    discountPercentage?: SortOrder
+    rating?: SortOrder
+    thumbnail?: SortOrder
+    images?: SortOrder
+    category?: SortOrder
     stock?: SortOrder
   }
 
@@ -1937,21 +2009,29 @@ export namespace Prisma {
     AND?: ProductWhereInput | ProductWhereInput[]
     OR?: ProductWhereInput[]
     NOT?: ProductWhereInput | ProductWhereInput[]
-    name?: StringFilter<"Product"> | string
+    title?: StringFilter<"Product"> | string
     description?: StringFilter<"Product"> | string
-    price?: FloatFilter<"Product"> | number
-    picture?: StringFilter<"Product"> | string
     brand?: StringFilter<"Product"> | string
+    price?: FloatFilter<"Product"> | number
+    discountPercentage?: FloatFilter<"Product"> | number
+    rating?: FloatFilter<"Product"> | number
+    thumbnail?: StringFilter<"Product"> | string
+    images?: StringNullableListFilter<"Product">
+    category?: StringFilter<"Product"> | string
     stock?: IntFilter<"Product"> | number
   }, "id">
 
   export type ProductOrderByWithAggregationInput = {
     id?: SortOrder
-    name?: SortOrder
+    title?: SortOrder
     description?: SortOrder
-    price?: SortOrder
-    picture?: SortOrder
     brand?: SortOrder
+    price?: SortOrder
+    discountPercentage?: SortOrder
+    rating?: SortOrder
+    thumbnail?: SortOrder
+    images?: SortOrder
+    category?: SortOrder
     stock?: SortOrder
     _count?: ProductCountOrderByAggregateInput
     _avg?: ProductAvgOrderByAggregateInput
@@ -1965,77 +2045,109 @@ export namespace Prisma {
     OR?: ProductScalarWhereWithAggregatesInput[]
     NOT?: ProductScalarWhereWithAggregatesInput | ProductScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Product"> | string
-    name?: StringWithAggregatesFilter<"Product"> | string
+    title?: StringWithAggregatesFilter<"Product"> | string
     description?: StringWithAggregatesFilter<"Product"> | string
-    price?: FloatWithAggregatesFilter<"Product"> | number
-    picture?: StringWithAggregatesFilter<"Product"> | string
     brand?: StringWithAggregatesFilter<"Product"> | string
+    price?: FloatWithAggregatesFilter<"Product"> | number
+    discountPercentage?: FloatWithAggregatesFilter<"Product"> | number
+    rating?: FloatWithAggregatesFilter<"Product"> | number
+    thumbnail?: StringWithAggregatesFilter<"Product"> | string
+    images?: StringNullableListFilter<"Product">
+    category?: StringWithAggregatesFilter<"Product"> | string
     stock?: IntWithAggregatesFilter<"Product"> | number
   }
 
   export type ProductCreateInput = {
     id?: string
-    name: string
+    title: string
     description: string
-    price: number
-    picture: string
     brand: string
+    price: number
+    discountPercentage: number
+    rating: number
+    thumbnail: string
+    images?: ProductCreateimagesInput | string[]
+    category: string
     stock: number
   }
 
   export type ProductUncheckedCreateInput = {
     id?: string
-    name: string
+    title: string
     description: string
-    price: number
-    picture: string
     brand: string
+    price: number
+    discountPercentage: number
+    rating: number
+    thumbnail: string
+    images?: ProductCreateimagesInput | string[]
+    category: string
     stock: number
   }
 
   export type ProductUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-    picture?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPercentage?: FloatFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    thumbnail?: StringFieldUpdateOperationsInput | string
+    images?: ProductUpdateimagesInput | string[]
+    category?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
   }
 
   export type ProductUncheckedUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-    picture?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPercentage?: FloatFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    thumbnail?: StringFieldUpdateOperationsInput | string
+    images?: ProductUpdateimagesInput | string[]
+    category?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
   }
 
   export type ProductCreateManyInput = {
     id?: string
-    name: string
+    title: string
     description: string
-    price: number
-    picture: string
     brand: string
+    price: number
+    discountPercentage: number
+    rating: number
+    thumbnail: string
+    images?: ProductCreateimagesInput | string[]
+    category: string
     stock: number
   }
 
   export type ProductUpdateManyMutationInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-    picture?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPercentage?: FloatFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    thumbnail?: StringFieldUpdateOperationsInput | string
+    images?: ProductUpdateimagesInput | string[]
+    category?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
   }
 
   export type ProductUncheckedUpdateManyInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-    picture?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPercentage?: FloatFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    thumbnail?: StringFieldUpdateOperationsInput | string
+    images?: ProductUpdateimagesInput | string[]
+    category?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
   }
 
@@ -2065,6 +2177,14 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -2078,41 +2198,55 @@ export namespace Prisma {
 
   export type ProductCountOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    title?: SortOrder
     description?: SortOrder
-    price?: SortOrder
-    picture?: SortOrder
     brand?: SortOrder
+    price?: SortOrder
+    discountPercentage?: SortOrder
+    rating?: SortOrder
+    thumbnail?: SortOrder
+    images?: SortOrder
+    category?: SortOrder
     stock?: SortOrder
   }
 
   export type ProductAvgOrderByAggregateInput = {
     price?: SortOrder
+    discountPercentage?: SortOrder
+    rating?: SortOrder
     stock?: SortOrder
   }
 
   export type ProductMaxOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    title?: SortOrder
     description?: SortOrder
-    price?: SortOrder
-    picture?: SortOrder
     brand?: SortOrder
+    price?: SortOrder
+    discountPercentage?: SortOrder
+    rating?: SortOrder
+    thumbnail?: SortOrder
+    category?: SortOrder
     stock?: SortOrder
   }
 
   export type ProductMinOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    title?: SortOrder
     description?: SortOrder
-    price?: SortOrder
-    picture?: SortOrder
     brand?: SortOrder
+    price?: SortOrder
+    discountPercentage?: SortOrder
+    rating?: SortOrder
+    thumbnail?: SortOrder
+    category?: SortOrder
     stock?: SortOrder
   }
 
   export type ProductSumOrderByAggregateInput = {
     price?: SortOrder
+    discountPercentage?: SortOrder
+    rating?: SortOrder
     stock?: SortOrder
   }
 
@@ -2166,6 +2300,10 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type ProductCreateimagesInput = {
+    set: string[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -2176,6 +2314,11 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type ProductUpdateimagesInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type IntFieldUpdateOperationsInput = {

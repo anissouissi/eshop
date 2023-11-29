@@ -13,20 +13,32 @@ model Product {
 
   /// @Validator.IsString()
   /// @Validator.MaxLength(50)
-  name String
+  title String
 
   /// @Validator.IsString()
   description String
+
+  /// @Validator.IsString()
+  brand String
 
   /// @Validator.IsNumber()
   /// @Validator.Min(1)
   price Float
 
-  /// @Validator.IsString()
-  picture String
+  /// @Validator.IsNumber()
+  discountPercentage Float
+
+  /// @Validator.IsNumber()
+  rating Float
 
   /// @Validator.IsString()
-  brand String
+  thumbnail String
+
+  /// @Validator.IsArray()
+  images String[]
+
+  /// @Validator.IsString()
+  category String
 
   /// @Validator.IsNumber()
   stock Int

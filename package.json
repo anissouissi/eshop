@@ -7,7 +7,7 @@
     "build": "nx build",
     "test": "nx test",
     "docker:dev": "docker-compose -f tools/environment/dev.docker-compose.yml up -d --no-recreate --remove-orphans",
-    "db:migrate:dev": "npx env-cmd -f .local.env npx prisma migrate dev",
+    "db:catalog:seed": "npx env-cmd -f .local.env npx ts-node libs/api/catalog/data-access-db/src/lib/seed.ts",
     "db:studio": "npx env-cmd -f .local.env npx prisma studio",
     "gen:gql-client": "graphql-codegen --config tools/graphql-codegen/codegen.yml"
   },
