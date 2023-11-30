@@ -6,6 +6,7 @@ import {
   FindUniqueProductArgs,
   UpdateOneProductArgs,
   DeleteOneProductArgs,
+  FindManyProductArgs,
 } from '@aso/api-catalog-generated-db-types';
 
 @Resolver(() => Product)
@@ -18,8 +19,8 @@ export class ProductResolver {
   }
 
   @Query(() => [Product])
-  findAllProducts() {
-    return this.productService.findAll();
+  findAllProducts(@Args() findManyProductArgs: FindManyProductArgs) {
+    return this.productService.findAll(findManyProductArgs);
   }
 
   @Query(() => Product)

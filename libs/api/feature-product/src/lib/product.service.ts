@@ -4,6 +4,7 @@ import {
   FindUniqueProductArgs,
   UpdateOneProductArgs,
   DeleteOneProductArgs,
+  FindManyProductArgs,
 } from '@aso/api-catalog-generated-db-types';
 import { Injectable } from '@nestjs/common';
 
@@ -15,8 +16,8 @@ export class ProductService {
     return this.prisma.product.create(createOneProductArgs);
   }
 
-  findAll() {
-    return this.prisma.product.findMany();
+  findAll(findManyProductArgs: FindManyProductArgs) {
+    return this.prisma.product.findMany(findManyProductArgs);
   }
 
   findOne(findUniqueProductArgs: FindUniqueProductArgs) {

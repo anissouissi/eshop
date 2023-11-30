@@ -31,7 +31,9 @@
       "@aso/data-access-graphql": ["libs/web/data-access-graphql/src/index.ts"],
       "@aso/feature-product": ["libs/api/feature-product/src/index.ts"],
       "@aso/feature-user": ["libs/api/feature-user/src/index.ts"],
-      "@aso/shared-ui": ["libs/shared/ui/src/index.ts"]
+      "@aso/shared-ui": ["libs/shared/ui/src/index.ts"],
+      "@aso/shared-util": ["libs/shared/util/src/index.ts"],
+      "@aso/web-catalog-ui": ["libs/web/catalog/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
