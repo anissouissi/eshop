@@ -15,7 +15,7 @@ export function Footer() {
         </svg>
         <p>Copyright © {new Date().getFullYear()} - All right reserved</p>
       </aside>
-      <nav className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
+      <nav className="grid-flow-col gap-4 justify-self-end">
         <a href="https://github.com/anissouissi/eshop" target="blank">
           <svg
             aria-hidden="true"
