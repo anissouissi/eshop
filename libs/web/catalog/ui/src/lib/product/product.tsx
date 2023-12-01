@@ -16,7 +16,6 @@ export interface ProductProps {
     brand: string;
     category: string;
     thumbnail: string;
-    images: string[];
   };
 }
 
@@ -30,8 +29,9 @@ export function Product({ product }: ProductProps) {
         <img src={product.thumbnail} alt={product.title} className="h-52" />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">{product.title}</h2>
-        <p>{product.description}</p>
+        <h2 className="card-title">{product.brand}</h2>
+        <h1 className="font-bold">{product.title}</h1>
+        <div className="badge badge-outline">{product.category}</div>
         <div className="card-actions justify-between items-center">
           <Rating rating={product.rating} />
           <Price

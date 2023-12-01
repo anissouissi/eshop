@@ -1,4 +1,4 @@
-import { Navbar } from '@aso/shared-ui';
+import { Footer, Navbar } from '@aso/shared-ui';
 import '../styles/global.css';
 
 export const metadata = {
@@ -12,10 +12,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html data-theme="eshop" lang="en">
-      <body className="p-2">
+    <html data-theme="light" lang="en">
+      <body>
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );

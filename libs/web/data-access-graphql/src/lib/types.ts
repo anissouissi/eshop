@@ -84,17 +84,23 @@ export type MutationUpdateUserArgs = {
 export type Product = {
   __typename?: 'Product';
   brand: Scalars['String']['output'];
+  category: Scalars['String']['output'];
   description: Scalars['String']['output'];
+  discountPercentage: Scalars['Float']['output'];
   id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
-  picture: Scalars['String']['output'];
+  images?: Maybe<Array<Scalars['String']['output']>>;
   price: Scalars['Float']['output'];
+  rating: Scalars['Float']['output'];
   stock: Scalars['Int']['output'];
+  thumbnail: Scalars['String']['output'];
+  title: Scalars['String']['output'];
 };
 
 export type ProductAvgAggregate = {
   __typename?: 'ProductAvgAggregate';
+  discountPercentage?: Maybe<Scalars['Float']['output']>;
   price?: Maybe<Scalars['Float']['output']>;
+  rating?: Maybe<Scalars['Float']['output']>;
   stock?: Maybe<Scalars['Float']['output']>;
 };
 
@@ -102,59 +108,107 @@ export type ProductCountAggregate = {
   __typename?: 'ProductCountAggregate';
   _all: Scalars['Int']['output'];
   brand: Scalars['Int']['output'];
+  category: Scalars['Int']['output'];
   description: Scalars['Int']['output'];
+  discountPercentage: Scalars['Int']['output'];
   id: Scalars['Int']['output'];
-  name: Scalars['Int']['output'];
-  picture: Scalars['Int']['output'];
+  images: Scalars['Int']['output'];
   price: Scalars['Int']['output'];
+  rating: Scalars['Int']['output'];
   stock: Scalars['Int']['output'];
+  thumbnail: Scalars['Int']['output'];
+  title: Scalars['Int']['output'];
 };
 
 export type ProductCreateInput = {
   brand: Scalars['String']['input'];
+  category: Scalars['String']['input'];
   description: Scalars['String']['input'];
+  discountPercentage: Scalars['Float']['input'];
   id?: InputMaybe<Scalars['String']['input']>;
-  name: Scalars['String']['input'];
-  picture: Scalars['String']['input'];
+  images?: InputMaybe<Array<Scalars['String']['input']>>;
   price: Scalars['Float']['input'];
+  rating: Scalars['Float']['input'];
   stock: Scalars['Int']['input'];
+  thumbnail: Scalars['String']['input'];
+  title: Scalars['String']['input'];
 };
 
 export type ProductMaxAggregate = {
   __typename?: 'ProductMaxAggregate';
   brand?: Maybe<Scalars['String']['output']>;
+  category?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  discountPercentage?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-  picture?: Maybe<Scalars['String']['output']>;
   price?: Maybe<Scalars['Float']['output']>;
+  rating?: Maybe<Scalars['Float']['output']>;
   stock?: Maybe<Scalars['Int']['output']>;
+  thumbnail?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
 };
 
 export type ProductMinAggregate = {
   __typename?: 'ProductMinAggregate';
   brand?: Maybe<Scalars['String']['output']>;
+  category?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  discountPercentage?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-  picture?: Maybe<Scalars['String']['output']>;
   price?: Maybe<Scalars['Float']['output']>;
+  rating?: Maybe<Scalars['Float']['output']>;
   stock?: Maybe<Scalars['Int']['output']>;
+  thumbnail?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
 };
+
+export type ProductOrderByWithRelationInput = {
+  brand?: InputMaybe<SortOrder>;
+  category?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
+  discountPercentage?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  images?: InputMaybe<SortOrder>;
+  price?: InputMaybe<SortOrder>;
+  rating?: InputMaybe<SortOrder>;
+  stock?: InputMaybe<SortOrder>;
+  thumbnail?: InputMaybe<SortOrder>;
+  title?: InputMaybe<SortOrder>;
+};
+
+export enum ProductScalarFieldEnum {
+  Brand = 'brand',
+  Category = 'category',
+  Description = 'description',
+  DiscountPercentage = 'discountPercentage',
+  Id = 'id',
+  Images = 'images',
+  Price = 'price',
+  Rating = 'rating',
+  Stock = 'stock',
+  Thumbnail = 'thumbnail',
+  Title = 'title'
+}
 
 export type ProductSumAggregate = {
   __typename?: 'ProductSumAggregate';
+  discountPercentage?: Maybe<Scalars['Float']['output']>;
   price?: Maybe<Scalars['Float']['output']>;
+  rating?: Maybe<Scalars['Float']['output']>;
   stock?: Maybe<Scalars['Int']['output']>;
 };
 
 export type ProductUpdateInput = {
   brand?: InputMaybe<Scalars['String']['input']>;
+  category?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  picture?: InputMaybe<Scalars['String']['input']>;
+  discountPercentage?: InputMaybe<Scalars['Float']['input']>;
+  images?: InputMaybe<Array<Scalars['String']['input']>>;
   price?: InputMaybe<Scalars['Float']['input']>;
+  rating?: InputMaybe<Scalars['Float']['input']>;
   stock?: InputMaybe<Scalars['Int']['input']>;
+  thumbnail?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ProductWhereInput = {
@@ -162,12 +216,16 @@ export type ProductWhereInput = {
   NOT?: InputMaybe<Array<ProductWhereInput>>;
   OR?: InputMaybe<Array<ProductWhereInput>>;
   brand?: InputMaybe<StringFilter>;
+  category?: InputMaybe<StringFilter>;
   description?: InputMaybe<StringFilter>;
+  discountPercentage?: InputMaybe<FloatFilter>;
   id?: InputMaybe<StringFilter>;
-  name?: InputMaybe<StringFilter>;
-  picture?: InputMaybe<StringFilter>;
+  images?: InputMaybe<StringListFilter>;
   price?: InputMaybe<FloatFilter>;
+  rating?: InputMaybe<FloatFilter>;
   stock?: InputMaybe<IntFilter>;
+  thumbnail?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
 };
 
 export type ProductWhereUniqueInput = {
@@ -175,12 +233,16 @@ export type ProductWhereUniqueInput = {
   NOT?: InputMaybe<Array<ProductWhereInput>>;
   OR?: InputMaybe<Array<ProductWhereInput>>;
   brand?: InputMaybe<StringFilter>;
+  category?: InputMaybe<StringFilter>;
   description?: InputMaybe<StringFilter>;
+  discountPercentage?: InputMaybe<FloatFilter>;
   id?: InputMaybe<Scalars['String']['input']>;
-  name?: InputMaybe<StringFilter>;
-  picture?: InputMaybe<StringFilter>;
+  images?: InputMaybe<StringListFilter>;
   price?: InputMaybe<FloatFilter>;
+  rating?: InputMaybe<FloatFilter>;
   stock?: InputMaybe<IntFilter>;
+  thumbnail?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
 };
 
 export type Query = {
@@ -189,6 +251,16 @@ export type Query = {
   findAllUsers: Array<User>;
   findOneProduct: Product;
   findOneUser: User;
+};
+
+
+export type QueryFindAllProductsArgs = {
+  cursor?: InputMaybe<ProductWhereUniqueInput>;
+  distinct?: InputMaybe<Array<ProductScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<ProductOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<ProductWhereInput>;
 };
 
 
@@ -206,6 +278,11 @@ export enum QueryMode {
   Insensitive = 'insensitive'
 }
 
+export enum SortOrder {
+  Asc = 'asc',
+  Desc = 'desc'
+}
+
 export type StringFilter = {
   contains?: InputMaybe<Scalars['String']['input']>;
   endsWith?: InputMaybe<Scalars['String']['input']>;
@@ -219,6 +296,14 @@ export type StringFilter = {
   not?: InputMaybe<StringFilter>;
   notIn?: InputMaybe<Array<Scalars['String']['input']>>;
   startsWith?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type StringListFilter = {
+  equals?: InputMaybe<Array<Scalars['String']['input']>>;
+  has?: InputMaybe<Scalars['String']['input']>;
+  hasEvery?: InputMaybe<Array<Scalars['String']['input']>>;
+  hasSome?: InputMaybe<Array<Scalars['String']['input']>>;
+  isEmpty?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type User = {
@@ -368,13 +453,18 @@ export type ResolversTypes = {
   ProductCreateInput: ProductCreateInput;
   ProductMaxAggregate: ResolverTypeWrapper<ProductMaxAggregate>;
   ProductMinAggregate: ResolverTypeWrapper<ProductMinAggregate>;
+  ProductOrderByWithRelationInput: ProductOrderByWithRelationInput;
+  ProductScalarFieldEnum: ProductScalarFieldEnum;
   ProductSumAggregate: ResolverTypeWrapper<ProductSumAggregate>;
   ProductUpdateInput: ProductUpdateInput;
   ProductWhereInput: ProductWhereInput;
   ProductWhereUniqueInput: ProductWhereUniqueInput;
   Query: ResolverTypeWrapper<{}>;
   QueryMode: QueryMode;
+  SortOrder: SortOrder;
   StringFilter: StringFilter;
+  StringListFilter: StringListFilter;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   User: ResolverTypeWrapper<User>;
   UserCountAggregate: ResolverTypeWrapper<UserCountAggregate>;
   UserCreateInput: UserCreateInput;
@@ -383,7 +473,6 @@ export type ResolversTypes = {
   UserUpdateInput: UserUpdateInput;
   UserWhereInput: UserWhereInput;
   UserWhereUniqueInput: UserWhereUniqueInput;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -401,12 +490,15 @@ export type ResolversParentTypes = {
   ProductCreateInput: ProductCreateInput;
   ProductMaxAggregate: ProductMaxAggregate;
   ProductMinAggregate: ProductMinAggregate;
+  ProductOrderByWithRelationInput: ProductOrderByWithRelationInput;
   ProductSumAggregate: ProductSumAggregate;
   ProductUpdateInput: ProductUpdateInput;
   ProductWhereInput: ProductWhereInput;
   ProductWhereUniqueInput: ProductWhereUniqueInput;
   Query: {};
   StringFilter: StringFilter;
+  StringListFilter: StringListFilter;
+  Boolean: Scalars['Boolean']['output'];
   User: User;
   UserCountAggregate: UserCountAggregate;
   UserCreateInput: UserCreateInput;
@@ -415,7 +507,6 @@ export type ResolversParentTypes = {
   UserUpdateInput: UserUpdateInput;
   UserWhereInput: UserWhereInput;
   UserWhereUniqueInput: UserWhereUniqueInput;
-  Boolean: Scalars['Boolean']['output'];
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
@@ -429,17 +520,23 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type ProductResolvers<ContextType = any, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
   brand?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  category?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  discountPercentage?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  picture?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  images?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
   price?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  rating?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   stock?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  thumbnail?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ProductAvgAggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['ProductAvgAggregate'] = ResolversParentTypes['ProductAvgAggregate']> = {
+  discountPercentage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  rating?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   stock?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -447,45 +544,57 @@ export type ProductAvgAggregateResolvers<ContextType = any, ParentType extends R
 export type ProductCountAggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['ProductCountAggregate'] = ResolversParentTypes['ProductCountAggregate']> = {
   _all?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   brand?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  category?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  discountPercentage?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  name?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  picture?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  images?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   price?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  rating?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   stock?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  thumbnail?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ProductMaxAggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['ProductMaxAggregate'] = ResolversParentTypes['ProductMaxAggregate']> = {
   brand?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  category?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  discountPercentage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  picture?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  rating?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   stock?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  thumbnail?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ProductMinAggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['ProductMinAggregate'] = ResolversParentTypes['ProductMinAggregate']> = {
   brand?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  category?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  discountPercentage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  picture?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  rating?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   stock?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  thumbnail?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ProductSumAggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['ProductSumAggregate'] = ResolversParentTypes['ProductSumAggregate']> = {
+  discountPercentage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  rating?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   stock?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  findAllProducts?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType>;
+  findAllProducts?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType, Partial<QueryFindAllProductsArgs>>;
   findAllUsers?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
   findOneProduct?: Resolver<ResolversTypes['Product'], ParentType, ContextType, RequireFields<QueryFindOneProductArgs, 'where'>>;
   findOneUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<QueryFindOneUserArgs, 'where'>>;

@@ -4,7 +4,7 @@ export interface CartProps {
 
 export function Cart({ productsCount }: CartProps) {
   return (
-    <div className="btn btn-ghost btn-circle text-primary">
+    <div className="btn btn-ghost btn-circle">
       <div className="indicator">
         <svg
           xmlns="http://www.w3.org/2000/svg"

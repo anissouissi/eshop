@@ -13,13 +13,12 @@ export interface ProductCarouselProps {
     brand: string;
     category: string;
     thumbnail: string;
-    images: string[];
   }[];
 }
 
 export function ProductCarousel({ title, products }: ProductCarouselProps) {
   return (
-    <div className="shadow-lg rounded-lg">
+    <>
       <div className="flex items-center pt-4 pl-4 gap-2">
         <svg
           className="h-6 w-18 fill-red-700"
@@ -37,14 +36,14 @@ export function ProductCarousel({ title, products }: ProductCarouselProps) {
         </svg>
         <h1 className=" text-red-700 font-bold italic">{title}</h1>
       </div>
-      <div className="carousel carousel-center w-full p-4 space-x-20">
+      <div className="carousel carousel-center w-full p-4 space-x-10">
         {products.map((product) => (
           <div key={product.id} className="carousel-item">
             <Product product={product} />
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 }
 

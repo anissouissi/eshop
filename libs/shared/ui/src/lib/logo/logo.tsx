@@ -5,7 +5,8 @@ export function Logo(props: LogoProps) {
   return (
     <a className="btn btn-ghost" href="/">
       <svg
-        className="h-6 w-18 fill-primary"
+        className="h-6 w-18"
+        fill="currentColor"
         viewBox="0 0 370 76.64538225162109"
       >
         <g transform="matrix(1.2668250197941409,0,0,1.2668250197941409,-12.034837688044338,-25.23673792557403)">

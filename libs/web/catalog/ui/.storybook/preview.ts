@@ -5,13 +5,13 @@ export const globalTypes = {
   dataThemes: {
     defaultValue: {
       list: [
-        { name: 'eShop', dataTheme: 'eshop', color: '#07689F' },
+        { name: 'Light', dataTheme: 'light', color: '#fff' },
         { name: 'Dark', dataTheme: 'dark', color: '#000' },
       ],
     },
   },
   dataTheme: {
-    defaultValue: 'eshop',
+    defaultValue: 'light',
   },
 };
 
