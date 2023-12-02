@@ -16,7 +16,6 @@ export const GET_TOP_RATED_PRODUCTS = gql`
       id
       title
       brand
-      description
       category
       price
       discountPercentage
@@ -27,13 +26,12 @@ export const GET_TOP_RATED_PRODUCTS = gql`
   }
 `;
 
-export const GET_TOP_SALES_PRODUCTS = gql`
-  query getTopSalesProducts {
+export const GET_TOP_PROMOTION_PRODUCTS = gql`
+  query getTopPromotionProducts {
     findAllProducts(orderBy: [{ discountPercentage: desc }], take: 10) {
       id
       title
       brand
-      description
       category
       price
       discountPercentage

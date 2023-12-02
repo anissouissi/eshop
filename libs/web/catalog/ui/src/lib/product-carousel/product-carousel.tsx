@@ -1,11 +1,18 @@
+'use client';
 import Product from '../product/product';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Navigation } from 'swiper/modules';
+
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 export interface ProductCarouselProps {
   title: string;
   products: {
     id: string;
     title: string;
-    description: string;
     price: number;
     discountPercentage: number;
     rating: number;
@@ -19,7 +26,7 @@ export interface ProductCarouselProps {
 export function ProductCarousel({ title, products }: ProductCarouselProps) {
   return (
     <>
-      <div className="flex items-center pt-4 pl-4 gap-2">
+      <div className="flex items-center py-4 pl-6 gap-2">
         <svg
           className="h-6 w-18 fill-red-700"
           viewBox="0 0 100 73.72921228597585"
@@ -36,13 +43,41 @@ export function ProductCarousel({ title, products }: ProductCarouselProps) {
         </svg>
         <h1 className=" text-red-700 font-bold italic">{title}</h1>
       </div>
-      <div className="carousel carousel-center w-full p-4 space-x-10">
+      <Swiper
+        slidesPerView={1}
+        spaceBetween={10}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        breakpoints={{
+          640: {
+            slidesPerView: 1,
+            spaceBetween: 10,
+          },
+          768: {
+            slidesPerView: 2,
+            spaceBetween: 10,
+          },
+          1024: {
+            slidesPerView: 4,
+            spaceBetween: 10,
+          },
+        }}
+        modules={[Pagination, Navigation]}
+        className=" h-[32rem]"
+      >
         {products.map((product) => (
-          <div key={product.id} className="carousel-item">
-            <Product product={product} />
-          </div>
+          <SwiperSlide
+            key={product.id}
+            className="lg:w-[100rem] md:w-[50rem] w-80"
+          >
+            <div className="w-[100%] flex items-center justify-center">
+              <Product product={product} />
+            </div>
+          </SwiperSlide>
         ))}
-      </div>
+      </Swiper>
     </>
   );
 }

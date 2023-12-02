@@ -11,12 +11,12 @@ export type GetUsers = { __typename?: 'Query', findAllUsers: Array<{ __typename?
 export type GetTopRatedProductsVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetTopRatedProducts = { __typename?: 'Query', findAllProducts: Array<{ __typename?: 'Product', id: string, title: string, brand: string, description: string, category: string, price: number, discountPercentage: number, rating: number, stock: number, thumbnail: string }> };
+export type GetTopRatedProducts = { __typename?: 'Query', findAllProducts: Array<{ __typename?: 'Product', id: string, title: string, brand: string, category: string, price: number, discountPercentage: number, rating: number, stock: number, thumbnail: string }> };
 
-export type GetTopSalesProductsVariables = Types.Exact<{ [key: string]: never; }>;
+export type GetTopPromotionProductsVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetTopSalesProducts = { __typename?: 'Query', findAllProducts: Array<{ __typename?: 'Product', id: string, title: string, brand: string, description: string, category: string, price: number, discountPercentage: number, rating: number, stock: number, thumbnail: string }> };
+export type GetTopPromotionProducts = { __typename?: 'Query', findAllProducts: Array<{ __typename?: 'Product', id: string, title: string, brand: string, category: string, price: number, discountPercentage: number, rating: number, stock: number, thumbnail: string }> };
 
 
 export const GetUsersDocument = /*#__PURE__*/ gql`
@@ -34,7 +34,6 @@ export const GetTopRatedProductsDocument = /*#__PURE__*/ gql`
     id
     title
     brand
-    description
     category
     price
     discountPercentage
@@ -44,13 +43,12 @@ export const GetTopRatedProductsDocument = /*#__PURE__*/ gql`
   }
 }
     `;
-export const GetTopSalesProductsDocument = /*#__PURE__*/ gql`
-    query getTopSalesProducts {
+export const GetTopPromotionProductsDocument = /*#__PURE__*/ gql`
+    query getTopPromotionProducts {
   findAllProducts(orderBy: [{discountPercentage: desc}], take: 10) {
     id
     title
     brand
-    description
     category
     price
     discountPercentage
@@ -74,8 +72,8 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     getTopRatedProducts(variables?: GetTopRatedProductsVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetTopRatedProducts> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetTopRatedProducts>(GetTopRatedProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getTopRatedProducts', 'query');
     },
-    getTopSalesProducts(variables?: GetTopSalesProductsVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetTopSalesProducts> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetTopSalesProducts>(GetTopSalesProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getTopSalesProducts', 'query');
+    getTopPromotionProducts(variables?: GetTopPromotionProductsVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetTopPromotionProducts> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetTopPromotionProducts>(GetTopPromotionProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getTopPromotionProducts', 'query');
     }
   };
 }

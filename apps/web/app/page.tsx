@@ -4,7 +4,8 @@ import { Hero } from '@aso/shared-ui';
 
 export default async function Index() {
   const { findAllProducts: topRatedProducts } = await gql.getTopRatedProducts();
-  const { findAllProducts: topSalesProducts } = await gql.getTopSalesProducts();
+  const { findAllProducts: topPromotionProducts } =
+    await gql.getTopPromotionProducts();
 
   return (
     <>
@@ -15,9 +16,9 @@ export default async function Index() {
         products={topRatedProducts}
       />
       <ProductCarousel
-        key="topSales"
-        title="Top sales"
-        products={topSalesProducts}
+        key="topPromotions"
+        title="Top promotions"
+        products={topPromotionProducts}
       />
     </>
   );

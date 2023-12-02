@@ -8,7 +8,6 @@ export interface ProductProps {
   product: {
     id: string;
     title: string;
-    description: string;
     price: number;
     discountPercentage: number;
     rating: number;
@@ -30,7 +29,7 @@ export function Product({ product }: ProductProps) {
       </figure>
       <div className="card-body">
         <h2 className="card-title">{product.brand}</h2>
-        <h1 className="font-bold">{product.title}</h1>
+        <h1 className="font-bold h-10">{product.title}</h1>
         <div className="badge badge-outline">{product.category}</div>
         <div className="card-actions justify-between items-center">
           <Rating rating={product.rating} />
