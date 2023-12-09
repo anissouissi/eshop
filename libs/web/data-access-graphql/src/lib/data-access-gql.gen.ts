@@ -18,6 +18,40 @@ export type GetTopPromotionProductsVariables = Types.Exact<{ [key: string]: neve
 
 export type GetTopPromotionProducts = { __typename?: 'Query', findAllProducts: Array<{ __typename?: 'Product', id: string, title: string, brand: string, category: string, price: number, discountPercentage: number, rating: number, stock: number, thumbnail: string }> };
 
+export type GetProductsVariables = Types.Exact<{
+  where?: Types.InputMaybe<Types.ProductWhereInput>;
+  orderBy?: Types.InputMaybe<Array<Types.ProductOrderByWithRelationInput> | Types.ProductOrderByWithRelationInput>;
+  skip?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+  take?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+}>;
+
+
+export type GetProducts = { __typename?: 'Query', findAllProducts: Array<{ __typename?: 'Product', id: string, title: string, brand: string, description: string, category: string, price: number, discountPercentage: number, rating: number, stock: number, thumbnail: string }> };
+
+export type GetProductsCountVariables = Types.Exact<{
+  where?: Types.InputMaybe<Types.ProductWhereInput>;
+}>;
+
+
+export type GetProductsCount = { __typename?: 'Query', countAllProducts: number };
+
+export type GetProductVariables = Types.Exact<{
+  where: Types.ProductWhereUniqueInput;
+}>;
+
+
+export type GetProduct = { __typename?: 'Query', findOneProduct: { __typename?: 'Product', id: string, title: string, description: string, brand: string, price: number, discountPercentage: number, rating: number, thumbnail: string, images?: Array<string> | null, category: string, stock: number } };
+
+export type GetProductCategoriesVariables = Types.Exact<{ [key: string]: never; }>;
+
+
+export type GetProductCategories = { __typename?: 'Query', findAllProducts: Array<{ __typename?: 'Product', category: string }> };
+
+export type GetProductBrandsVariables = Types.Exact<{ [key: string]: never; }>;
+
+
+export type GetProductBrands = { __typename?: 'Query', findAllProducts: Array<{ __typename?: 'Product', brand: string }> };
+
 
 export const GetUsersDocument = /*#__PURE__*/ gql`
     query getUsers {
@@ -58,6 +92,58 @@ export const GetTopPromotionProductsDocument = /*#__PURE__*/ gql`
   }
 }
     `;
+export const GetProductsDocument = /*#__PURE__*/ gql`
+    query getProducts($where: ProductWhereInput, $orderBy: [ProductOrderByWithRelationInput!], $skip: Int, $take: Int) {
+  findAllProducts(where: $where, orderBy: $orderBy, skip: $skip, take: $take) {
+    id
+    title
+    brand
+    description
+    category
+    price
+    discountPercentage
+    rating
+    stock
+    thumbnail
+  }
+}
+    `;
+export const GetProductsCountDocument = /*#__PURE__*/ gql`
+    query getProductsCount($where: ProductWhereInput) {
+  countAllProducts(where: $where)
+}
+    `;
+export const GetProductDocument = /*#__PURE__*/ gql`
+    query GetProduct($where: ProductWhereUniqueInput!) {
+  findOneProduct(where: $where) {
+    id
+    title
+    description
+    brand
+    price
+    discountPercentage
+    rating
+    thumbnail
+    images
+    category
+    stock
+  }
+}
+    `;
+export const GetProductCategoriesDocument = /*#__PURE__*/ gql`
+    query getProductCategories {
+  findAllProducts(distinct: [category], orderBy: [{category: asc}]) {
+    category
+  }
+}
+    `;
+export const GetProductBrandsDocument = /*#__PURE__*/ gql`
+    query getProductBrands {
+  findAllProducts(distinct: [brand], orderBy: [{brand: asc}]) {
+    brand
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -74,6 +160,21 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     getTopPromotionProducts(variables?: GetTopPromotionProductsVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetTopPromotionProducts> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetTopPromotionProducts>(GetTopPromotionProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getTopPromotionProducts', 'query');
+    },
+    getProducts(variables?: GetProductsVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetProducts> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetProducts>(GetProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProducts', 'query');
+    },
+    getProductsCount(variables?: GetProductsCountVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetProductsCount> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetProductsCount>(GetProductsCountDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProductsCount', 'query');
+    },
+    GetProduct(variables: GetProductVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetProduct> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetProduct>(GetProductDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetProduct', 'query');
+    },
+    getProductCategories(variables?: GetProductCategoriesVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetProductCategories> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetProductCategories>(GetProductCategoriesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProductCategories', 'query');
+    },
+    getProductBrands(variables?: GetProductBrandsVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetProductBrands> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetProductBrands>(GetProductBrandsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProductBrands', 'query');
     }
   };
 }

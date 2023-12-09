@@ -247,10 +247,21 @@ export type ProductWhereUniqueInput = {
 
 export type Query = {
   __typename?: 'Query';
+  countAllProducts: Scalars['Float']['output'];
   findAllProducts: Array<Product>;
   findAllUsers: Array<User>;
   findOneProduct: Product;
   findOneUser: User;
+};
+
+
+export type QueryCountAllProductsArgs = {
+  cursor?: InputMaybe<ProductWhereUniqueInput>;
+  distinct?: InputMaybe<Array<ProductScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<ProductOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<ProductWhereInput>;
 };
 
 
@@ -594,6 +605,7 @@ export type ProductSumAggregateResolvers<ContextType = any, ParentType extends R
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  countAllProducts?: Resolver<ResolversTypes['Float'], ParentType, ContextType, Partial<QueryCountAllProductsArgs>>;
   findAllProducts?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType, Partial<QueryFindAllProductsArgs>>;
   findAllUsers?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
   findOneProduct?: Resolver<ResolversTypes['Product'], ParentType, ContextType, RequireFields<QueryFindOneProductArgs, 'where'>>;

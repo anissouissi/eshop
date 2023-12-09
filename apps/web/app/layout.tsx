@@ -1,5 +1,6 @@
-import { Footer, Navbar } from '@aso/shared-ui';
+import { Footer, Logo, Navbar } from '@aso/shared-ui';
 import '../styles/global.css';
+import Link from 'next/link';
 
 export const metadata = {
   title: 'Welcome to eShop',
@@ -14,7 +15,11 @@ export default function RootLayout({
   return (
     <html data-theme="light" lang="en">
       <body>
-        <Navbar />
+        <Navbar>
+          <Link href="/">
+            <Logo />
+          </Link>
+        </Navbar>
         {children}
         <Footer />
       </body>

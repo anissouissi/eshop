@@ -6,3 +6,4 @@ export * from './lib/navbar/navbar';
 export * from './lib/logo/logo';
 export * from './lib/avatar/avatar';
 export * from './lib/cart/cart';
+export * from './lib/start-shopping-button/start-shopping-button';

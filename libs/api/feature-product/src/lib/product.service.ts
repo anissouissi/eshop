@@ -20,6 +20,10 @@ export class ProductService {
     return this.prisma.product.findMany(findManyProductArgs);
   }
 
+  countAll(findManyProductArgs: FindManyProductArgs) {
+    return this.prisma.product.count({ where: findManyProductArgs.where });
+  }
+
   findOne(findUniqueProductArgs: FindUniqueProductArgs) {
     return this.prisma.product.findUnique(findUniqueProductArgs);
   }

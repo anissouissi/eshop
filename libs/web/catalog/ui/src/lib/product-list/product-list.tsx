@@ -12,7 +12,6 @@ export interface ProductListProps {
     brand: string;
     category: string;
     thumbnail: string;
-    images: string[];
   }[];
 }
 

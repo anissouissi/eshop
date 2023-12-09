@@ -23,6 +23,11 @@ export class ProductResolver {
     return this.productService.findAll(findManyProductArgs);
   }
 
+  @Query(() => Number)
+  countAllProducts(@Args() findManyProductArgs: FindManyProductArgs) {
+    return this.productService.countAll(findManyProductArgs);
+  }
+
   @Query(() => Product)
   findOneProduct(@Args() findUniqueProductArgs: FindUniqueProductArgs) {
     return this.productService.findOne(findUniqueProductArgs);

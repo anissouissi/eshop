@@ -1,6 +1,7 @@
 import { ProductCarousel } from '@aso/web-catalog-ui';
 import { gql } from '../data-access/graphql-client';
-import { Hero } from '@aso/shared-ui';
+import { Hero, StartShoppingButton } from '@aso/shared-ui';
+import Link from 'next/link';
 
 export default async function Index() {
   const { findAllProducts: topRatedProducts } = await gql.getTopRatedProducts();
@@ -9,7 +10,11 @@ export default async function Index() {
 
   return (
     <>
-      <Hero avatarImageUrl="/anis.jpg" />
+      <Hero avatarImageUrl="/anis.jpg">
+        <Link href="catalog">
+          <StartShoppingButton />
+        </Link>
+      </Hero>
       <ProductCarousel
         key="topRated"
         title="Top rated"
