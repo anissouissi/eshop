@@ -1,4 +1,3 @@
-version: '3.9'
 services:
   catalog:
     build:
@@ -9,13 +8,34 @@ services:
     env_file:
       - ./apps/catalog/.env
     depends_on:
-      - mongodb
+      - mongodb-primary
+      - mongodb-secondary
+      - mongodb-arbiter
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     ports:
       - '3002:3002'
-  db:
+
+  identity:
+    build:
+      context: .
+      dockerfile: ./apps/identity/Dockerfile
+      target: development
+    command: npm start identity
+    env_file:
+      - ./apps/identity/.env
+    depends_on:
+      - mongodb-primary
+      - mongodb-secondary
+      - mongodb-arbiter
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - '3001:3001'
+
+  postgres:
     image: postgres
     ports:
       - '5432:5432'
@@ -24,17 +44,43 @@ services:
     environment:
       POSTGRES_PASSWORD: mysecretpassword
       PGDATA: /var/lib/postgresql/data/pgdata
-  mongodb:
-    build: ./tools/mongo_rs
+
+  mongodb-primary:
+    image: docker.io/bitnami/mongodb:5.0
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=mongopw
-      - MONGO_REPLICA_HOST=localhost
-      - MONGO_REPLICA_PORT=27017
-    ports:
-      - 27017:27017
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-primary
+      - MONGODB_REPLICA_SET_MODE=primary
+      - MONGODB_ROOT_PASSWORD=password123
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
     volumes:
-      - mongodb-data:/var/lib/mongodb/data
+      - 'mongodb_master_data:/bitnami/mongodb'
+    ports:
+      - '27017:27017'
+
+  mongodb-secondary:
+    image: docker.io/bitnami/mongodb:5.0
+    depends_on:
+      - mongodb-primary
+    environment:
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-secondary
+      - MONGODB_REPLICA_SET_MODE=secondary
+      - MONGODB_INITIAL_PRIMARY_HOST=mongodb-primary
+      - MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD=password123
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
+
+  mongodb-arbiter:
+    image: docker.io/bitnami/mongodb:5.0
+    depends_on:
+      - mongodb-primary
+    environment:
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-arbiter
+      - MONGODB_REPLICA_SET_MODE=arbiter
+      - MONGODB_INITIAL_PRIMARY_HOST=mongodb-primary
+      - MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD=password123
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
+
 volumes:
   db-data:
-  mongodb-data:
+    driver: local
+  mongodb_master_data:
+    driver: local

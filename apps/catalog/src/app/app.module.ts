@@ -13,6 +13,7 @@ import Joi from 'joi';
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
+        CATALOG_DATABASE_URL: Joi.string().required(),
         PORT: Joi.number().required(),
       }),
       envFilePath: './apps/catalog/.env',
