@@ -60,7 +60,11 @@ function updateDataAccessLibTargets(
     const targets = json.targets;
     targets['generate-db-types'] = {
       executor: '@aso/automation:prisma-generate',
-      options: { schemaPath: `${projectRoot}/src/lib/schema.prisma` },
+      options: {
+        schemaPath: `${projectRoot}/src/lib/schema.prisma`,
+        prismaClientImport: `@aso/api-${options.name}-data-access-db`,
+        prismaGeneratedIndexFilePath: `libs/api/${options.name}/generated-db-types/src/index.ts`,
+      },
     };
     targets['push-db'] = {
       executor: '@aso/automation:prisma-push',

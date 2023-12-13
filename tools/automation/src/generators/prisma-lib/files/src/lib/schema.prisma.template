@@ -5,7 +5,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
-  output = "./generated/client"
+  output = "../../../../../../node_modules/@prisma/<%= name %>"
 }
 
 // sample model
@@ -29,6 +29,7 @@ generator client {
 
 generator nestgraphql {
     provider                = "node node_modules/prisma-nestjs-graphql"
+    prismaClientImport      = "@prisma/<%= name %>"
     output                  = "../../../generated-db-types/src"
     purgeOutput                   = false
     combineScalarFilters          = true

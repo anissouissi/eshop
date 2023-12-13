@@ -16,18 +16,14 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "libs/api/catalog/data-access-db/**/*.ts",
-          "libs/api/catalog/data-access-db/package.json"
-        ]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "generate-db-types": {
       "executor": "@aso/automation:prisma-generate",
       "options": {
-        "schemaPath": "libs/api/catalog/data-access-db/src/lib/schema.prisma"
+        "schemaPath": "libs/api/catalog/data-access-db/src/lib/schema.prisma",
+        "prismaClientImport": "@prisma/catalog",
+        "prismaGeneratedIndexFilePath": "libs/api/catalog/generated-db-types/src/index.ts"
       }
     },
     "push-db": {

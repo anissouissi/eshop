@@ -8,7 +8,7 @@ import { Float } from '@nestjs/graphql';
 import { registerEnumType } from '@nestjs/graphql';
 import { Type } from 'class-transformer';
 import { ValidateNested } from 'class-validator';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/catalog';
 import * as Validator from 'class-validator';
 import { ID } from '@nestjs/graphql';
 

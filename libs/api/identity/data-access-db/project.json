@@ -16,13 +16,7 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "libs/api/identity/data-access-db/**/*.ts",
-          "libs/api/identity/data-access-db/package.json"
-        ]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "generate-db-types": {
       "executor": "@aso/automation:prisma-generate",

@@ -1,0 +1,40 @@
+version: '3.9'
+services:
+  catalog:
+    build:
+      context: .
+      dockerfile: ./apps/catalog/Dockerfile
+      target: development
+    command: npm start catalog
+    env_file:
+      - ./apps/catalog/.env
+    depends_on:
+      - mongodb
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - '3002:3002'
+  db:
+    image: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+      PGDATA: /var/lib/postgresql/data/pgdata
+  mongodb:
+    build: ./tools/mongo_rs
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=mongopw
+      - MONGO_REPLICA_HOST=localhost
+      - MONGO_REPLICA_PORT=27017
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb-data:/var/lib/mongodb/data
+volumes:
+  db-data:
+  mongodb-data:
