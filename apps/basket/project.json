@@ -1,5 +1,5 @@
 {
-  "name": "apps/basket",
+  "name": "basket",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/basket/src",
   "projectType": "application",
@@ -27,14 +27,14 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "apps/basket:build"
+        "buildTarget": "basket:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "apps/basket:build:development"
+          "buildTarget": "basket:build:development"
         },
         "production": {
-          "buildTarget": "apps/basket:build:production"
+          "buildTarget": "basket:build:production"
         }
       }
     },

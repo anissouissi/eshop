@@ -1,1 +1,1 @@
-export * from './lib/CustomerBasket.module';
+export * from './lib/customer-basket.module';
