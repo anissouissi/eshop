@@ -85,7 +85,7 @@ services:
       start_period: 40s
 
   mongodb-primary:
-    image: docker.io/bitnami/mongodb:5.0
+    image: docker.io/bitnami/mongodb:7.0
     environment:
       - MONGODB_ADVERTISED_HOSTNAME=mongodb-primary
       - MONGODB_REPLICA_SET_MODE=primary
@@ -103,7 +103,7 @@ services:
       start_period: 40s
 
   mongodb-secondary:
-    image: docker.io/bitnami/mongodb:5.0
+    image: docker.io/bitnami/mongodb:7.0
     depends_on:
       - mongodb-primary
     environment:
@@ -114,7 +114,7 @@ services:
       - MONGODB_REPLICA_SET_KEY=replicasetkey123
 
   mongodb-arbiter:
-    image: docker.io/bitnami/mongodb:5.0
+    image: docker.io/bitnami/mongodb:7.0
     depends_on:
       - mongodb-primary
     environment:
