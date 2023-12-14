@@ -1,0 +1,10 @@
+import { Module } from '@nestjs/common';
+import { <%= className %>Service } from './<%= fileName %>.service';
+import { <%= className %>Resolver } from './<%= fileName %>.resolver';
+import { PrismaModule } from '@aso/api-<%= dbName %>-data-access-db';
+
+@Module({
+  providers: [<%= className %>Resolver, <%= className %>Service],
+  imports: [PrismaModule],
+})
+export class <%= className %>Module {}

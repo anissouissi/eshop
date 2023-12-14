@@ -4,6 +4,11 @@
       "factory": "./src/generators/prisma-lib/generator",
       "schema": "./src/generators/prisma-lib/schema.json",
       "description": "Generates a prisma library"
+    },
+    "nest-graphql-feature-lib": {
+      "factory": "./src/generators/nest-graphql-feature-lib/generator",
+      "schema": "./src/generators/nest-graphql-feature-lib/schema.json",
+      "description": "Generates NestJS GraphQL feature library containing module, service and resolver for a given resource"
     }
   }
 }

@@ -1,0 +1,45 @@
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { <%= className %>Service } from './<%= fileName %>.service';
+import {
+  <%= className %>,
+  CreateOne<%= className %>Args,
+  FindUnique<%= className %>Args,
+  UpdateOne<%= className %>Args,
+  DeleteOne<%= className %>Args,
+  FindMany<%= className %>Args,
+} from '@aso/api-<%= dbName %>-generated-db-types';
+
+@Resolver(() => <%= className %>)
+export class <%= className %>Resolver {
+  constructor(private readonly <%= propertyName %>Service: <%= className %>Service) {}
+
+  @Mutation(() => <%= className %>)
+  create<%= className %>(@Args() createOne<%= className %>Args: CreateOne<%= className %>Args) {
+    return this.<%= propertyName %>Service.create(createOne<%= className %>Args);
+  }
+
+  @Query(() => [<%= className %>])
+  findAll<%= className %>s(@Args() findMany<%= className %>Args: FindMany<%= className %>Args) {
+    return this.<%= propertyName %>Service.findAll(findMany<%= className %>Args);
+  }
+
+  @Query(() => Number)
+  countAll<%= className %>s(@Args() findMany<%= className %>Args: FindMany<%= className %>Args) {
+    return this.<%= propertyName %>Service.countAll(findMany<%= className %>Args);
+  }
+
+  @Query(() => <%= className %>)
+  findOne<%= className %>(@Args() findUnique<%= className %>Args: FindUnique<%= className %>Args) {
+    return this.<%= propertyName %>Service.findOne(findUnique<%= className %>Args);
+  }
+
+  @Mutation(() => <%= className %>)
+  update<%= className %>(@Args() updateOne<%= className %>Args: UpdateOne<%= className %>Args) {
+    return this.<%= propertyName %>Service.update(updateOne<%= className %>Args);
+  }
+
+  @Mutation(() => <%= className %>)
+  remove<%= className %>(@Args() deleteOne<%= className %>Args: DeleteOne<%= className %>Args) {
+    return this.<%= propertyName %>Service.remove(deleteOne<%= className %>Args);
+  }
+}

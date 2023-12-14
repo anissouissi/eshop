@@ -1,0 +1,38 @@
+import { PrismaService } from '@aso/api-<%= dbName %>-data-access-db';
+import {
+  CreateOne<%= className %>Args,
+  FindUnique<%= className %>Args,
+  UpdateOne<%= className %>Args,
+  DeleteOne<%= className %>Args,
+  FindMany<%= className %>Args,
+} from '@aso/api-<%= dbName %>-generated-db-types';
+import { Injectable } from '@nestjs/common';
+
+@Injectable()
+export class <%= className %>Service {
+  constructor(private readonly prisma: PrismaService) {}
+
+  create(createOne<%= className %>Args: CreateOne<%= className %>Args) {
+    return this.prisma.<%= propertyName %>.create(createOne<%= className %>Args);
+  }
+
+  findAll(findMany<%= className %>Args: FindMany<%= className %>Args) {
+    return this.prisma.<%= propertyName %>.findMany(findMany<%= className %>Args);
+  }
+
+  countAll(findMany<%= className %>Args: FindMany<%= className %>Args) {
+    return this.prisma.<%= propertyName %>.count({ where: findMany<%= className %>Args.where });
+  }
+
+  findOne(findUnique<%= className %>Args: FindUnique<%= className %>Args) {
+    return this.prisma.<%= propertyName %>.findUnique(findUnique<%= className %>Args);
+  }
+
+  update(updateOne<%= className %>Args: UpdateOne<%= className %>Args) {
+    return this.prisma.<%= propertyName %>.update(updateOne<%= className %>Args);
+  }
+
+  remove(deleteOne<%= className %>Args: DeleteOne<%= className %>Args) {
+    return this.prisma.<%= propertyName %>.delete(deleteOne<%= className %>Args);
+  }
+}

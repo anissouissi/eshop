@@ -1,0 +1,19 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { <%= className %>Resolver } from './<%= fileName %>.resolver';
+import { <%= className %>Service } from './<%= fileName %>.service';
+
+describe('<%= className %>Resolver', () => {
+  let resolver: <%= className %>Resolver;
+
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [<%= className %>Resolver, <%= className %>Service],
+    }).compile();
+
+    resolver = module.get<<%= className %>Resolver>(<%= className %>Resolver);
+  });
+
+  it('should be defined', () => {
+    expect(resolver).toBeDefined();
+  });
+});
