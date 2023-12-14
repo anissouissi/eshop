@@ -1,38 +1,34 @@
 datasource db {
-  provider = "<%= provider %>"
-  url      = env("<%= databaseUrlEnvKey %>")
+  provider = "mongodb"
+  url      = env("BASKET_DATABASE_URL")
 }
 
 generator client {
   provider = "prisma-client-js"
-  output = "../../../../../../node_modules/@prisma/<%= name %>"
+  output = "../../../../../../node_modules/@prisma/basket"
 }
 
-// sample model
-// model User {
-//   id String @id @default(uuid())
-//   or
-//   id String @id @default(auto()) @map("_id") @db.ObjectId
+type BasketItem {
+  /// @Validator.IsString()
+  productId   String
 
+  /// @Validator.IsNumber()
+  quantity   Int
+}
 
-//   /// @Validator.IsEmail()
-//   email String @unique
+model CustomerBasket {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
 
-//   /// @Validator.IsString()
-//   /// @Validator.MaxLength(100)
-//   /// @Validator.MinLength(3)
-//   name String?
+  /// @Validator.IsString()
+  customerId String
 
-//   /// @Validator.IsString()
-//   /// @Validator.MaxLength(100)
-//   /// @Validator.MinLength(8)
-//   /// @HideField()
-//   password String
-// }
+  /// @Validator.IsArray()
+  items BasketItem[]
+}
 
 generator nestgraphql {
     provider                = "node node_modules/prisma-nestjs-graphql"
-    prismaClientImport      = "@prisma/<%= name %>"
+    prismaClientImport      = "@prisma/basket"
     output                  = "../../../generated-db-types/src"
     purgeOutput                   = false
     combineScalarFilters          = true

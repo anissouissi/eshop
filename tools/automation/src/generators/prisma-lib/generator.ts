@@ -62,7 +62,7 @@ function updateDataAccessLibTargets(
       executor: '@aso/automation:prisma-generate',
       options: {
         schemaPath: `${projectRoot}/src/lib/schema.prisma`,
-        prismaClientImport: `@aso/api-${options.name}-data-access-db`,
+        prismaClientImport: `@prisma/${options.name}`,
         prismaGeneratedIndexFilePath: `libs/api/${options.name}/generated-db-types/src/index.ts`,
       },
     };

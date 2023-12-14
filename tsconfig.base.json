@@ -15,6 +15,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@aso/api-basket-data-access-db": [
+        "libs/api/basket/data-access-db/src/index.ts"
+      ],
+      "@aso/api-basket-generated-db-types": [
+        "libs/api/basket/generated-db-types/src/index.ts"
+      ],
       "@aso/api-catalog-data-access-db": [
         "libs/api/catalog/data-access-db/src/index.ts"
       ],
