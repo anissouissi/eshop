@@ -7,9 +7,11 @@ import {
 import { UserModule } from '@aso/feature-user';
 import { ConfigModule } from '@nestjs/config';
 import Joi from 'joi';
+import { HealthModule } from '../health/health.module';
 
 @Module({
   imports: [
+    HealthModule,
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({

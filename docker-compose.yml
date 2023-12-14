@@ -1,21 +1,24 @@
 services:
-  catalog:
+  gateway:
     build:
       context: .
-      dockerfile: ./apps/catalog/Dockerfile
+      dockerfile: ./apps/gateway/Dockerfile
       target: development
-    command: npm start catalog
+    command: npm start gateway
     env_file:
-      - ./apps/catalog/.env
+      - ./apps/gateway/.env
     depends_on:
-      - mongodb-primary
-      - mongodb-secondary
-      - mongodb-arbiter
+      identity:
+        condition: service_healthy
+      catalog:
+        condition: service_healthy
+      mongodb-primary:
+        condition: service_healthy
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     ports:
-      - '3002:3002'
+      - '3000:3000'
 
   identity:
     build:
@@ -26,24 +29,60 @@ services:
     env_file:
       - ./apps/identity/.env
     depends_on:
-      - mongodb-primary
-      - mongodb-secondary
-      - mongodb-arbiter
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://identity:3001/health || exit 1
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     ports:
       - '3001:3001'
 
+  catalog:
+    build:
+      context: .
+      dockerfile: ./apps/catalog/Dockerfile
+      target: development
+    command: npm start catalog
+    env_file:
+      - ./apps/catalog/.env
+    depends_on:
+      mongodb-primary:
+        condition: service_healthy
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://catalog:3002/health || exit 1
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - '3002:3002'
+
   postgres:
     image: postgres
     ports:
       - '5432:5432'
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
     environment:
+      POSTGRES_USER: postgres
+      PGUSER: postgres
       POSTGRES_PASSWORD: mysecretpassword
       PGDATA: /var/lib/postgresql/data/pgdata
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready']
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
 
   mongodb-primary:
     image: docker.io/bitnami/mongodb:5.0
@@ -56,6 +95,12 @@ services:
       - 'mongodb_master_data:/bitnami/mongodb'
     ports:
       - '27017:27017'
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
 
   mongodb-secondary:
     image: docker.io/bitnami/mongodb:5.0
@@ -80,7 +125,7 @@ services:
       - MONGODB_REPLICA_SET_KEY=replicasetkey123
 
 volumes:
-  db-data:
+  postgres-data:
     driver: local
   mongodb_master_data:
     driver: local
