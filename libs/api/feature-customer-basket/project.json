@@ -1,0 +1,30 @@
+{
+  "name": "api-feature-customer-basket",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/api/feature-customer-basket/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/api/feature-customer-basket",
+        "main": "libs/api/feature-customer-basket/src/index.ts",
+        "tsConfig": "libs/api/feature-customer-basket/tsconfig.lib.json",
+        "assets": ["libs/api/feature-customer-basket/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/api/feature-customer-basket/jest.config.ts"
+      }
+    }
+  },
+  "tags": ["scope:api"]
+}

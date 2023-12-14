@@ -27,6 +27,9 @@
       "@aso/api-catalog-generated-db-types": [
         "libs/api/catalog/generated-db-types/src/index.ts"
       ],
+      "@aso/api-feature-customer-basket": [
+        "libs/api/feature-customer-basket/src/index.ts"
+      ],
       "@aso/api-identity-data-access-db": [
         "libs/api/identity/data-access-db/src/index.ts"
       ],
