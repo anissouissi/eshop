@@ -40,3 +40,7 @@ Thumbs.db
 
 .nx/cache
 .next
+
+# Environment (contains sensitive data)
+*.env
+.local.env

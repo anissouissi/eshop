@@ -42,6 +42,8 @@
       "@aso/feature-user": ["libs/api/feature-user/src/index.ts"],
       "@aso/shared-ui": ["libs/shared/ui/src/index.ts"],
       "@aso/shared-util": ["libs/shared/util/src/index.ts"],
+      "@aso/util-identity": ["libs/api/util-identity/src/index.ts"],
+      "@aso/util-rmq": ["libs/api/util-rmq/src/index.ts"],
       "@aso/web-catalog-ui": ["libs/web/catalog/ui/src/index.ts"]
     }
   },

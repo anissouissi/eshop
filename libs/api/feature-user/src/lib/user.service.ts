@@ -6,13 +6,23 @@ import {
   FindUniqueUserArgs,
   UpdateOneUserArgs,
 } from '@aso/api-identity-generated-db-types';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createOneUserArgs: CreateOneUserArgs) {
-    return this.prisma.user.create(createOneUserArgs);
+  async create(createOneUserArgs: CreateOneUserArgs) {
+    const { data } = createOneUserArgs;
+
+    const saltOrRounds = 10;
+    const hashedPassword = await bcrypt.hash(data.password, saltOrRounds);
+    return this.prisma.user.create({
+      data: {
+        ...data,
+        password: hashedPassword,
+      },
+    });
   }
 
   findAll() {

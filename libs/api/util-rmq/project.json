@@ -1,0 +1,23 @@
+{
+  "name": "util-rmq",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/api/util-rmq/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/api/util-rmq",
+        "main": "libs/api/util-rmq/src/index.ts",
+        "tsConfig": "libs/api/util-rmq/tsconfig.lib.json",
+        "assets": ["libs/api/util-rmq/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    }
+  },
+  "tags": ["scope:api"]
+}
