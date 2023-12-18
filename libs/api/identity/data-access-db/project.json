@@ -21,9 +21,7 @@
     "generate-db-types": {
       "executor": "@aso/automation:prisma-generate",
       "options": {
-        "schemaPath": "libs/api/identity/data-access-db/src/lib/schema.prisma",
-        "prismaClientImport": "@prisma/identity",
-        "prismaGeneratedIndexFilePath": "libs/api/identity/generated-db-types/src/index.ts"
+        "schemaPath": "libs/api/identity/data-access-db/src/lib/schema.prisma"
       }
     },
     "push-db": {
