@@ -2,7 +2,7 @@ import { Avatar, Cart, Footer, Logo, Navbar } from '@aso/shared-ui';
 import '../styles/global.css';
 import Link from 'next/link';
 import { getInitials } from '@aso/shared-util';
-import { auth } from '../auth';
+import { auth, signOut } from '../auth';
 
 export const metadata = {
   title: 'Welcome to eShop',
@@ -38,9 +38,21 @@ export default async function RootLayout({
             </Link>
           }
           avatar={
-            <Link href="account">
-              <Avatar userInitials={userInitials} />
-            </Link>
+            <Avatar userInitials={userInitials}>
+              <li>
+                <Link href="account">My account</Link>
+              </li>
+              <form
+                action={async () => {
+                  'use server';
+                  await signOut();
+                }}
+              >
+                <li>
+                  <button>Logout</button>
+                </li>
+              </form>
+            </Avatar>
           }
           signInButton={
             <Link href="login">
