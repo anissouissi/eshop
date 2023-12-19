@@ -44,6 +44,7 @@
       "@aso/shared-util": ["libs/shared/util/src/index.ts"],
       "@aso/util-identity": ["libs/api/util-identity/src/index.ts"],
       "@aso/util-rmq": ["libs/api/util-rmq/src/index.ts"],
+      "@aso/web-auth-ui": ["libs/web/auth/ui/src/index.ts"],
       "@aso/web-catalog-ui": ["libs/web/catalog/ui/src/index.ts"]
     }
   },
