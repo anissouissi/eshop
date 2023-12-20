@@ -1,6 +1,5 @@
 import { FilterSortContainer } from '@aso/web-catalog-ui';
 import { gql } from '../../data-access/graphql-client';
-import { Providers } from './providers';
 
 export default async function CatalogLayout({
   children,
@@ -18,7 +17,7 @@ export default async function CatalogLayout({
         (productCategory) => productCategory.category
       )}
     >
-      <Providers>{children}</Providers>
+      {children}
     </FilterSortContainer>
   );
 }

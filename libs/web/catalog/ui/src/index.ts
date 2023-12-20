@@ -1,3 +1,5 @@
+export * from './lib/add-to-basket-button/add-to-basket-button';
+export * from './lib/product-details/product-details';
 export * from './lib/pagination/pagination';
 export * from './lib/active-filters/active-filters';
 export * from './lib/filter-sort-container/filter-sort-container';

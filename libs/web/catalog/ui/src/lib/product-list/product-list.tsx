@@ -19,8 +19,8 @@ export function ProductList({ products }: ProductListProps) {
   return (
     <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-10 justify-around">
       {products.map((product) => (
-        <div className="flex justify-center">
-          <Product key={product.id} product={product} />
+        <div key={product.id} className="flex justify-center">
+          <Product product={product} />
         </div>
       ))}
     </div>

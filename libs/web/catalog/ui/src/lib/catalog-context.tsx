@@ -16,10 +16,14 @@ interface catalogParams {
   itemsCount?: number;
   itemsPerPage?: number;
   currentPageIndex?: number;
+  selectedProductId?: string;
+  addedToBasketProductId?: string;
   onToggleBrand?: (brand: string) => void;
   onToggleCategory?: (category: string) => void;
   onSort?: (sort?: sort) => void;
   onPageChange?: (pageIndex?: number) => void;
+  onSelectedProductChange?: (id?: string) => void;
+  onAddProductToBasket?: (id?: string) => void;
 }
 
 const CatalogContext = createContext<catalogParams>({});
@@ -52,6 +56,12 @@ function CatalogProvider({ children }: PropsWithChildren) {
   const [currentPageIndex, setCurrentPageIndex] = useState<number | undefined>(
     Number(searchParams.get('page'))
   );
+  const [selectedProductId, setSelectedProductId] = useState<
+    string | undefined
+  >(undefined);
+  const [addedToBasketProductId, setAddedToBasketProductId] = useState<
+    string | undefined
+  >(undefined);
 
   const handleToggleBrand = (brand: string) => {
     const newBrands = brands?.includes(brand)
@@ -106,15 +116,28 @@ function CatalogProvider({ children }: PropsWithChildren) {
     replace(`${pathname}?${params.toString()}`);
   };
 
+  const handleAddProductToBasket = (id?: string) => {
+    setAddedToBasketProductId(id);
+  };
+
+  const handleSelectedProductChange = (id?: string) => {
+    setSelectedProductId(id);
+    replace(`product/${id}`);
+  };
+
   const value: catalogParams = {
     brands,
     categories,
     sort,
     currentPageIndex,
+    selectedProductId,
+    addedToBasketProductId,
     onSort: handleSort,
     onToggleBrand: handleToggleBrand,
     onToggleCategory: handleToggleCategory,
     onPageChange: handlePageChange,
+    onSelectedProductChange: handleSelectedProductChange,
+    onAddProductToBasket: handleAddProductToBasket,
   };
 
   return (

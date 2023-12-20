@@ -1,8 +1,12 @@
+'use client';
+
+import { useCatalog } from '../catalog-context';
 import { formatCurrency, getDiscountedPrice } from '@aso/shared-util';
 import Availability from '../availability/availability';
 import Price from '../price/price';
 import Rating from '../rating/rating';
 import Discount from '../discount/discount';
+import AddToBasketButton from '../add-to-basket-button/add-to-basket-button';
 
 export interface ProductProps {
   product: {
@@ -19,8 +23,13 @@ export interface ProductProps {
 }
 
 export function Product({ product }: ProductProps) {
+  const { onSelectedProductChange } = useCatalog();
+
   return (
-    <div className="card card-compact w-72 glass">
+    <div
+      onClick={() => onSelectedProductChange?.(product.id)}
+      className="card card-compact w-72 glass cursor-pointer"
+    >
       <figure>
         <div className="absolute top-0 left-0 w-[100%] rounded-t-[1rem] opacity-80 overflow-hidden">
           <Discount discountPercentage={product.discountPercentage} />
@@ -43,7 +52,7 @@ export function Product({ product }: ProductProps) {
         </div>
         <div className="card-actions justify-between items-center">
           <Availability stock={product.stock} />
-          <button className="btn btn-primary">Add to basket</button>
+          <AddToBasketButton productId={product.id} />
         </div>
       </div>
     </div>
