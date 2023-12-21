@@ -1,3 +1,4 @@
+export * from './lib/error-fallback/error-fallback';
 export * from './lib/dark-switch/dark-switch';
 export * from './lib/footer/footer';
 export * from './lib/tech-stack/tech-stack';

@@ -1,18 +1,8 @@
-import Product from '../product/product';
+import ProductCard from '../product-card/product-card';
+import { Product } from '@aso/data-access-graphql';
 
 export interface ProductListProps {
-  products: {
-    id: string;
-    title: string;
-    description: string;
-    price: number;
-    discountPercentage: number;
-    rating: number;
-    stock: number;
-    brand: string;
-    category: string;
-    thumbnail: string;
-  }[];
+  products: Partial<Product>[];
 }
 
 export function ProductList({ products }: ProductListProps) {
@@ -20,7 +10,7 @@ export function ProductList({ products }: ProductListProps) {
     <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-10 justify-around">
       {products.map((product) => (
         <div key={product.id} className="flex justify-center">
-          <Product product={product} />
+          <ProductCard product={product} />
         </div>
       ))}
     </div>

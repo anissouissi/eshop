@@ -1,5 +1,6 @@
 'use client';
-import Product from '../product/product';
+
+import ProductCard from '../product-card/product-card';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper/modules';
@@ -7,25 +8,16 @@ import { Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import { Product } from '@aso/data-access-graphql';
 
 export interface ProductCarouselProps {
   title: string;
-  products: {
-    id: string;
-    title: string;
-    price: number;
-    discountPercentage: number;
-    rating: number;
-    stock: number;
-    brand: string;
-    category: string;
-    thumbnail: string;
-  }[];
+  products?: Partial<Product>[];
 }
 
 export function ProductCarousel({ title, products }: ProductCarouselProps) {
   return (
-    <>
+    <div className="h-full">
       <div className="flex items-center py-4 pl-6 gap-2">
         <svg
           className="h-6 w-18 fill-red-700"
@@ -67,18 +59,18 @@ export function ProductCarousel({ title, products }: ProductCarouselProps) {
         modules={[Pagination, Navigation]}
         className=" h-[32rem]"
       >
-        {products.map((product) => (
+        {products?.map((product) => (
           <SwiperSlide
             key={product.id}
             className="lg:w-[100rem] md:w-[50rem] w-80"
           >
             <div className="w-[100%] flex items-center justify-center">
-              <Product product={product} />
+              <ProductCard product={product} />
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
-    </>
+    </div>
   );
 }
 

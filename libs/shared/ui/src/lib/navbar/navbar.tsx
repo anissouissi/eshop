@@ -16,7 +16,7 @@ export function Navbar({
   signInButton,
 }: NavbarProps) {
   return (
-    <div className="navbar bg-base-100 sticky top-0 shadow-md z-50">
+    <div className="flex h-16 navbar bg-base-100 sticky top-0 shadow-md z-50">
       <div className="flex-1">{logo}</div>
       <div className="flex-none">
         <DarkSwitch />

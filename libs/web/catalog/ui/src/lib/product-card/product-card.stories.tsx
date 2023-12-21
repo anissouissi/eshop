@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Product } from './product';
+import { ProductCard } from './product-card';
 
 import { within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
-const meta: Meta<typeof Product> = {
-  component: Product,
+const meta: Meta<typeof ProductCard> = {
+  component: ProductCard,
   title: 'Product',
 };
 export default meta;
-type Story = StoryObj<typeof Product>;
+type Story = StoryObj<typeof ProductCard>;
 
 export const Primary = {
   args: {
