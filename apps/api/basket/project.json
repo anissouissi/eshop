@@ -1,0 +1,54 @@
+{
+  "name": "api-basket",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/api/basket/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/api/basket",
+        "main": "apps/api/basket/src/main.ts",
+        "tsConfig": "apps/api/basket/tsconfig.app.json",
+        "assets": ["apps/api/basket/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/api/basket/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "api-basket:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "api-basket:build:development"
+        },
+        "production": {
+          "buildTarget": "api-basket:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/api/basket/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

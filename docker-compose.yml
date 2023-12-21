@@ -2,11 +2,11 @@ services:
   gateway:
     build:
       context: .
-      dockerfile: ./apps/gateway/Dockerfile
+      dockerfile: ./apps/api/gateway/Dockerfile
       target: development
-    command: npm start gateway
+    command: npm start api-gateway
     env_file:
-      - ./apps/gateway/.env
+      - ./apps/api/gateway/.env
     depends_on:
       identity:
         condition: service_healthy
@@ -25,11 +25,11 @@ services:
   identity:
     build:
       context: .
-      dockerfile: ./apps/identity/Dockerfile
+      dockerfile: ./apps/api/identity/Dockerfile
       target: development
-    command: npm start identity
+    command: npm start api-identity
     env_file:
-      - ./apps/identity/.env
+      - ./apps/api/identity/.env
     depends_on:
       postgres:
         condition: service_healthy
@@ -50,11 +50,11 @@ services:
   catalog:
     build:
       context: .
-      dockerfile: ./apps/catalog/Dockerfile
+      dockerfile: ./apps/api/catalog/Dockerfile
       target: development
-    command: npm start catalog
+    command: npm start api-catalog
     env_file:
-      - ./apps/catalog/.env
+      - ./apps/api/catalog/.env
     depends_on:
       mongodb-primary:
         condition: service_healthy
@@ -73,11 +73,11 @@ services:
   basket:
     build:
       context: .
-      dockerfile: ./apps/basket/Dockerfile
+      dockerfile: ./apps/api/basket/Dockerfile
       target: development
-    command: npm start basket
+    command: npm start api-basket
     env_file:
-      - ./apps/basket/.env
+      - ./apps/api/basket/.env
     depends_on:
       mongodb-primary:
         condition: service_healthy

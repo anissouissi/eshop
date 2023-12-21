@@ -1,0 +1,54 @@
+{
+  "name": "api-identity",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/api/identity/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/api/identity",
+        "main": "apps/api/identity/src/main.ts",
+        "tsConfig": "apps/api/identity/tsconfig.app.json",
+        "assets": ["apps/api/identity/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/api/identity/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "api-identity:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "api-identity:build:development"
+        },
+        "production": {
+          "buildTarget": "api-identity:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/api/identity/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}
