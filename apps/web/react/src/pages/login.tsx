@@ -1,5 +1,7 @@
+import { LoginForm } from '@aso/web-auth-ui';
+
 function Login() {
-  return <div>Login page</div>;
+  return <LoginForm />;
 }
 
 export default Login;

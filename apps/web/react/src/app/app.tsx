@@ -41,17 +41,19 @@ function App() {
                 </ProtectedRoute>
               }
             >
-              <Route index element={<Navigate replace to="/home" />} />
-              <Route path="home" element={<Home />} />
-              <Route path="catalog" element={<Catalog />} />
-              <Route path="product/:productId" element={<Product />} />
               <Route path="account" element={<Account />} />
               <Route path="basket" element={<Basket />} />
               <Route path="checkout" element={<Checkout />} />
             </Route>
+            <Route element={<AppLayout />}>
+              <Route index element={<Navigate replace to="/home" />} />
+              <Route path="home" element={<Home />} />
+              <Route path="catalog" element={<Catalog />} />
+              <Route path="product/:productId" element={<Product />} />
 
-            <Route path="login" element={<Login />} />
-            <Route path="*" element={<PageNotFound />} />
+              <Route path="login" element={<Login />} />
+              <Route path="*" element={<PageNotFound />} />
+            </Route>
           </Routes>
         </BrowserRouter>
 

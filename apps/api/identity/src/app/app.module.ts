@@ -10,7 +10,12 @@ import Joi from 'joi';
 import { HealthModule } from '../health/health.module';
 import { RmqModule } from '@aso/util-rmq';
 import { JwtModule } from '@nestjs/jwt';
-import { JwtStrategy, LocalStrategy, AuthService } from '@aso/util-identity';
+import {
+  JwtStrategy,
+  LocalStrategy,
+  AuthService,
+  AuthModule,
+} from '@aso/util-identity';
 import { AuthController } from './auth.controller';
 import { PrismaService } from '@aso/api-identity-data-access-db';
 
@@ -25,6 +30,7 @@ import { PrismaService } from '@aso/api-identity-data-access-db';
         PORT: Joi.number().required(),
         JWT_SECRET: Joi.string().required(),
         JWT_EXPIRATION: Joi.string().required(),
+        CORS_ORIGINS: Joi.string().required(),
       }),
       envFilePath: './apps/catalog/.env',
     }),
@@ -44,6 +50,7 @@ import { PrismaService } from '@aso/api-identity-data-access-db';
       },
     }),
     UserModule,
+    AuthModule,
   ],
   controllers: [AuthController],
   providers: [

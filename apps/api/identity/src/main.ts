@@ -12,6 +12,10 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   const configService = app.get(ConfigService);
   await app.startAllMicroservices();
+  app.enableCors({
+    credentials: true,
+    origin: configService.get('CORS_ORIGINS').split(','),
+  });
   await app.listen(configService.get('PORT'));
 }
 

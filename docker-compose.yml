@@ -112,9 +112,12 @@ services:
       start_period: 40s
 
   rabbitmq:
-    image: rabbitmq
+    image: 'rabbitmq:3-management'
     ports:
       - '5672:5672'
+      - '15672:15672'
+    volumes:
+      - 'rabbitmq_data:/data'
     healthcheck:
       test: rabbitmq-diagnostics -q ping
       interval: 10s
@@ -166,4 +169,6 @@ volumes:
   postgres-data:
     driver: local
   mongodb_master_data:
+    driver: local
+  rabbitmq_data:
     driver: local

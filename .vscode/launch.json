@@ -1,0 +1,38 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Debug Identity",
+      "port": 9229,
+      "sourceMaps": true,
+      "restart": true,
+      "remoteRoot": "/src/app",
+      "localRoot": "${workspaceFolder}/apps/api/identity/src"
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Debug Catalog",
+      "port": 9230,
+      "sourceMaps": true,
+      "restart": true,
+      "remoteRoot": "/usr/src/app",
+      "localRoot": "${workspaceFolder}/apps/api/catalog/src"
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Debug Basket",
+      "port": 9231,
+      "sourceMaps": true,
+      "restart": true,
+      "remoteRoot": "/usr/src/app",
+      "localRoot": "${workspaceFolder}/apps/api/basket/src"
+    }
+  ]
+}

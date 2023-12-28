@@ -18,6 +18,7 @@ export const getDiscountedPrice = (
 
   return formatCurrency(price - (price * discountPercentage) / 100);
 };
+
 export const getInitials = (fullName: string) => {
   const allNames = fullName.trim().split(' ');
   const initials = allNames.reduce((acc, curr, index) => {

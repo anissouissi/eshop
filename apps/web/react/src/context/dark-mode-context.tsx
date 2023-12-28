@@ -1,5 +1,5 @@
+import { useLocalStorageState } from '@aso/shared-util';
 import { createContext, useContext, useEffect } from 'react';
-import { useLocalStorageState } from '../hooks/useLocalStorageState';
 
 const DarkModeContext = createContext({});
 

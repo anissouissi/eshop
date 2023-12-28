@@ -1,7 +1,7 @@
-import { useUser } from '../features/authentication/useUser';
 import Spinner from './spinner';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useUser } from '@aso/web-auth-data-access';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();

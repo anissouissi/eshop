@@ -1,10 +1,13 @@
 import { User } from '@aso/api-identity-generated-db-types';
-import { AuthService, CurrentUser } from '@aso/util-identity';
-import { Controller, Post, Res, UseGuards } from '@nestjs/common';
+import {
+  AuthService,
+  CurrentUser,
+  LocalAuthGuard,
+  JwtAuthGuard,
+} from '@aso/util-identity';
+import { Controller, Get, Post, Res, UseGuards } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 import { Response } from 'express';
-import { LocalAuthGuard } from '../guards/local-auth.guard';
-import JwtAuthGuard from '../guards/jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -20,7 +23,13 @@ export class AuthController {
     response.send(user);
   }
 
+  @Get('logout')
+  async logout(@Res({ passthrough: true }) response: Response) {
+    this.authService.logout(response);
+  }
+
   @UseGuards(JwtAuthGuard)
+  @Get()
   @MessagePattern('validate_user')
   async validateUser(@CurrentUser() user: User) {
     return user;

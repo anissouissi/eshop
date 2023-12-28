@@ -1,3 +1,5 @@
+export * from './lib/form-row-vertical/form-row-vertical';
+export * from './lib/form-row/form-row';
 export * from './lib/error-fallback/error-fallback';
 export * from './lib/dark-switch/dark-switch';
 export * from './lib/footer/footer';

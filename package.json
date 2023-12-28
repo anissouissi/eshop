@@ -6,7 +6,9 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "docker:dev": "docker-compose up -d --no-recreate --remove-orphans",
+    "docker-compose:dev": "docker-compose up",
+    "docker-compose:debug": "docker-compose -f docker-compose.yml -f docker-compose.debug.yml up",
+    "docker-compose:build": "docker-compose up --build -V",
     "db:catalog:seed": "npx env-cmd -f .local.env npx ts-node libs/api/catalog/data-access-db/src/lib/seed.ts",
     "db:studio": "npx env-cmd -f .local.env npx prisma studio",
     "gen:gql-client": "graphql-codegen --config tools/graphql-codegen/codegen.yml"
