@@ -46,6 +46,9 @@
       "@aso/util-rmq": ["libs/api/util-rmq/src/index.ts"],
       "@aso/web-auth-data-access": ["libs/web/auth/data-access/src/index.ts"],
       "@aso/web-auth-ui": ["libs/web/auth/ui/src/index.ts"],
+      "@aso/web-catalog-data-access": [
+        "libs/web/catalog/data-access/src/index.ts"
+      ],
       "@aso/web-catalog-ui": ["libs/web/catalog/ui/src/index.ts"]
     }
   },

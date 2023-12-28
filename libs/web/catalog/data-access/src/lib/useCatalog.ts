@@ -1,8 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import {
-  getTopRatedProducts,
-  getTopPromotionProducts,
-} from '../../services/apiCatalog';
+import { getTopRatedProducts, getTopPromotionProducts } from './apiCatalog';
 
 export function useCatalog() {
   const { isLoading: isLoadingTopRatedProducts, data: topRatedProducts } =

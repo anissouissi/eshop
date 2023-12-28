@@ -1,7 +1,7 @@
 import { Hero, StartShoppingButton } from '@aso/shared-ui';
+import { useCatalog } from '@aso/web-catalog-data-access';
 import { ProductCarousel } from '@aso/web-catalog-ui';
 import { NavLink } from 'react-router-dom';
-import { useCatalog } from '../features/catalog/useCatalog';
 
 function Home() {
   const { topPromotionProducts, topRatedProducts } = useCatalog();

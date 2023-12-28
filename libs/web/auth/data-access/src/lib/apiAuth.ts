@@ -4,9 +4,11 @@ import {
   UserUpdateInput,
 } from '@aso/data-access-graphql';
 
+const AUTH_BASE_URL = `${import.meta.env.VITE_API_IDENTITY_URL}/auth`;
+
 export async function signup({ name, email, password }: UserCreateInput) {
   try {
-    const res = await fetch('http://localhost:3001/auth/create', {
+    const res = await fetch(`${AUTH_BASE_URL}/create`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -30,7 +32,7 @@ export async function login({
   password: string;
 }) {
   try {
-    const res = await fetch('http://localhost:3001/auth/login', {
+    const res = await fetch(`${AUTH_BASE_URL}/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -48,7 +50,7 @@ export async function login({
 
 export async function getCurrentUser() {
   try {
-    const res = await fetch('http://localhost:3001/auth', {
+    const res = await fetch(`${AUTH_BASE_URL}`, {
       credentials: 'include',
     });
     if (!res.ok) {
@@ -63,7 +65,7 @@ export async function getCurrentUser() {
 
 export async function logout() {
   try {
-    await fetch('http://localhost:3001/auth/logout', {
+    await fetch(`${AUTH_BASE_URL}/logout`, {
       credentials: 'include',
     });
   } catch (error) {
@@ -73,7 +75,7 @@ export async function logout() {
 
 export async function updateCurrentUser({ name, password }: UserUpdateInput) {
   try {
-    const res = await fetch('http://localhost:3001/auth/update', {
+    const res = await fetch(`${AUTH_BASE_URL}/update`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
