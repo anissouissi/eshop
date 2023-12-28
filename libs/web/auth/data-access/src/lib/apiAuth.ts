@@ -63,7 +63,9 @@ export async function getCurrentUser() {
 
 export async function logout() {
   try {
-    await fetch('http://localhost:3001/auth/logout');
+    await fetch('http://localhost:3001/auth/logout', {
+      credentials: 'include',
+    });
   } catch (error) {
     throw new Error((error as Error).message);
   }
