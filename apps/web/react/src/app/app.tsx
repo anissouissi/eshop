@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from 'react-hot-toast';
 
-import { DarkModeProvider } from '../context/dark-mode-context';
+import { DarkModeProvider } from '@aso/shared-ui';
 
 import Home from '../pages/home';
 import Catalog from '../pages/catalog';

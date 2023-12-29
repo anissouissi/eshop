@@ -10,3 +10,4 @@ export * from './lib/logo/logo';
 export * from './lib/avatar/avatar';
 export * from './lib/cart/cart';
 export * from './lib/start-shopping-button/start-shopping-button';
+export * from './lib/context/dark-mode-context';

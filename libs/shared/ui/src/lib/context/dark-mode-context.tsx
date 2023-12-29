@@ -1,7 +1,10 @@
 import { useLocalStorageState } from '@aso/shared-util';
 import { createContext, useContext, useEffect } from 'react';
 
-const DarkModeContext = createContext({});
+const DarkModeContext = createContext<{
+  isDarkMode?: boolean;
+  toggleDarkMode?: () => void;
+}>({});
 
 function DarkModeProvider({ children }: { children: React.ReactNode }) {
   const [isDarkMode, setIsDarkMode] = useLocalStorageState(
@@ -12,11 +15,9 @@ function DarkModeProvider({ children }: { children: React.ReactNode }) {
   useEffect(
     function () {
       if (isDarkMode) {
-        document.documentElement.classList.add('dark-mode');
-        document.documentElement.classList.remove('light-mode');
+        document.documentElement.setAttribute('data-theme', 'dark');
       } else {
-        document.documentElement.classList.add('light-mode');
-        document.documentElement.classList.remove('dark-mode');
+        document.documentElement.setAttribute('data-theme', 'light');
       }
     },
     [isDarkMode]
