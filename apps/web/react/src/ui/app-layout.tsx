@@ -23,18 +23,22 @@ function AppLayout() {
           </NavLink>
         }
         avatar={
-          !isLoading &&
-          user?.name && (
-            <Avatar userInitials={getInitials(user?.name)}>
-              <li>
-                <NavLink to="account">My account</NavLink>
-              </li>
-              <li>
-                <button disabled={isLoggingOut} onClick={() => logout()}>
-                  Logout
-                </button>
-              </li>
-            </Avatar>
+          isLoading || isLoggingOut ? (
+            <span className="loading loading-spinner"></span>
+          ) : (
+            !isLoading &&
+            user?.name && (
+              <Avatar userInitials={getInitials(user?.name)}>
+                <li>
+                  <NavLink to="account">My account</NavLink>
+                </li>
+                <li>
+                  <button disabled={isLoggingOut} onClick={() => logout()}>
+                    Logout
+                  </button>
+                </li>
+              </Avatar>
+            )
           )
         }
         signInButton={

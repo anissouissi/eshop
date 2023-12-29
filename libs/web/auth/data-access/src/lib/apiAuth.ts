@@ -6,17 +6,21 @@ import {
 
 const AUTH_BASE_URL = `${import.meta.env.VITE_API_IDENTITY_URL}/auth`;
 
-export async function signup({ name, email, password }: UserCreateInput) {
+export async function signUp({ name, email, password }: UserCreateInput) {
   try {
     const res = await fetch(`${AUTH_BASE_URL}/create`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify({
         name,
         email,
         password,
       }),
     });
+    if (!res.ok) {
+      throw new Error('Error occurred, please try again.');
+    }
     const user: User = await res.json();
     return user;
   } catch (error) {

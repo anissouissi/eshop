@@ -16,6 +16,7 @@ import PageNotFound from '../pages/page-not-found';
 
 import AppLayout from '../ui/app-layout';
 import ProtectedRoute from '../ui/protected-route';
+import SignUp from '../pages/sign-up';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -52,6 +53,7 @@ function App() {
               <Route path="product/:productId" element={<Product />} />
 
               <Route path="login" element={<Login />} />
+              <Route path="sign-up" element={<SignUp />} />
               <Route path="*" element={<PageNotFound />} />
             </Route>
           </Routes>
@@ -72,8 +74,6 @@ function App() {
               fontSize: '16px',
               maxWidth: '500px',
               padding: '16px 24px',
-              backgroundColor: 'var(--color-grey-0)',
-              color: 'var(--color-grey-700)',
             },
           }}
         />

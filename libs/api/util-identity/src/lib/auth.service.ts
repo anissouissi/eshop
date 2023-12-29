@@ -1,10 +1,10 @@
-import { User } from '@aso/data-access-graphql';
 import { UserService } from '@aso/feature-user';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
 import * as bcrypt from 'bcrypt';
+import { User, UserCreateInput } from '@aso/api-identity-generated-db-types';
 
 export interface TokenPayload {
   userId: string;
@@ -48,6 +48,11 @@ export class AuthService {
       throw new UnauthorizedException('Credentials are not valid.');
     }
     return user;
+  }
+
+  async createUser(user: UserCreateInput) {
+    const createdUser = await this.userService.create({ data: user });
+    return createdUser;
   }
 
   logout(response: Response) {

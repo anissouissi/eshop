@@ -5,7 +5,7 @@ import {
   LocalAuthGuard,
   JwtAuthGuard,
 } from '@aso/util-identity';
-import { Controller, Get, Post, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Res, UseGuards } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 import { Response } from 'express';
 
@@ -21,6 +21,15 @@ export class AuthController {
   ) {
     await this.authService.login(user, response);
     response.send(user);
+  }
+
+  @Post('create')
+  async create(
+    @Body() user: { name: string; email: string; password: string },
+    @Res({ passthrough: true }) response: Response
+  ) {
+    const createdUser = await this.authService.createUser(user);
+    return this.login({ ...createdUser, password: user.password }, response);
   }
 
   @Get('logout')

@@ -17,7 +17,7 @@ export function FormRowVertical({
         </label>
       )}
       {children}
-      {error && <span className="text-2xl">{error}</span>}
+      {error && <span className="text-error">{error}</span>}
     </div>
   );
 }

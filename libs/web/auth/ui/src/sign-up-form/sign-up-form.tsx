@@ -1,4 +1,4 @@
-import { useLogin } from '@aso/web-auth-data-access';
+import { useSignUp } from '@aso/web-auth-data-access';
 import { FormRowVertical } from '@aso/shared-ui';
 
 import { FieldValues, useForm } from 'react-hook-form';
@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 
 const schema = z.object({
+  name: z.string().min(1, 'Name is required'),
   email: z
     .string()
     .min(1, 'Email is required')
@@ -13,8 +14,8 @@ const schema = z.object({
   password: z.string().min(1, 'Password is required'),
 });
 
-export function LoginForm() {
-  const { login, isLoading } = useLogin();
+export function SignUpForm() {
+  const { signUp, isLoading } = useSignUp();
 
   const {
     register,
@@ -25,9 +26,9 @@ export function LoginForm() {
     resolver: zodResolver(schema),
   });
 
-  function handleLogin(values: FieldValues) {
-    login(
-      { email: values.email, password: values.password },
+  function handleSignUp(values: FieldValues) {
+    signUp(
+      { name: values.name, email: values.email, password: values.password },
       {
         onSettled: () => reset(),
       }
@@ -36,9 +37,21 @@ export function LoginForm() {
 
   return (
     <form
+      autoComplete="off"
       className="px-16 py-10 overflow-hidden"
-      onSubmit={handleSubmit((d) => handleLogin(d))}
+      onSubmit={handleSubmit((d) => handleSignUp(d))}
     >
+      <FormRowVertical label="Name" error={errors.name?.message as string}>
+        <input
+          {...register('name')}
+          type="text"
+          id="name"
+          autoComplete="off"
+          disabled={isLoading}
+          className="input input-bordered w-full max-w-xs"
+        />
+      </FormRowVertical>
+
       <FormRowVertical
         label="Email address"
         error={errors.email?.message as string}
@@ -47,7 +60,7 @@ export function LoginForm() {
           {...register('email')}
           type="email"
           id="email"
-          autoComplete="username"
+          autoComplete="off"
           disabled={isLoading}
           className="input input-bordered w-full max-w-xs"
         />
@@ -61,7 +74,7 @@ export function LoginForm() {
           {...register('password')}
           type="password"
           id="password"
-          autoComplete="current-password"
+          autoComplete="new-password"
           disabled={isLoading}
           className="input input-bordered w-full max-w-xs"
         />
@@ -69,7 +82,7 @@ export function LoginForm() {
       <FormRowVertical>
         <button className="btn" disabled={isLoading} type="submit">
           {!isLoading ? (
-            'Log in'
+            'Create account'
           ) : (
             <>
               <span className="loading loading-spinner"></span>loading
