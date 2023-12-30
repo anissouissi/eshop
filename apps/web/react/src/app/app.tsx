@@ -17,6 +17,7 @@ import PageNotFound from '../pages/page-not-found';
 import AppLayout from '../ui/app-layout';
 import ProtectedRoute from '../ui/protected-route';
 import SignUp from '../pages/sign-up';
+import { CatalogProvider } from '@aso/web-catalog-ui';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,29 +35,31 @@ function App() {
         <ReactQueryDevtools initialIsOpen={false} />
 
         <BrowserRouter>
-          <Routes>
-            <Route
-              element={
-                <ProtectedRoute>
-                  <AppLayout />
-                </ProtectedRoute>
-              }
-            >
-              <Route path="account" element={<Account />} />
-              <Route path="basket" element={<Basket />} />
-              <Route path="checkout" element={<Checkout />} />
-            </Route>
-            <Route element={<AppLayout />}>
-              <Route index element={<Navigate replace to="/home" />} />
-              <Route path="home" element={<Home />} />
-              <Route path="catalog" element={<Catalog />} />
-              <Route path="product/:productId" element={<Product />} />
+          <CatalogProvider>
+            <Routes>
+              <Route
+                element={
+                  <ProtectedRoute>
+                    <AppLayout />
+                  </ProtectedRoute>
+                }
+              >
+                <Route path="account" element={<Account />} />
+                <Route path="basket" element={<Basket />} />
+                <Route path="checkout" element={<Checkout />} />
+              </Route>
+              <Route element={<AppLayout />}>
+                <Route index element={<Navigate replace to="/home" />} />
+                <Route path="home" element={<Home />} />
+                <Route path="catalog" element={<Catalog />} />
+                <Route path="product/:productId" element={<Product />} />
 
-              <Route path="login" element={<Login />} />
-              <Route path="sign-up" element={<SignUp />} />
-              <Route path="*" element={<PageNotFound />} />
-            </Route>
-          </Routes>
+                <Route path="login" element={<Login />} />
+                <Route path="sign-up" element={<SignUp />} />
+                <Route path="*" element={<PageNotFound />} />
+              </Route>
+            </Routes>
+          </CatalogProvider>
         </BrowserRouter>
 
         <Toaster

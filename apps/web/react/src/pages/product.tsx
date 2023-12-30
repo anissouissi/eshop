@@ -1,5 +1,9 @@
+import { useCatalog } from '@aso/web-catalog-data-access';
+import { ProductDetails } from '@aso/web-catalog-ui';
+
 function Product() {
-  return <div>Product page</div>;
+  const { isLoadingProduct, product } = useCatalog();
+  return !isLoadingProduct && <ProductDetails product={product} />;
 }
 
 export default Product;

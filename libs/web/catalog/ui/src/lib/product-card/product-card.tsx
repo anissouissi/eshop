@@ -1,6 +1,3 @@
-'use client';
-
-import { useCatalog } from '../catalog-context';
 import { formatCurrency, getDiscountedPrice } from '@aso/shared-util';
 import Availability from '../availability/availability';
 import Price from '../price/price';
@@ -8,18 +5,19 @@ import Rating from '../rating/rating';
 import Discount from '../discount/discount';
 import AddToBasketButton from '../add-to-basket-button/add-to-basket-button';
 import { Product } from '@aso/data-access-graphql';
+import { useNavigate } from 'react-router-dom';
 
 export interface ProductCardProps {
   product?: Partial<Product>;
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const { onSelectedProductChange } = useCatalog();
+  const navigate = useNavigate();
 
   return (
     product && (
       <div
-        onClick={() => onSelectedProductChange?.(product.id)}
+        onClick={() => navigate(`/product/${product.id}`)}
         className="card card-compact w-72 glass cursor-pointer"
       >
         <figure>

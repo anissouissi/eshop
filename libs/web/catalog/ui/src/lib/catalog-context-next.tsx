@@ -1,5 +1,7 @@
+'use client';
+
 import { PropsWithChildren, createContext, useContext, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 interface sort {
   label: string;
@@ -12,12 +14,15 @@ interface catalogParams {
   categories?: string[];
   sort?: sort;
   itemsCount?: number;
+  itemsPerPage?: number;
   currentPageIndex?: number;
+  selectedProductId?: string;
   addedToBasketProductId?: string;
   onToggleBrand?: (brand: string) => void;
   onToggleCategory?: (category: string) => void;
   onSort?: (sort?: sort) => void;
   onPageChange?: (pageIndex?: number) => void;
+  onSelectedProductChange?: (id?: string) => void;
   onAddProductToBasket?: (id?: string) => void;
 }
 
@@ -35,7 +40,9 @@ const sorts: sort[] = [
 ];
 
 function CatalogProvider({ children }: PropsWithChildren) {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+  const searchParams = useSearchParams();
 
   const [brands, setBrands] = useState<string[]>(
     searchParams.get('brands')?.split(',') || []
@@ -49,6 +56,9 @@ function CatalogProvider({ children }: PropsWithChildren) {
   const [currentPageIndex, setCurrentPageIndex] = useState<number | undefined>(
     Number(searchParams.get('page'))
   );
+  const [selectedProductId, setSelectedProductId] = useState<
+    string | undefined
+  >(undefined);
   const [addedToBasketProductId, setAddedToBasketProductId] = useState<
     string | undefined
   >(undefined);
@@ -65,7 +75,7 @@ function CatalogProvider({ children }: PropsWithChildren) {
       params.delete('brands');
     }
     params.delete('page');
-    setSearchParams(params);
+    replace(`${pathname}?${params.toString()}`);
   };
 
   const handleToggleCategory = (category: string) => {
@@ -80,7 +90,7 @@ function CatalogProvider({ children }: PropsWithChildren) {
       params.delete('categories');
     }
     params.delete('page');
-    setSearchParams(params);
+    replace(`${pathname}?${params.toString()}`);
   };
 
   const handleSort = (sort?: sort) => {
@@ -92,7 +102,7 @@ function CatalogProvider({ children }: PropsWithChildren) {
       params.delete('sort');
     }
     params.delete('page');
-    setSearchParams(params);
+    replace(`${pathname}?${params.toString()}`);
   };
 
   const handlePageChange = (pageIndex?: number) => {
@@ -103,11 +113,16 @@ function CatalogProvider({ children }: PropsWithChildren) {
     } else {
       params.delete('page');
     }
-    setSearchParams(params);
+    replace(`${pathname}?${params.toString()}`);
   };
 
   const handleAddProductToBasket = (id?: string) => {
     setAddedToBasketProductId(id);
+  };
+
+  const handleSelectedProductChange = (id?: string) => {
+    setSelectedProductId(id);
+    replace(`product/${id}`);
   };
 
   const value: catalogParams = {
@@ -115,11 +130,13 @@ function CatalogProvider({ children }: PropsWithChildren) {
     categories,
     sort,
     currentPageIndex,
+    selectedProductId,
     addedToBasketProductId,
     onSort: handleSort,
     onToggleBrand: handleToggleBrand,
     onToggleCategory: handleToggleCategory,
     onPageChange: handlePageChange,
+    onSelectedProductChange: handleSelectedProductChange,
     onAddProductToBasket: handleAddProductToBasket,
   };
 
