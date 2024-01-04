@@ -37,4 +37,10 @@ export class CustomerBasketService {
   remove(deleteOneCustomerBasketArgs: DeleteOneCustomerBasketArgs) {
     return this.prisma.customerBasket.delete(deleteOneCustomerBasketArgs);
   }
+
+  forCustomer(id: string) {
+    return this.prisma.customerBasket.findMany({
+      where: { customerId: { equals: id } },
+    });
+  }
 }

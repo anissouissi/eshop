@@ -1,13 +1,21 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { CustomerBasketService } from './customer-basket.service';
 import {
-  CustomerBasket,
   CreateOneCustomerBasketArgs,
   FindUniqueCustomerBasketArgs,
   UpdateOneCustomerBasketArgs,
   DeleteOneCustomerBasketArgs,
   FindManyCustomerBasketArgs,
+  CustomerBasket,
 } from '@aso/api-basket-generated-db-types';
+import { User } from './user';
 
 @Resolver(() => CustomerBasket)
 export class CustomerBasketResolver {
@@ -53,5 +61,10 @@ export class CustomerBasketResolver {
     @Args() deleteOneCustomerBasketArgs: DeleteOneCustomerBasketArgs
   ) {
     return this.customerBasketService.remove(deleteOneCustomerBasketArgs);
+  }
+
+  @ResolveField(() => User)
+  user(@Parent() customerBasket: CustomerBasket) {
+    return { __typename: 'User', id: customerBasket.customerId };
   }
 }

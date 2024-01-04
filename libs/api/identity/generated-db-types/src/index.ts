@@ -10,6 +10,7 @@ import { Prisma } from '@prisma/identity';
 import { HideField } from '@nestjs/graphql';
 import * as Validator from 'class-validator';
 import { ID } from '@nestjs/graphql';
+import { Directive } from '@nestjs/graphql';
 
 export enum UserScalarFieldEnum {
     id = "id",
@@ -700,7 +701,8 @@ export class UserWhereInput {
     password?: InstanceType<typeof StringFilter>;
 }
 
-@ObjectType()
+@ObjectType({})
+@Directive('@key(fields: "id")')
 export class User {
     @Field(() => ID, {nullable:false})
     id!: string;

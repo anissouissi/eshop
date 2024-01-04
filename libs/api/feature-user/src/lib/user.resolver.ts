@@ -1,4 +1,10 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ResolveReference,
+} from '@nestjs/graphql';
 import { UserService } from './user.service';
 import {
   CreateOneUserArgs,
@@ -35,5 +41,10 @@ export class UserResolver {
   @Mutation(() => User)
   removeUser(@Args() deleteOneUserArgs: DeleteOneUserArgs) {
     return this.userService.remove(deleteOneUserArgs);
+  }
+
+  @ResolveReference()
+  resolveReference(reference: { __typename: string; id: string }) {
+    return this.userService.findOne({ where: { id: reference.id } });
   }
 }
