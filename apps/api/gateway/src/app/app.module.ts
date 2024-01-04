@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-
+import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloGatewayDriver, ApolloGatewayDriverConfig } from '@nestjs/apollo';
 import { IntrospectAndCompose } from '@apollo/gateway';
-import { ConfigModule } from '@nestjs/config';
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import Joi from 'joi';
 
 @Module({
@@ -19,6 +19,10 @@ import Joi from 'joi';
       envFilePath: './apps/catalog/.env',
     }),
     GraphQLModule.forRoot<ApolloGatewayDriverConfig>({
+      server: {
+        playground: false,
+        plugins: [ApolloServerPluginLandingPageLocalDefault()],
+      },
       driver: ApolloGatewayDriver,
       gateway: {
         supergraphSdl: new IntrospectAndCompose({

@@ -8,6 +8,7 @@ import { ProductModule } from '@aso/feature-product';
 import { ConfigModule } from '@nestjs/config';
 import Joi from 'joi';
 import { HealthModule } from '../health/health.module';
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 
 @Module({
   imports: [
@@ -21,6 +22,8 @@ import { HealthModule } from '../health/health.module';
       envFilePath: './apps/catalog/.env',
     }),
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
+      playground: false,
+      plugins: [ApolloServerPluginLandingPageLocalDefault()],
       driver: ApolloFederationDriver,
       autoSchemaFile: {
         federation: 2,

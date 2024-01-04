@@ -18,6 +18,7 @@ import {
 } from '@aso/util-identity';
 import { AuthController } from './auth.controller';
 import { PrismaService } from '@aso/api-identity-data-access-db';
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 
 @Module({
   imports: [
@@ -44,6 +45,8 @@ import { PrismaService } from '@aso/api-identity-data-access-db';
       inject: [ConfigService],
     }),
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
+      playground: false,
+      plugins: [ApolloServerPluginLandingPageLocalDefault()],
       driver: ApolloFederationDriver,
       autoSchemaFile: {
         federation: 2,
