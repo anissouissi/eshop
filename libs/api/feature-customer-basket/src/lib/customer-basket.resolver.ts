@@ -5,6 +5,7 @@ import {
   Args,
   ResolveField,
   Parent,
+  ResolveReference,
 } from '@nestjs/graphql';
 import { CustomerBasketService } from './customer-basket.service';
 import {
@@ -66,5 +67,10 @@ export class CustomerBasketResolver {
   @ResolveField(() => User)
   user(@Parent() customerBasket: CustomerBasket) {
     return { __typename: 'User', id: customerBasket.customerId };
+  }
+
+  @ResolveReference()
+  resolveReference(reference: { __typename: string; id: string }) {
+    return this.customerBasketService.findOne({ where: { id: reference.id } });
   }
 }

@@ -35,4 +35,8 @@ export class ProductService {
   remove(deleteOneProductArgs: DeleteOneProductArgs) {
     return this.prisma.product.delete(deleteOneProductArgs);
   }
+
+  forBasketItem(productId: string) {
+    return this.prisma.product.findUnique({ where: { id: productId } });
+  }
 }

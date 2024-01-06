@@ -4,6 +4,7 @@ import * as Validator from 'class-validator';
 import { Int } from '@nestjs/graphql';
 import { Type } from 'class-transformer';
 import { ObjectType } from '@nestjs/graphql';
+import { Directive } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
 import { ValidateNested } from 'class-validator';
 import { Prisma } from '@prisma/basket';
@@ -80,7 +81,8 @@ export class BasketItemWhereInput {
     quantity?: InstanceType<typeof IntFilter>;
 }
 
-@ObjectType()
+@ObjectType({})
+@Directive('@key(fields: "productId")')
 export class BasketItem {
     @Field(() => String, {nullable:false})
     productId!: string;
@@ -392,7 +394,8 @@ export class CustomerBasketWhereInput {
     items?: Array<BasketItemObjectEqualityInput>;
 }
 
-@ObjectType()
+@ObjectType({})
+@Directive('@key(fields: "id")')
 export class CustomerBasket {
     @Field(() => ID, {nullable:false})
     id!: string;

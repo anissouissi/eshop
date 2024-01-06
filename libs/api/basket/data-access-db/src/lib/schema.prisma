@@ -8,6 +8,7 @@ generator client {
   output = "../../../../../../node_modules/@prisma/basket"
 }
 
+/// @Directive({ arguments: ['@key(fields: "productId")'] })
 type BasketItem {
   /// @Validator.IsString()
   productId   String
@@ -16,6 +17,7 @@ type BasketItem {
   quantity   Int
 }
 
+/// @Directive({ arguments: ['@key(fields: "id")'] })
 model CustomerBasket {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 

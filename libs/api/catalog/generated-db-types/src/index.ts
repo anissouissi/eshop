@@ -11,6 +11,7 @@ import { ValidateNested } from 'class-validator';
 import { Prisma } from '@prisma/catalog';
 import * as Validator from 'class-validator';
 import { ID } from '@nestjs/graphql';
+import { Directive } from '@nestjs/graphql';
 
 export enum ProductScalarFieldEnum {
     id = "id",
@@ -1222,7 +1223,8 @@ export class ProductWhereInput {
     stock?: InstanceType<typeof IntFilter>;
 }
 
-@ObjectType()
+@ObjectType({})
+@Directive('@key(fields: "id")')
 export class Product {
     @Field(() => ID, {nullable:false})
     id!: string;

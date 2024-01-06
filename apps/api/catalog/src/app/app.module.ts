@@ -4,7 +4,7 @@ import {
   ApolloFederationDriverConfig,
   ApolloFederationDriver,
 } from '@nestjs/apollo';
-import { ProductModule } from '@aso/feature-product';
+import { BasketItem, ProductModule } from '@aso/feature-product';
 import { ConfigModule } from '@nestjs/config';
 import Joi from 'joi';
 import { HealthModule } from '../health/health.module';
@@ -27,6 +27,9 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
       driver: ApolloFederationDriver,
       autoSchemaFile: {
         federation: 2,
+      },
+      buildSchemaOptions: {
+        orphanedTypes: [BasketItem],
       },
     }),
     ProductModule,
