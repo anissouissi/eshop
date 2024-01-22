@@ -7,7 +7,7 @@ import { Product } from '@aso/api-catalog-generated-db-types';
 export class BasketItemResolver {
   constructor(private readonly productService: ProductService) {}
 
-  @ResolveField(() => Product)
+  @ResolveField(() => Product, { nullable: true })
   public product(@Parent() basketItem: BasketItem) {
     return this.productService.forBasketItem(basketItem.productId);
   }

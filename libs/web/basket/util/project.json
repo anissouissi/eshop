@@ -1,0 +1,23 @@
+{
+  "name": "web-basket-util",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/web/basket/util/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/web/basket/util",
+        "main": "libs/web/basket/util/src/index.ts",
+        "tsConfig": "libs/web/basket/util/tsconfig.lib.json",
+        "assets": ["libs/web/basket/util/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    }
+  },
+  "tags": []
+}

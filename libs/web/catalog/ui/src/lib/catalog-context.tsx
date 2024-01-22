@@ -13,12 +13,10 @@ interface catalogParams {
   sort?: sort;
   itemsCount?: number;
   currentPageIndex?: number;
-  addedToBasketProductId?: string;
   onToggleBrand?: (brand: string) => void;
   onToggleCategory?: (category: string) => void;
   onSort?: (sort?: sort) => void;
   onPageChange?: (pageIndex?: number) => void;
-  onAddProductToBasket?: (id?: string) => void;
 }
 
 const CatalogContext = createContext<catalogParams>({});
@@ -49,9 +47,6 @@ function CatalogProvider({ children }: PropsWithChildren) {
   const [currentPageIndex, setCurrentPageIndex] = useState<number | undefined>(
     Number(searchParams.get('page'))
   );
-  const [addedToBasketProductId, setAddedToBasketProductId] = useState<
-    string | undefined
-  >(undefined);
 
   const handleToggleBrand = (brand: string) => {
     const newBrands = brands?.includes(brand)
@@ -106,21 +101,15 @@ function CatalogProvider({ children }: PropsWithChildren) {
     setSearchParams(params);
   };
 
-  const handleAddProductToBasket = (id?: string) => {
-    setAddedToBasketProductId(id);
-  };
-
   const value: catalogParams = {
     brands,
     categories,
     sort,
     currentPageIndex,
-    addedToBasketProductId,
     onSort: handleSort,
     onToggleBrand: handleToggleBrand,
     onToggleCategory: handleToggleCategory,
     onPageChange: handlePageChange,
-    onAddProductToBasket: handleAddProductToBasket,
   };
 
   return (

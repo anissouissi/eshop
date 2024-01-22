@@ -108,3 +108,79 @@ export const GET_PRODUCT_BRANDS = gql`
     }
   }
 `;
+
+export const GET_CUSTOMER_BASKET = gql`
+  query GetCustomerBasket($where: CustomerBasketWhereUniqueInput!) {
+    findOneCustomerBasket(where: $where) {
+      customerId
+      id
+      items {
+        product {
+          brand
+          discountPercentage
+          thumbnail
+          title
+          price
+          stock
+        }
+        productId
+        quantity
+      }
+    }
+  }
+`;
+
+export const CREATE_CUSTOMER_BASKET = gql`
+  mutation CreateCustomerBasket($data: CustomerBasketCreateInput!) {
+    createCustomerBasket(data: $data) {
+      id
+      customerId
+      items {
+        product {
+          brand
+          category
+          price
+          stock
+          thumbnail
+          title
+          discountPercentage
+        }
+        productId
+        quantity
+      }
+    }
+  }
+`;
+
+export const UPDATE_CUSTOMER_BASKET = gql`
+  mutation UpdateCustomerBasket(
+    $data: CustomerBasketUpdateInput!
+    $where: CustomerBasketWhereUniqueInput!
+  ) {
+    updateCustomerBasket(data: $data, where: $where) {
+      id
+      customerId
+      items {
+        product {
+          brand
+          category
+          price
+          stock
+          thumbnail
+          title
+          discountPercentage
+        }
+        productId
+        quantity
+      }
+    }
+  }
+`;
+
+export const REMOVE_CUSTOMER_BASKET = gql`
+  mutation RemoveCustomerBasket($where: CustomerBasketWhereUniqueInput!) {
+    removeCustomerBasket(where: $where) {
+      id
+    }
+  }
+`;

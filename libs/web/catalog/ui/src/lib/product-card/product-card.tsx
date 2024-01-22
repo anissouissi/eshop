@@ -1,4 +1,4 @@
-import { formatCurrency, getDiscountedPrice } from '@aso/shared-util';
+import { formatCurrency, getDiscountedPriceFormatted } from '@aso/shared-util';
 import Availability from '../availability/availability';
 import Price from '../price/price';
 import Rating from '../rating/rating';
@@ -34,7 +34,7 @@ export function ProductCard({ product }: ProductCardProps) {
             <Rating rating={product.rating} />
             <Price
               price={formatCurrency(product.price)}
-              discountedPrice={getDiscountedPrice(
+              discountedPrice={getDiscountedPriceFormatted(
                 product.price,
                 product.discountPercentage
               )}

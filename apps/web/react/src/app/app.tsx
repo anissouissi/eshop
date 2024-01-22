@@ -45,7 +45,6 @@ function App() {
                 }
               >
                 <Route path="account" element={<Account />} />
-                <Route path="basket" element={<Basket />} />
                 <Route path="checkout" element={<Checkout />} />
               </Route>
               <Route element={<AppLayout />}>
@@ -53,6 +52,7 @@ function App() {
                 <Route path="home" element={<Home />} />
                 <Route path="catalog" element={<Catalog />} />
                 <Route path="product/:productId" element={<Product />} />
+                <Route path="basket" element={<Basket />} />
 
                 <Route path="login" element={<Login />} />
                 <Route path="sign-up" element={<SignUp />} />

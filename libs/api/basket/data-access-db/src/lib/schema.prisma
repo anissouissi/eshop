@@ -21,8 +21,9 @@ type BasketItem {
 model CustomerBasket {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
+  /// @Validator.IsOptional()
   /// @Validator.IsString()
-  customerId String
+  customerId String?
 
   /// @Validator.IsArray()
   items BasketItem[]

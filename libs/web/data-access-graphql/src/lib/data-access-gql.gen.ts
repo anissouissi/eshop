@@ -52,6 +52,35 @@ export type GetProductBrandsVariables = Types.Exact<{ [key: string]: never; }>;
 
 export type GetProductBrands = { __typename?: 'Query', findAllProducts: Array<{ __typename?: 'Product', brand: string }> };
 
+export type GetCustomerBasketVariables = Types.Exact<{
+  where: Types.CustomerBasketWhereUniqueInput;
+}>;
+
+
+export type GetCustomerBasket = { __typename?: 'Query', findOneCustomerBasket: { __typename?: 'CustomerBasket', customerId?: string | null, id: string, items?: Array<{ __typename?: 'BasketItem', productId: string, quantity: number, product?: { __typename?: 'Product', brand: string, discountPercentage: number, thumbnail: string, title: string, price: number, stock: number } | null }> | null } };
+
+export type CreateCustomerBasketVariables = Types.Exact<{
+  data: Types.CustomerBasketCreateInput;
+}>;
+
+
+export type CreateCustomerBasket = { __typename?: 'Mutation', createCustomerBasket: { __typename?: 'CustomerBasket', id: string, customerId?: string | null, items?: Array<{ __typename?: 'BasketItem', productId: string, quantity: number, product?: { __typename?: 'Product', brand: string, category: string, price: number, stock: number, thumbnail: string, title: string, discountPercentage: number } | null }> | null } };
+
+export type UpdateCustomerBasketVariables = Types.Exact<{
+  data: Types.CustomerBasketUpdateInput;
+  where: Types.CustomerBasketWhereUniqueInput;
+}>;
+
+
+export type UpdateCustomerBasket = { __typename?: 'Mutation', updateCustomerBasket: { __typename?: 'CustomerBasket', id: string, customerId?: string | null, items?: Array<{ __typename?: 'BasketItem', productId: string, quantity: number, product?: { __typename?: 'Product', brand: string, category: string, price: number, stock: number, thumbnail: string, title: string, discountPercentage: number } | null }> | null } };
+
+export type RemoveCustomerBasketVariables = Types.Exact<{
+  where: Types.CustomerBasketWhereUniqueInput;
+}>;
+
+
+export type RemoveCustomerBasket = { __typename?: 'Mutation', removeCustomerBasket: { __typename?: 'CustomerBasket', id: string } };
+
 
 export const GetUsersDocument = /*#__PURE__*/ gql`
     query getUsers {
@@ -144,6 +173,75 @@ export const GetProductBrandsDocument = /*#__PURE__*/ gql`
   }
 }
     `;
+export const GetCustomerBasketDocument = /*#__PURE__*/ gql`
+    query GetCustomerBasket($where: CustomerBasketWhereUniqueInput!) {
+  findOneCustomerBasket(where: $where) {
+    customerId
+    id
+    items {
+      product {
+        brand
+        discountPercentage
+        thumbnail
+        title
+        price
+        stock
+      }
+      productId
+      quantity
+    }
+  }
+}
+    `;
+export const CreateCustomerBasketDocument = /*#__PURE__*/ gql`
+    mutation CreateCustomerBasket($data: CustomerBasketCreateInput!) {
+  createCustomerBasket(data: $data) {
+    id
+    customerId
+    items {
+      product {
+        brand
+        category
+        price
+        stock
+        thumbnail
+        title
+        discountPercentage
+      }
+      productId
+      quantity
+    }
+  }
+}
+    `;
+export const UpdateCustomerBasketDocument = /*#__PURE__*/ gql`
+    mutation UpdateCustomerBasket($data: CustomerBasketUpdateInput!, $where: CustomerBasketWhereUniqueInput!) {
+  updateCustomerBasket(data: $data, where: $where) {
+    id
+    customerId
+    items {
+      product {
+        brand
+        category
+        price
+        stock
+        thumbnail
+        title
+        discountPercentage
+      }
+      productId
+      quantity
+    }
+  }
+}
+    `;
+export const RemoveCustomerBasketDocument = /*#__PURE__*/ gql`
+    mutation RemoveCustomerBasket($where: CustomerBasketWhereUniqueInput!) {
+  removeCustomerBasket(where: $where) {
+    id
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -175,6 +273,18 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     getProductBrands(variables?: GetProductBrandsVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetProductBrands> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetProductBrands>(GetProductBrandsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProductBrands', 'query');
+    },
+    GetCustomerBasket(variables: GetCustomerBasketVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetCustomerBasket> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetCustomerBasket>(GetCustomerBasketDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetCustomerBasket', 'query');
+    },
+    CreateCustomerBasket(variables: CreateCustomerBasketVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<CreateCustomerBasket> {
+      return withWrapper((wrappedRequestHeaders) => client.request<CreateCustomerBasket>(CreateCustomerBasketDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreateCustomerBasket', 'mutation');
+    },
+    UpdateCustomerBasket(variables: UpdateCustomerBasketVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<UpdateCustomerBasket> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdateCustomerBasket>(UpdateCustomerBasketDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdateCustomerBasket', 'mutation');
+    },
+    RemoveCustomerBasket(variables: RemoveCustomerBasketVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<RemoveCustomerBasket> {
+      return withWrapper((wrappedRequestHeaders) => client.request<RemoveCustomerBasket>(RemoveCustomerBasketDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'RemoveCustomerBasket', 'mutation');
     }
   };
 }

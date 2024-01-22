@@ -1,19 +1,19 @@
-'use client';
-
-import { useCatalog } from '../catalog-context';
+import { useAddToBasket, useBasket } from '@aso/web-basket-data-access';
 
 export interface AddToBasketButtonProps {
   productId: string;
 }
 
 export function AddToBasketButton({ productId }: AddToBasketButtonProps) {
-  const { onAddProductToBasket } = useCatalog();
+  const { addToBasket } = useAddToBasket();
+  const { basket } = useBasket();
+
   return (
     <button
       className="btn btn-primary"
       onClick={(e) => {
         e.stopPropagation();
-        onAddProductToBasket?.(productId);
+        addToBasket({ productId, basket });
       }}
     >
       Add to basket

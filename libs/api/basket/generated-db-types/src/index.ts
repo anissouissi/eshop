@@ -110,10 +110,10 @@ export class CreateManyCustomerBasketArgs {
 
 @ArgsType()
 export class CreateOneCustomerBasketArgs {
-    @Field(() => CustomerBasketCreateInput, {nullable:false})
+    @Field(() => CustomerBasketCreateInput, {nullable:true})
     @Type(() => CustomerBasketCreateInput)
     @ValidateNested()
-    data!: InstanceType<typeof CustomerBasketCreateInput>;
+    data?: InstanceType<typeof CustomerBasketCreateInput>;
 }
 
 @ArgsType()
@@ -170,9 +170,10 @@ export class CustomerBasketCountOrderByAggregateInput {
 export class CustomerBasketCreateManyInput {
     @Field(() => String, {nullable:true})
     id?: string;
-    @Field(() => String, {nullable:false})
+    @Field(() => String, {nullable:true})
+    @Validator.IsOptional()
     @Validator.IsString()
-    customerId!: string;
+    customerId?: string;
     @Field(() => [BasketItemCreateInput], {nullable:true})
     items?: Array<BasketItemCreateInput>;
 }
@@ -181,9 +182,10 @@ export class CustomerBasketCreateManyInput {
 export class CustomerBasketCreateInput {
     @Field(() => String, {nullable:true})
     id?: string;
-    @Field(() => String, {nullable:false})
+    @Field(() => String, {nullable:true})
+    @Validator.IsOptional()
     @Validator.IsString()
-    customerId!: string;
+    customerId?: string;
     @Field(() => [BasketItemCreateInput], {nullable:true})
     items?: Array<BasketItemCreateInput>;
 }
@@ -216,9 +218,10 @@ export class CustomerBasketGroupByArgs {
 export class CustomerBasketGroupBy {
     @Field(() => String, {nullable:false})
     id!: string;
-    @Field(() => String, {nullable:false})
+    @Field(() => String, {nullable:true})
+    @Validator.IsOptional()
     @Validator.IsString()
-    customerId!: string;
+    customerId?: string;
     @Field(() => CustomerBasketCountAggregate, {nullable:true})
     _count?: InstanceType<typeof CustomerBasketCountAggregate>;
     @Field(() => CustomerBasketMinAggregate, {nullable:true})
@@ -240,6 +243,7 @@ export class CustomerBasketMaxAggregate {
     @Field(() => String, {nullable:true})
     id?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsOptional()
     @Validator.IsString()
     customerId?: string;
 }
@@ -265,6 +269,7 @@ export class CustomerBasketMinAggregate {
     @Field(() => String, {nullable:true})
     id?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsOptional()
     @Validator.IsString()
     customerId?: string;
 }
@@ -319,9 +324,10 @@ export class CustomerBasketScalarWhereWithAggregatesInput {
 export class CustomerBasketUncheckedCreateInput {
     @Field(() => String, {nullable:true})
     id?: string;
-    @Field(() => String, {nullable:false})
+    @Field(() => String, {nullable:true})
+    @Validator.IsOptional()
     @Validator.IsString()
-    customerId!: string;
+    customerId?: string;
     @Field(() => [BasketItemCreateInput], {nullable:true})
     items?: Array<BasketItemCreateInput>;
 }
@@ -329,6 +335,7 @@ export class CustomerBasketUncheckedCreateInput {
 @InputType()
 export class CustomerBasketUncheckedUpdateManyInput {
     @Field(() => String, {nullable:true})
+    @Validator.IsOptional()
     @Validator.IsString()
     customerId?: string;
     @Field(() => [BasketItemCreateInput], {nullable:true})
@@ -338,6 +345,7 @@ export class CustomerBasketUncheckedUpdateManyInput {
 @InputType()
 export class CustomerBasketUncheckedUpdateInput {
     @Field(() => String, {nullable:true})
+    @Validator.IsOptional()
     @Validator.IsString()
     customerId?: string;
     @Field(() => [BasketItemCreateInput], {nullable:true})
@@ -347,6 +355,7 @@ export class CustomerBasketUncheckedUpdateInput {
 @InputType()
 export class CustomerBasketUpdateManyMutationInput {
     @Field(() => String, {nullable:true})
+    @Validator.IsOptional()
     @Validator.IsString()
     customerId?: string;
     @Field(() => [BasketItemCreateInput], {nullable:true})
@@ -356,6 +365,7 @@ export class CustomerBasketUpdateManyMutationInput {
 @InputType()
 export class CustomerBasketUpdateInput {
     @Field(() => String, {nullable:true})
+    @Validator.IsOptional()
     @Validator.IsString()
     customerId?: string;
     @Field(() => [BasketItemCreateInput], {nullable:true})
@@ -399,8 +409,8 @@ export class CustomerBasketWhereInput {
 export class CustomerBasket {
     @Field(() => ID, {nullable:false})
     id!: string;
-    @Field(() => String, {nullable:false})
-    customerId!: string;
+    @Field(() => String, {nullable:true})
+    customerId!: string | null;
     @Field(() => [BasketItem], {nullable:true})
     items?: Array<BasketItem>;
 }
@@ -622,6 +632,8 @@ export class IntFilter {
     gte?: number;
     @Field(() => IntFilter, {nullable:true})
     not?: InstanceType<typeof IntFilter>;
+    @Field(() => Boolean, {nullable:true})
+    isSet?: boolean;
 }
 
 @ArgsType()
@@ -656,6 +668,8 @@ export class StringFilter {
     mode?: keyof typeof QueryMode;
     @Field(() => StringFilter, {nullable:true})
     not?: InstanceType<typeof StringFilter>;
+    @Field(() => Boolean, {nullable:true})
+    isSet?: boolean;
 }
 
 @InputType()
@@ -690,4 +704,6 @@ export class StringWithAggregatesFilter {
     _min?: InstanceType<typeof StringFilter>;
     @Field(() => StringFilter, {nullable:true})
     _max?: InstanceType<typeof StringFilter>;
+    @Field(() => Boolean, {nullable:true})
+    isSet?: boolean;
 }

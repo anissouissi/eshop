@@ -8,15 +8,27 @@ export const formatCurrency = (value?: number) => {
   }).format(value);
 };
 
-export const getDiscountedPrice = (
+export const getDiscountedPriceFormatted = (
   price?: number,
   discountPercentage?: number
 ) => {
   if (!discountPercentage || !price) {
     return '';
   }
+  return formatCurrency(getDiscountedPrice(price, discountPercentage));
+};
 
-  return formatCurrency(price - (price * discountPercentage) / 100);
+export const getDiscountedPrice = (
+  price?: number,
+  discountPercentage?: number
+) => {
+  if (!price) {
+    return 0;
+  }
+  if (!discountPercentage) {
+    return price;
+  }
+  return price - (price * discountPercentage) / 100;
 };
 
 export const getInitials = (fullName: string) => {

@@ -17,6 +17,94 @@ export type Scalars = {
   _FieldSet: { input: any; output: any; }
 };
 
+export type BasketItem = {
+  __typename?: 'BasketItem';
+  product?: Maybe<Product>;
+  productId: Scalars['String']['output'];
+  quantity: Scalars['Int']['output'];
+};
+
+export type BasketItemCreateInput = {
+  productId: Scalars['String']['input'];
+  quantity: Scalars['Int']['input'];
+};
+
+export type BasketItemObjectEqualityInput = {
+  productId: Scalars['String']['input'];
+  quantity: Scalars['Int']['input'];
+};
+
+export type BasketItemOrderByCompositeAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export type CustomerBasket = {
+  __typename?: 'CustomerBasket';
+  customerId?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  items?: Maybe<Array<BasketItem>>;
+  user: User;
+};
+
+export type CustomerBasketCountAggregate = {
+  __typename?: 'CustomerBasketCountAggregate';
+  _all: Scalars['Int']['output'];
+  customerId: Scalars['Int']['output'];
+  id: Scalars['Int']['output'];
+};
+
+export type CustomerBasketCreateInput = {
+  customerId?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<BasketItemCreateInput>>;
+};
+
+export type CustomerBasketMaxAggregate = {
+  __typename?: 'CustomerBasketMaxAggregate';
+  customerId?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+};
+
+export type CustomerBasketMinAggregate = {
+  __typename?: 'CustomerBasketMinAggregate';
+  customerId?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+};
+
+export type CustomerBasketOrderByWithRelationInput = {
+  customerId?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  items?: InputMaybe<BasketItemOrderByCompositeAggregateInput>;
+};
+
+export enum CustomerBasketScalarFieldEnum {
+  CustomerId = 'customerId',
+  Id = 'id'
+}
+
+export type CustomerBasketUpdateInput = {
+  customerId?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<BasketItemCreateInput>>;
+};
+
+export type CustomerBasketWhereInput = {
+  AND?: InputMaybe<Array<CustomerBasketWhereInput>>;
+  NOT?: InputMaybe<Array<CustomerBasketWhereInput>>;
+  OR?: InputMaybe<Array<CustomerBasketWhereInput>>;
+  customerId?: InputMaybe<StringFilter>;
+  id?: InputMaybe<StringFilter>;
+  items?: InputMaybe<Array<BasketItemObjectEqualityInput>>;
+};
+
+export type CustomerBasketWhereUniqueInput = {
+  AND?: InputMaybe<Array<CustomerBasketWhereInput>>;
+  NOT?: InputMaybe<Array<CustomerBasketWhereInput>>;
+  OR?: InputMaybe<Array<CustomerBasketWhereInput>>;
+  customerId?: InputMaybe<StringFilter>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<BasketItemObjectEqualityInput>>;
+};
+
 export type FloatFilter = {
   equals?: InputMaybe<Scalars['Float']['input']>;
   gt?: InputMaybe<Scalars['Float']['input']>;
@@ -41,12 +129,20 @@ export type IntFilter = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createCustomerBasket: CustomerBasket;
   createProduct: Product;
   createUser: User;
+  removeCustomerBasket: CustomerBasket;
   removeProduct: Product;
   removeUser: User;
+  updateCustomerBasket: CustomerBasket;
   updateProduct: Product;
   updateUser: User;
+};
+
+
+export type MutationCreateCustomerBasketArgs = {
+  data?: InputMaybe<CustomerBasketCreateInput>;
 };
 
 
@@ -60,6 +156,11 @@ export type MutationCreateUserArgs = {
 };
 
 
+export type MutationRemoveCustomerBasketArgs = {
+  where: CustomerBasketWhereUniqueInput;
+};
+
+
 export type MutationRemoveProductArgs = {
   where: ProductWhereUniqueInput;
 };
@@ -67,6 +168,12 @@ export type MutationRemoveProductArgs = {
 
 export type MutationRemoveUserArgs = {
   where: UserWhereUniqueInput;
+};
+
+
+export type MutationUpdateCustomerBasketArgs = {
+  data: CustomerBasketUpdateInput;
+  where: CustomerBasketWhereUniqueInput;
 };
 
 
@@ -247,11 +354,25 @@ export type ProductWhereUniqueInput = {
 
 export type Query = {
   __typename?: 'Query';
+  countAllCustomerBaskets: Scalars['Float']['output'];
   countAllProducts: Scalars['Float']['output'];
+  findAllCustomerBaskets: Array<CustomerBasket>;
   findAllProducts: Array<Product>;
   findAllUsers: Array<User>;
+  findOneCustomerBasket: CustomerBasket;
+  findOneCustomerBasketByCustomerId: CustomerBasket;
   findOneProduct: Product;
   findOneUser: User;
+};
+
+
+export type QueryCountAllCustomerBasketsArgs = {
+  cursor?: InputMaybe<CustomerBasketWhereUniqueInput>;
+  distinct?: InputMaybe<Array<CustomerBasketScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<CustomerBasketOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<CustomerBasketWhereInput>;
 };
 
 
@@ -265,6 +386,16 @@ export type QueryCountAllProductsArgs = {
 };
 
 
+export type QueryFindAllCustomerBasketsArgs = {
+  cursor?: InputMaybe<CustomerBasketWhereUniqueInput>;
+  distinct?: InputMaybe<Array<CustomerBasketScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<CustomerBasketOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<CustomerBasketWhereInput>;
+};
+
+
 export type QueryFindAllProductsArgs = {
   cursor?: InputMaybe<ProductWhereUniqueInput>;
   distinct?: InputMaybe<Array<ProductScalarFieldEnum>>;
@@ -272,6 +403,16 @@ export type QueryFindAllProductsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<ProductWhereInput>;
+};
+
+
+export type QueryFindOneCustomerBasketArgs = {
+  where: CustomerBasketWhereUniqueInput;
+};
+
+
+export type QueryFindOneCustomerBasketByCustomerIdArgs = {
+  customerId: Scalars['String']['input'];
 };
 
 
@@ -319,6 +460,7 @@ export type StringListFilter = {
 
 export type User = {
   __typename?: 'User';
+  customerBaskets: Array<CustomerBasket>;
   email: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   name?: Maybe<Scalars['String']['output']>;
@@ -451,14 +593,28 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  BasketItem: ResolverTypeWrapper<BasketItem>;
+  String: ResolverTypeWrapper<Scalars['String']['output']>;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
+  BasketItemCreateInput: BasketItemCreateInput;
+  BasketItemObjectEqualityInput: BasketItemObjectEqualityInput;
+  BasketItemOrderByCompositeAggregateInput: BasketItemOrderByCompositeAggregateInput;
+  CustomerBasket: ResolverTypeWrapper<CustomerBasket>;
+  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  CustomerBasketCountAggregate: ResolverTypeWrapper<CustomerBasketCountAggregate>;
+  CustomerBasketCreateInput: CustomerBasketCreateInput;
+  CustomerBasketMaxAggregate: ResolverTypeWrapper<CustomerBasketMaxAggregate>;
+  CustomerBasketMinAggregate: ResolverTypeWrapper<CustomerBasketMinAggregate>;
+  CustomerBasketOrderByWithRelationInput: CustomerBasketOrderByWithRelationInput;
+  CustomerBasketScalarFieldEnum: CustomerBasketScalarFieldEnum;
+  CustomerBasketUpdateInput: CustomerBasketUpdateInput;
+  CustomerBasketWhereInput: CustomerBasketWhereInput;
+  CustomerBasketWhereUniqueInput: CustomerBasketWhereUniqueInput;
   FloatFilter: FloatFilter;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   IntFilter: IntFilter;
-  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   Product: ResolverTypeWrapper<Product>;
-  String: ResolverTypeWrapper<Scalars['String']['output']>;
-  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   ProductAvgAggregate: ResolverTypeWrapper<ProductAvgAggregate>;
   ProductCountAggregate: ResolverTypeWrapper<ProductCountAggregate>;
   ProductCreateInput: ProductCreateInput;
@@ -488,14 +644,27 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
+  BasketItem: BasketItem;
+  String: Scalars['String']['output'];
+  Int: Scalars['Int']['output'];
+  BasketItemCreateInput: BasketItemCreateInput;
+  BasketItemObjectEqualityInput: BasketItemObjectEqualityInput;
+  BasketItemOrderByCompositeAggregateInput: BasketItemOrderByCompositeAggregateInput;
+  CustomerBasket: CustomerBasket;
+  ID: Scalars['ID']['output'];
+  CustomerBasketCountAggregate: CustomerBasketCountAggregate;
+  CustomerBasketCreateInput: CustomerBasketCreateInput;
+  CustomerBasketMaxAggregate: CustomerBasketMaxAggregate;
+  CustomerBasketMinAggregate: CustomerBasketMinAggregate;
+  CustomerBasketOrderByWithRelationInput: CustomerBasketOrderByWithRelationInput;
+  CustomerBasketUpdateInput: CustomerBasketUpdateInput;
+  CustomerBasketWhereInput: CustomerBasketWhereInput;
+  CustomerBasketWhereUniqueInput: CustomerBasketWhereUniqueInput;
   FloatFilter: FloatFilter;
   Float: Scalars['Float']['output'];
   IntFilter: IntFilter;
-  Int: Scalars['Int']['output'];
   Mutation: {};
   Product: Product;
-  String: Scalars['String']['output'];
-  ID: Scalars['ID']['output'];
   ProductAvgAggregate: ProductAvgAggregate;
   ProductCountAggregate: ProductCountAggregate;
   ProductCreateInput: ProductCreateInput;
@@ -520,11 +689,48 @@ export type ResolversParentTypes = {
   UserWhereUniqueInput: UserWhereUniqueInput;
 };
 
+export type BasketItemResolvers<ContextType = any, ParentType extends ResolversParentTypes['BasketItem'] = ResolversParentTypes['BasketItem']> = {
+  product?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType>;
+  productId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  quantity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CustomerBasketResolvers<ContextType = any, ParentType extends ResolversParentTypes['CustomerBasket'] = ResolversParentTypes['CustomerBasket']> = {
+  customerId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  items?: Resolver<Maybe<Array<ResolversTypes['BasketItem']>>, ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CustomerBasketCountAggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['CustomerBasketCountAggregate'] = ResolversParentTypes['CustomerBasketCountAggregate']> = {
+  _all?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  customerId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CustomerBasketMaxAggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['CustomerBasketMaxAggregate'] = ResolversParentTypes['CustomerBasketMaxAggregate']> = {
+  customerId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CustomerBasketMinAggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['CustomerBasketMinAggregate'] = ResolversParentTypes['CustomerBasketMinAggregate']> = {
+  customerId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  createCustomerBasket?: Resolver<ResolversTypes['CustomerBasket'], ParentType, ContextType, Partial<MutationCreateCustomerBasketArgs>>;
   createProduct?: Resolver<ResolversTypes['Product'], ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'data'>>;
   createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'data'>>;
+  removeCustomerBasket?: Resolver<ResolversTypes['CustomerBasket'], ParentType, ContextType, RequireFields<MutationRemoveCustomerBasketArgs, 'where'>>;
   removeProduct?: Resolver<ResolversTypes['Product'], ParentType, ContextType, RequireFields<MutationRemoveProductArgs, 'where'>>;
   removeUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationRemoveUserArgs, 'where'>>;
+  updateCustomerBasket?: Resolver<ResolversTypes['CustomerBasket'], ParentType, ContextType, RequireFields<MutationUpdateCustomerBasketArgs, 'data' | 'where'>>;
   updateProduct?: Resolver<ResolversTypes['Product'], ParentType, ContextType, RequireFields<MutationUpdateProductArgs, 'data' | 'where'>>;
   updateUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'data' | 'where'>>;
 };
@@ -605,14 +811,19 @@ export type ProductSumAggregateResolvers<ContextType = any, ParentType extends R
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  countAllCustomerBaskets?: Resolver<ResolversTypes['Float'], ParentType, ContextType, Partial<QueryCountAllCustomerBasketsArgs>>;
   countAllProducts?: Resolver<ResolversTypes['Float'], ParentType, ContextType, Partial<QueryCountAllProductsArgs>>;
+  findAllCustomerBaskets?: Resolver<Array<ResolversTypes['CustomerBasket']>, ParentType, ContextType, Partial<QueryFindAllCustomerBasketsArgs>>;
   findAllProducts?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType, Partial<QueryFindAllProductsArgs>>;
   findAllUsers?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
+  findOneCustomerBasket?: Resolver<ResolversTypes['CustomerBasket'], ParentType, ContextType, RequireFields<QueryFindOneCustomerBasketArgs, 'where'>>;
+  findOneCustomerBasketByCustomerId?: Resolver<ResolversTypes['CustomerBasket'], ParentType, ContextType, RequireFields<QueryFindOneCustomerBasketByCustomerIdArgs, 'customerId'>>;
   findOneProduct?: Resolver<ResolversTypes['Product'], ParentType, ContextType, RequireFields<QueryFindOneProductArgs, 'where'>>;
   findOneUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<QueryFindOneUserArgs, 'where'>>;
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+  customerBaskets?: Resolver<Array<ResolversTypes['CustomerBasket']>, ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -642,6 +853,11 @@ export type UserMinAggregateResolvers<ContextType = any, ParentType extends Reso
 };
 
 export type Resolvers<ContextType = any> = {
+  BasketItem?: BasketItemResolvers<ContextType>;
+  CustomerBasket?: CustomerBasketResolvers<ContextType>;
+  CustomerBasketCountAggregate?: CustomerBasketCountAggregateResolvers<ContextType>;
+  CustomerBasketMaxAggregate?: CustomerBasketMaxAggregateResolvers<ContextType>;
+  CustomerBasketMinAggregate?: CustomerBasketMinAggregateResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;
   ProductAvgAggregate?: ProductAvgAggregateResolvers<ContextType>;

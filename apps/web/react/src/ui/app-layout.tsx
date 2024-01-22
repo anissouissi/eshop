@@ -4,10 +4,12 @@ import { NavLink } from 'react-router-dom';
 import { Avatar, Cart, Footer, Logo, Navbar } from '@aso/shared-ui';
 import { useLogout, useUser } from '@aso/web-auth-data-access';
 import { getInitials } from '@aso/shared-util';
+import { useBasket } from '@aso/web-basket-data-access';
 
 function AppLayout() {
   const { isLoading, isAuthenticated, user } = useUser();
   const { logout, isLoading: isLoggingOut } = useLogout();
+  const { basket } = useBasket();
 
   return (
     <div className="h-screen flex flex-col">
@@ -19,7 +21,7 @@ function AppLayout() {
         }
         cart={
           <NavLink to="basket">
-            <Cart productsCount={0} />
+            <Cart productsCount={basket ? basket.items?.length : 0} />
           </NavLink>
         }
         avatar={

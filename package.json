@@ -32,7 +32,7 @@
     "@nx/devkit": "17.2.5",
     "@prisma/client": "^5.7.0",
     "@swc/helpers": "~0.5.2",
-    "@tanstack/react-query": "^5.14.2",
+    "@tanstack/react-query": "^5.17.19",
     "@tanstack/react-query-devtools": "^5.14.2",
     "amqp-connection-manager": "^4.1.14",
     "amqplib": "^0.10.3",
