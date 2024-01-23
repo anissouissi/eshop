@@ -11,19 +11,38 @@ export function Pagination({
 }: PaginationProps) {
   return (
     pagesCount > 1 && (
-      <div className="join">
-        {[...Array(pagesCount).keys()].map((i) => (
+      <>
+        <div className="join hidden md:block">
+          {[...Array(pagesCount).keys()].map((i) => (
+            <button
+              onClick={() => onPageChange(i)}
+              key={i}
+              className={`join-item btn ${
+                i === currentPage - 1 ? 'btn-active' : ''
+              }`}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
+        <div className="join items-center md:hidden">
           <button
-            onClick={() => onPageChange(i)}
-            key={i}
-            className={`join-item btn ${
-              i === currentPage - 1 ? 'btn-active' : ''
-            }`}
+            disabled={currentPage === 1}
+            className="join-item btn"
+            onClick={() => onPageChange(currentPage - 2)}
           >
-            {i + 1}
+            «
           </button>
-        ))}
-      </div>
+          <span className="join-item ml-3 mr-3">Page {currentPage}</span>
+          <button
+            disabled={currentPage === pagesCount}
+            className="join-item btn"
+            onClick={() => onPageChange(currentPage)}
+          >
+            »
+          </button>
+        </div>
+      </>
     )
   );
 }
