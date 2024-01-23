@@ -1,32 +1,23 @@
-'use client';
-
-import { useCatalog } from '../catalog-context';
-
 export interface PaginationProps {
-  itemsCount: number;
-  itemsPerPage: number;
-  currentPageIndex: number;
+  pagesCount: number;
+  currentPage: number;
+  onPageChange: (pageIndex: number) => void;
 }
 
 export function Pagination({
-  itemsCount,
-  itemsPerPage,
-  currentPageIndex,
+  pagesCount,
+  currentPage,
+  onPageChange,
 }: PaginationProps) {
-  const { onPageChange } = useCatalog();
-  if (!itemsPerPage || !itemsCount) {
-    return;
-  }
-  const pageCount = Math.ceil(itemsCount / itemsPerPage);
   return (
-    pageCount > 1 && (
+    pagesCount > 1 && (
       <div className="join">
-        {[...Array(pageCount).keys()].map((i) => (
+        {[...Array(pagesCount).keys()].map((i) => (
           <button
-            onClick={() => onPageChange?.(i)}
+            onClick={() => onPageChange(i)}
             key={i}
             className={`join-item btn ${
-              i === currentPageIndex ? 'btn-active' : ''
+              i === currentPage - 1 ? 'btn-active' : ''
             }`}
           >
             {i + 1}

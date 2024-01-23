@@ -1,10 +1,15 @@
 import { Hero, StartShoppingButton } from '@aso/shared-ui';
-import { useCatalog } from '@aso/web-catalog-data-access';
+import {
+  useTopPromotionProducts,
+  useTopRatedProducts,
+} from '@aso/web-catalog-data-access';
 import { ProductCarousel } from '@aso/web-catalog-ui';
 import { NavLink } from 'react-router-dom';
 
 function Home() {
-  const { topPromotionProducts, topRatedProducts } = useCatalog();
+  const { topPromotionProducts } = useTopPromotionProducts();
+  const { topRatedProducts } = useTopRatedProducts();
+
   return (
     <div className="w-full flex flex-col gap-4">
       <Hero avatarImageUrl="/anis.jpg">

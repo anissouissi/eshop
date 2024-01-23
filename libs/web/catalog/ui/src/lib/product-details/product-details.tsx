@@ -1,5 +1,3 @@
-'use client';
-
 import { formatCurrency, getDiscountedPriceFormatted } from '@aso/shared-util';
 import Availability from '../availability/availability';
 import Price from '../price/price';

@@ -1,16 +1,25 @@
-import { useCatalog } from '../catalog-context';
+export interface ActiveFiltersProps {
+  selectedBrands: string[];
+  selectedCategories: string[];
+  onToggleBrand: (brand: string) => void;
+  onToggleCategory: (category: string) => void;
+}
 
-export function ActiveFilters() {
-  const { brands, categories, onToggleBrand, onToggleCategory } = useCatalog();
+export function ActiveFilters({
+  selectedBrands,
+  selectedCategories,
+  onToggleBrand,
+  onToggleCategory,
+}: ActiveFiltersProps) {
   return (
     <>
-      {brands !== undefined && brands.length > 0 && (
+      {selectedBrands !== undefined && selectedBrands.length > 0 && (
         <div>
           <h1>Brands</h1>
-          {brands.map((brand) => (
+          {selectedBrands.map((brand) => (
             <div key={brand} className="badge badge-info gap-2">
               <svg
-                onClick={() => onToggleBrand?.(brand)}
+                onClick={() => onToggleBrand(brand)}
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -28,13 +37,13 @@ export function ActiveFilters() {
           ))}
         </div>
       )}
-      {categories !== undefined && categories.length > 0 && (
+      {selectedCategories !== undefined && selectedCategories.length > 0 && (
         <div>
           <h1>Categories</h1>
-          {categories.map((category) => (
+          {selectedCategories.map((category) => (
             <div key={category} className="badge badge-success gap-2">
               <svg
-                onClick={() => onToggleCategory?.(category)}
+                onClick={() => onToggleCategory(category)}
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"

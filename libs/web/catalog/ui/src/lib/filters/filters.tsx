@@ -1,19 +1,22 @@
-import { useCatalog } from '../catalog-context';
 import FilterList from '../filter-list/filter-list';
 
 export interface FiltersProps {
-  brands: string[];
-  categories: string[];
+  allBrands: string[];
+  allCategories: string[];
+  selectedBrands: string[];
+  selectedCategories: string[];
+  onToggleBrand: (brand: string) => void;
+  onToggleCategory: (category: string) => void;
 }
 
-export function Filters({ brands, categories }: FiltersProps) {
-  const {
-    onToggleBrand,
-    onToggleCategory,
-    brands: selectedBrands = [],
-    categories: selectedCategories = [],
-  } = useCatalog();
-  const selectedFilters = [...selectedBrands, ...selectedCategories];
+export function Filters({
+  allBrands,
+  allCategories,
+  selectedBrands,
+  selectedCategories,
+  onToggleBrand,
+  onToggleCategory,
+}: FiltersProps) {
   return (
     <div className="flex flex-col gap-5">
       <div className="collapse collapse-plus border border-base-300 bg-base-200">
@@ -21,9 +24,9 @@ export function Filters({ brands, categories }: FiltersProps) {
         <div className="collapse-title text-xl font-medium">Brands</div>
         <div className="collapse-content max-h-80 overflow-auto">
           <FilterList
-            list={brands}
-            filters={selectedFilters}
-            handleCheck={(item) => onToggleBrand?.(item)}
+            list={allBrands}
+            filters={selectedBrands}
+            handleCheck={(item) => onToggleBrand(item)}
           />
         </div>
       </div>
@@ -32,9 +35,9 @@ export function Filters({ brands, categories }: FiltersProps) {
         <div className="collapse-title text-xl font-medium">Categories</div>
         <div className="collapse-content max-h-80 overflow-auto">
           <FilterList
-            list={categories}
-            filters={selectedFilters}
-            handleCheck={(item) => onToggleCategory?.(item)}
+            list={allCategories}
+            filters={selectedCategories}
+            handleCheck={(item) => onToggleCategory(item)}
           />
         </div>
       </div>

@@ -1,21 +1,76 @@
-'use client';
-
 import { PropsWithChildren, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+
 import Filters from '../filters/filters';
-import Sort from '../sort/sort';
 import ActiveFilters from '../active-filters/active-filters';
+import Sort from '../sort/sort';
 
-export interface FilterSortContainerProps {
-  brands: string[];
-  categories: string[];
-}
+import { ISort, sorts } from '../sort';
+import { useBrands, useCategories } from '@aso/web-catalog-data-access';
 
-export function FilterSortContainer({
-  brands,
-  categories,
-  children,
-}: PropsWithChildren<FilterSortContainerProps>) {
+export function FilterSortContainer({ children }: PropsWithChildren) {
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const { productBrands } = useBrands();
+  const { productCategories } = useCategories();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [selectedBrands, setSelectedBrands] = useState<string[]>(
+    searchParams.get('brands')?.split(',') || []
+  );
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(
+    searchParams.get('categories')?.split(',') || []
+  );
+
+  const [selectedSort, setSelectedSort] = useState<ISort | undefined>(
+    searchParams.get('sort') && JSON.parse(searchParams.get('sort')!)
+  );
+
+  const allBrands = productBrands?.map((pb) => pb.brand) ?? [];
+  const allCategories = productCategories?.map((pc) => pc.category) ?? [];
+
+  const handleToggleBrand = (brand: string) => {
+    const newBrands = selectedBrands.includes(brand)
+      ? selectedBrands.filter((b) => b !== brand)
+      : [...selectedBrands, brand];
+    setSelectedBrands(newBrands);
+    const params = new URLSearchParams(searchParams.toString());
+    if (newBrands && newBrands.length > 0) {
+      params.set('brands', newBrands.join(','));
+    } else {
+      params.delete('brands');
+    }
+    params.delete('page');
+    setSearchParams(params);
+  };
+
+  const handleToggleCategory = (category: string) => {
+    const newCategories = selectedCategories.includes(category)
+      ? selectedCategories.filter((c) => c !== category)
+      : [...selectedCategories, category];
+    setSelectedCategories(newCategories);
+    const params = new URLSearchParams(searchParams.toString());
+    if (newCategories && newCategories.length > 0) {
+      params.set('categories', newCategories.join(','));
+    } else {
+      params.delete('categories');
+    }
+    params.delete('page');
+    setSearchParams(params);
+  };
+
+  const handleSort = (sort?: ISort) => {
+    setSelectedSort(sort);
+    const params = new URLSearchParams(searchParams.toString());
+    if (sort) {
+      params.set('sort', JSON.stringify(sort));
+    } else {
+      params.delete('sort');
+    }
+    params.delete('page');
+    setSearchParams(params);
+  };
 
   return (
     <div className="drawer drawer-end">
@@ -53,14 +108,32 @@ export function FilterSortContainer({
           </div>
           <div className="flex-none">
             {/* Navbar menu content here */}
-            <Sort />
+            <Sort
+              selectedSort={selectedSort}
+              sorts={sorts}
+              onSort={handleSort}
+            />
           </div>
         </div>
         {/* Page content here */}
         <div className="grid grid-cols-4">
           <div className="col-span-1 hidden lg:block p-3 gap-3">
-            <ActiveFilters key="active-filters-lg" />
-            <Filters key="filters-lg" brands={brands} categories={categories} />
+            <ActiveFilters
+              selectedBrands={selectedBrands}
+              selectedCategories={selectedCategories}
+              onToggleBrand={handleToggleBrand}
+              onToggleCategory={handleToggleCategory}
+              key="active-filters-lg"
+            />
+            <Filters
+              allBrands={allBrands}
+              allCategories={allCategories}
+              selectedBrands={selectedBrands}
+              selectedCategories={selectedCategories}
+              onToggleBrand={handleToggleBrand}
+              onToggleCategory={handleToggleCategory}
+              key="filters-lg"
+            />
           </div>
           <div className="col-span-4 lg:col-span-3 py-3">{children}</div>
         </div>
@@ -97,8 +170,22 @@ export function FilterSortContainer({
             </button>
           </div>
           <div className="p-3 gap-3">
-            <ActiveFilters key="active-filters-lg" />
-            <Filters key="filters-sm" brands={brands} categories={categories} />
+            <ActiveFilters
+              selectedBrands={selectedBrands}
+              selectedCategories={selectedCategories}
+              onToggleBrand={handleToggleBrand}
+              onToggleCategory={handleToggleCategory}
+              key="active-filters-lg"
+            />
+            <Filters
+              allBrands={allBrands}
+              allCategories={allCategories}
+              selectedBrands={selectedBrands}
+              selectedCategories={selectedCategories}
+              onToggleBrand={handleToggleBrand}
+              onToggleCategory={handleToggleCategory}
+              key="filters-sm"
+            />
           </div>
         </div>
       </div>

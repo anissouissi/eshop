@@ -13,4 +13,3 @@ export * from './lib/product-card/product-card';
 export * from './lib/discount/discount';
 export * from './lib/availability/availability';
 export * from './lib/price/price';
-export * from './lib/catalog-context';
