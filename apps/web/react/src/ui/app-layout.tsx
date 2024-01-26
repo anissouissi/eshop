@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
 import { Avatar, Cart, Footer, Logo, Navbar } from '@aso/shared-ui';
@@ -10,6 +10,7 @@ function AppLayout() {
   const { isLoading, isAuthenticated, user } = useUser();
   const { logout, isLoading: isLoggingOut } = useLogout();
   const { basket } = useBasket();
+  const location = useLocation();
 
   return (
     <div className="h-screen flex flex-col">
@@ -44,7 +45,12 @@ function AppLayout() {
           )
         }
         signInButton={
-          <NavLink to="login">
+          <NavLink
+            to={{
+              pathname: '/login',
+              search: `redirectTo=${location.pathname}`,
+            }}
+          >
             <button className="btn btn-ghost">Sign in</button>
           </NavLink>
         }
