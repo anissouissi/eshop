@@ -381,7 +381,7 @@ export function TechStack() {
           websiteUrl="https://www.postgresql.org/"
         />
       </SwiperSlide>
-      <SwiperSlide className="w-60 h-10">
+      {/* <SwiperSlide className="w-60 h-10">
         <TechStackItem
           name="Redis"
           svg={
@@ -431,7 +431,7 @@ export function TechStack() {
           }
           websiteUrl="https://redis.io/"
         />
-      </SwiperSlide>
+      </SwiperSlide> */}
     </Swiper>
   );
 }

@@ -3,7 +3,12 @@ import { BasketEmpty, BasketSummary, Table } from '@aso/web-basket-ui';
 
 function Basket() {
   const { basket, isLoadingBasket } = useBasket();
-  if (!basket || !basket.items?.length) return <BasketEmpty />;
+  if (!basket || !basket.items?.length)
+    return (
+      <div className="flex justify-center w-full mt-10">
+        <BasketEmpty />
+      </div>
+    );
   if (isLoadingBasket) {
     return '';
   }
