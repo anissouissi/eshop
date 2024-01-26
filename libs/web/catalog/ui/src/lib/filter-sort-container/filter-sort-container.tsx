@@ -1,8 +1,9 @@
 import { PropsWithChildren, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { MdFilterAlt } from 'react-icons/md';
+import { HiXMark } from 'react-icons/hi2';
 
 import Filters from '../filters/filters';
-import ActiveFilters from '../active-filters/active-filters';
 import Sort from '../sort/sort';
 
 import { ISort, sorts } from '../sort';
@@ -45,6 +46,14 @@ export function FilterSortContainer({ children }: PropsWithChildren) {
     setSearchParams(params);
   };
 
+  const handleClearBrands = () => {
+    setSelectedBrands([]);
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete('brands');
+    params.delete('page');
+    setSearchParams(params);
+  };
+
   const handleToggleCategory = (category: string) => {
     const newCategories = selectedCategories.includes(category)
       ? selectedCategories.filter((c) => c !== category)
@@ -56,6 +65,14 @@ export function FilterSortContainer({ children }: PropsWithChildren) {
     } else {
       params.delete('categories');
     }
+    params.delete('page');
+    setSearchParams(params);
+  };
+
+  const handleClearCategories = () => {
+    setSelectedCategories([]);
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete('categories');
     params.delete('page');
     setSearchParams(params);
   };
@@ -83,48 +100,34 @@ export function FilterSortContainer({ children }: PropsWithChildren) {
       />
       <div className="drawer-content flex flex-col">
         {/* Navbar */}
-        <div className="w-full navbar bg-base-300 flex-row-reverse">
-          <div className="flex-none lg:hidden">
+        <div className="w-full navbar bg-base-300 flex-row-reverse lg:hidden">
+          <div className="flex-none">
             <label
               htmlFor="drawer"
               aria-label="open sidebar"
-              className="btn btn-circle btn-ghost"
+              className="btn btn-ghost"
               onClick={() => {
                 setDrawerOpen(true);
               }}
             >
-              <svg
-                className="h-5 w-5 fill-current"
-                aria-hidden="true"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M2.628 1.601C5.028 1.206 7.49 1 10 1s4.973.206 7.372.601a.75.75 0 01.628.74v2.288a2.25 2.25 0 01-.659 1.59l-4.682 4.683a2.25 2.25 0 00-.659 1.59v3.037c0 .684-.31 1.33-.844 1.757l-1.937 1.55A.75.75 0 018 18.25v-5.757a2.25 2.25 0 00-.659-1.591L2.659 6.22A2.25 2.25 0 012 4.629V2.34a.75.75 0 01.628-.74z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
+              <span className="font-bold">Sort & Filters</span>
+              <MdFilterAlt className="h-6 w-6" />
             </label>
           </div>
-          <div className="flex-none">
+          <div className="flex-none gap-2">
             {/* Navbar menu content here */}
+          </div>
+        </div>
+        {/* Page content here */}
+        <div className="flex justify-center md:gap-10">
+          <div className="hidden lg:block p-3 max-w-xs">
             <Sort
               selectedSort={selectedSort}
               sorts={sorts}
               onSort={handleSort}
+              key="sort-lg"
             />
-          </div>
-        </div>
-        {/* Page content here */}
-        <div className="grid grid-cols-4">
-          <div className="col-span-1 hidden lg:block p-3 gap-3">
-            <ActiveFilters
-              selectedBrands={selectedBrands}
-              selectedCategories={selectedCategories}
-              onToggleBrand={handleToggleBrand}
-              onToggleCategory={handleToggleCategory}
-              key="active-filters-lg"
-            />
+            <div className="divider"></div>
             <Filters
               allBrands={allBrands}
               allCategories={allCategories}
@@ -132,10 +135,12 @@ export function FilterSortContainer({ children }: PropsWithChildren) {
               selectedCategories={selectedCategories}
               onToggleBrand={handleToggleBrand}
               onToggleCategory={handleToggleCategory}
+              onClearBrands={handleClearBrands}
+              onClearCategories={handleClearCategories}
               key="filters-lg"
             />
           </div>
-          <div className="col-span-4 lg:col-span-3 py-3">{children}</div>
+          <div className="py-3">{children}</div>
         </div>
       </div>
       <div className="drawer-side">
@@ -145,38 +150,25 @@ export function FilterSortContainer({ children }: PropsWithChildren) {
           className="drawer-overlay"
           onClick={() => setDrawerOpen(false)}
         ></label>
-        <div className="w-full md:w-80 min-h-full bg-base-200 absolute top-16 z-50">
+        <div className="w-full md:w-80 min-h-full bg-base-200 absolute z-50">
           {/* Sidebar content here */}
-          <div className="flex justify-between items-center p-2">
-            <h2>Filters</h2>
+          <div className="flex justify-between items-center p-2 mt-10 sticky top-16 z-50 bg-base-200">
+            <h2 className="bold">Sorts & Filters</h2>
             <button
               className="btn btn-circle drawer-overlay"
               onClick={() => setDrawerOpen(false)}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+              <HiXMark className="h-6 w-6" />
             </button>
           </div>
           <div className="p-3 gap-3">
-            <ActiveFilters
-              selectedBrands={selectedBrands}
-              selectedCategories={selectedCategories}
-              onToggleBrand={handleToggleBrand}
-              onToggleCategory={handleToggleCategory}
-              key="active-filters-lg"
+            <Sort
+              selectedSort={selectedSort}
+              sorts={sorts}
+              onSort={handleSort}
+              key="sort-sm"
             />
+            <div className="divider"></div>
             <Filters
               allBrands={allBrands}
               allCategories={allCategories}
@@ -184,6 +176,8 @@ export function FilterSortContainer({ children }: PropsWithChildren) {
               selectedCategories={selectedCategories}
               onToggleBrand={handleToggleBrand}
               onToggleCategory={handleToggleCategory}
+              onClearBrands={handleClearBrands}
+              onClearCategories={handleClearCategories}
               key="filters-sm"
             />
           </div>

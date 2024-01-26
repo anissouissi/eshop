@@ -22,7 +22,7 @@ export function Cart({ productsCount }: CartProps) {
         </svg>
         {productsCount !== undefined && productsCount > 0 && (
           <span
-            className="badge badge-sm indicator-item"
+            className="badge badge-sm indicator-item badge-secondary"
             data-testid="products-count"
           >
             {productsCount}
