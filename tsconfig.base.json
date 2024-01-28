@@ -54,7 +54,8 @@
       "@aso/web-catalog-data-access": [
         "libs/web/catalog/data-access/src/index.ts"
       ],
-      "@aso/web-catalog-ui": ["libs/web/catalog/ui/src/index.ts"]
+      "@aso/web-catalog-ui": ["libs/web/catalog/ui/src/index.ts"],
+      "@aso/web-checkout-ui": ["libs/web/checkout/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

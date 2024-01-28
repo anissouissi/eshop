@@ -14,7 +14,7 @@ export function Table({ basket }: TableProps) {
   return (
     <div className="card bg-base-100 shadow-xl mb-5">
       <div className="card-body p-6">
-        <h2 className="card-title">Order details</h2>
+        <h2 className="card-title">Your basket</h2>
         <ul className="mt-3 divide-y divide-stone-200">
           {basket.items?.map((item) => (
             <Item key={item.productId} item={item} basket={basket} />

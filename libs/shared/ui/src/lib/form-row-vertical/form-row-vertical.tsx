@@ -10,9 +10,9 @@ export function FormRowVertical({
   children,
 }: FormRowVerticalProps) {
   return (
-    <div className="flex flex-col gap-3 py-5">
+    <div className="flex flex-col gap-2 py-1 w-full">
       {label && (
-        <label className="font-medium" htmlFor={children?.props.id}>
+        <label className="text-sm" htmlFor={children?.props.id}>
           {label}
         </label>
       )}
