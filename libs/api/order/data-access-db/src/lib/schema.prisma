@@ -1,0 +1,154 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("ORDER_DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output = "../../../../../../node_modules/@prisma/order"
+}
+
+/// @Directive({ arguments: ['@key(fields: "productId")'] })
+type OrderItem {
+  /// @Validator.IsString()
+  productId String
+
+  /// @Validator.IsString()
+  /// @Validator.MaxLength(50)
+  title String
+
+  /// @Validator.IsString()
+  description String
+
+  /// @Validator.IsString()
+  brand String
+
+  /// @Validator.IsNumber()
+  /// @Validator.Min(1)
+  price Float
+
+  /// @Validator.IsNumber()
+  discountPercentage Float
+
+  /// @Validator.IsString()
+  thumbnail String
+
+  /// @Validator.IsString()
+  category String
+
+  /// @Validator.IsNumber()
+  quantity    Int
+}
+
+/// @Directive({ arguments: ['@key(fields: "customerId")'] })
+type Customer {
+  /// @Validator.IsString()
+  customerId String
+
+  /// @Validator.IsEmail()
+  email String
+
+  /// @Validator.IsString()
+  /// @Validator.MaxLength(100)
+  /// @Validator.MinLength(3)
+  name String
+}
+
+type Address {
+  /// @Validator.IsString()
+  firstName String
+
+  /// @Validator.IsString()
+  lastName String
+
+  /// @Validator.IsString()
+  address1 String
+
+  /// @Validator.IsOptional()
+  /// @Validator.IsString()
+  address2 String
+
+  /// @Validator.IsString()
+  city String
+
+  /// @Validator.IsString()
+  country String
+
+  /// @Validator.IsOptional()
+  /// @Validator.IsString()
+  state String
+
+  /// @Validator.IsString()
+  postalCode String
+
+  /// @Validator.IsString()
+  phone String
+}
+
+type PaymentCard {
+  /// @Validator.IsString()
+  cardNumber String
+
+  /// @Validator.IsString()
+  nameOnCard String
+
+  /// @Validator.IsString()
+  expirationDate String
+
+  /// @Validator.IsString()
+  cvc String
+}
+
+enum OrderStatus {
+  PLACED
+  PAID
+  UNDER_DELIVERY
+  DELIVERED
+}
+
+/// @Directive({ arguments: ['@key(fields: "id")'] })
+model Order {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  customer Customer
+
+  /// @Validator.IsArray()
+  items OrderItem[]
+
+  shippingAddress Address
+
+  billingAddress Address
+
+  payment PaymentCard
+
+  status OrderStatus
+
+  orderDate DateTime
+
+  paymentDate DateTime
+
+  underDeliveryDate DateTime
+
+  delivedDate DateTime
+}
+
+generator nestgraphql {
+    provider                = "node node_modules/prisma-nestjs-graphql"
+    prismaClientImport      = "@prisma/order"
+    output                  = "../../../generated-db-types/src"
+    purgeOutput                   = false
+    combineScalarFilters          = true
+    emitSingle                    = true
+    noAtomicOperations            = true
+    // field validator
+    fields_Validator_input        = true
+    fields_Validator_output       = true
+    fields_Validator_model        = true
+    fields_Validator_from         = "class-validator"
+    // Args where|data nested validator
+    decorate_1_type               = "*Args"
+    decorate_1_field              = "@(data|where)"
+    decorate_1_name               = ValidateNested
+    decorate_1_from               = "class-validator"
+    decorate_1_arguments          = "[]"
+}

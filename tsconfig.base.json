@@ -36,6 +36,12 @@
       "@aso/api-identity-generated-db-types": [
         "libs/api/identity/generated-db-types/src/index.ts"
       ],
+      "@aso/api-order-data-access-db": [
+        "libs/api/order/data-access-db/src/index.ts"
+      ],
+      "@aso/api-order-generated-db-types": [
+        "libs/api/order/generated-db-types/src/index.ts"
+      ],
       "@aso/automation": ["tools/automation/src/index.ts"],
       "@aso/data-access-graphql": ["libs/web/data-access-graphql/src/index.ts"],
       "@aso/feature-product": ["libs/api/feature-product/src/index.ts"],

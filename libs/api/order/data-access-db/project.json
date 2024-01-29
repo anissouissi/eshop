@@ -1,0 +1,35 @@
+{
+  "name": "api-order-data-access-db",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/api/order/data-access-db/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/api/order/data-access-db",
+        "main": "libs/api/order/data-access-db/src/index.ts",
+        "tsConfig": "libs/api/order/data-access-db/tsconfig.lib.json",
+        "assets": ["libs/api/order/data-access-db/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "generate-db-types": {
+      "executor": "@aso/automation:prisma-generate",
+      "options": {
+        "schemaPath": "libs/api/order/data-access-db/src/lib/schema.prisma"
+      }
+    },
+    "push-db": {
+      "executor": "@aso/automation:prisma-push",
+      "options": {
+        "schemaPath": "libs/api/order/data-access-db/src/lib/schema.prisma"
+      }
+    }
+  },
+  "tags": ["scope:api"]
+}

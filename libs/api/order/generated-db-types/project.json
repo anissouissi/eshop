@@ -1,0 +1,23 @@
+{
+  "name": "api-order-generated-db-types",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/api/order/generated-db-types/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/api/order/generated-db-types",
+        "main": "libs/api/order/generated-db-types/src/index.ts",
+        "tsConfig": "libs/api/order/generated-db-types/tsconfig.lib.json",
+        "assets": ["libs/api/order/generated-db-types/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    }
+  },
+  "tags": ["scope:api"]
+}
