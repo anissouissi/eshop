@@ -15,6 +15,7 @@ import Joi from 'joi';
         IDENTITY_URL: Joi.string().required(),
         CATALOG_URL: Joi.string().required(),
         BASKET_URL: Joi.string().required(),
+        ORDERING_URL: Joi.string().required(),
       }),
       envFilePath: './apps/catalog/.env',
     }),
@@ -38,6 +39,10 @@ import Joi from 'joi';
             {
               name: 'basket',
               url: process.env.BASKET_URL,
+            },
+            {
+              name: 'ordering',
+              url: process.env.ORDERING_URL,
             },
           ],
         }),
