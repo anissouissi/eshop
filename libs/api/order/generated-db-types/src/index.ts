@@ -24,6 +24,7 @@ export enum QueryMode {
 }
 
 export enum OrderStatus {
+    CREATED = "CREATED",
     PLACED = "PLACED",
     PAID = "PAID",
     UNDER_DELIVERY = "UNDER_DELIVERY",
@@ -36,7 +37,7 @@ export enum OrderScalarFieldEnum {
     orderDate = "orderDate",
     paymentDate = "paymentDate",
     underDeliveryDate = "underDeliveryDate",
-    delivedDate = "delivedDate"
+    deliveredDate = "deliveredDate"
 }
 
 registerEnumType(OrderScalarFieldEnum, { name: 'OrderScalarFieldEnum', description: undefined })
@@ -430,7 +431,7 @@ export class OrderCountAggregateInput {
     @Field(() => Boolean, {nullable:true})
     underDeliveryDate?: true;
     @Field(() => Boolean, {nullable:true})
-    delivedDate?: true;
+    deliveredDate?: true;
     @Field(() => Boolean, {nullable:true})
     _all?: true;
 }
@@ -448,7 +449,7 @@ export class OrderCountAggregate {
     @Field(() => Int, {nullable:false})
     underDeliveryDate!: number;
     @Field(() => Int, {nullable:false})
-    delivedDate!: number;
+    deliveredDate!: number;
     @Field(() => Int, {nullable:false})
     _all!: number;
 }
@@ -466,7 +467,7 @@ export class OrderCountOrderByAggregateInput {
     @Field(() => SortOrder, {nullable:true})
     underDeliveryDate?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
-    delivedDate?: keyof typeof SortOrder;
+    deliveredDate?: keyof typeof SortOrder;
 }
 
 @InputType()
@@ -487,12 +488,15 @@ export class OrderCreateManyInput {
     status!: keyof typeof OrderStatus;
     @Field(() => Date, {nullable:false})
     orderDate!: Date | string;
-    @Field(() => Date, {nullable:false})
-    paymentDate!: Date | string;
-    @Field(() => Date, {nullable:false})
-    underDeliveryDate!: Date | string;
-    @Field(() => Date, {nullable:false})
-    delivedDate!: Date | string;
+    @Field(() => Date, {nullable:true})
+    @Validator.IsOptional()
+    paymentDate?: Date | string;
+    @Field(() => Date, {nullable:true})
+    @Validator.IsOptional()
+    underDeliveryDate?: Date | string;
+    @Field(() => Date, {nullable:true})
+    @Validator.IsOptional()
+    deliveredDate?: Date | string;
 }
 
 @InputType()
@@ -513,12 +517,15 @@ export class OrderCreateInput {
     status!: keyof typeof OrderStatus;
     @Field(() => Date, {nullable:false})
     orderDate!: Date | string;
-    @Field(() => Date, {nullable:false})
-    paymentDate!: Date | string;
-    @Field(() => Date, {nullable:false})
-    underDeliveryDate!: Date | string;
-    @Field(() => Date, {nullable:false})
-    delivedDate!: Date | string;
+    @Field(() => Date, {nullable:true})
+    @Validator.IsOptional()
+    paymentDate?: Date | string;
+    @Field(() => Date, {nullable:true})
+    @Validator.IsOptional()
+    underDeliveryDate?: Date | string;
+    @Field(() => Date, {nullable:true})
+    @Validator.IsOptional()
+    deliveredDate?: Date | string;
 }
 
 @ArgsType()
@@ -553,12 +560,15 @@ export class OrderGroupBy {
     status!: keyof typeof OrderStatus;
     @Field(() => Date, {nullable:false})
     orderDate!: Date | string;
-    @Field(() => Date, {nullable:false})
-    paymentDate!: Date | string;
-    @Field(() => Date, {nullable:false})
-    underDeliveryDate!: Date | string;
-    @Field(() => Date, {nullable:false})
-    delivedDate!: Date | string;
+    @Field(() => Date, {nullable:true})
+    @Validator.IsOptional()
+    paymentDate?: Date | string;
+    @Field(() => Date, {nullable:true})
+    @Validator.IsOptional()
+    underDeliveryDate?: Date | string;
+    @Field(() => Date, {nullable:true})
+    @Validator.IsOptional()
+    deliveredDate?: Date | string;
     @Field(() => OrderCountAggregate, {nullable:true})
     _count?: InstanceType<typeof OrderCountAggregate>;
     @Field(() => OrderMinAggregate, {nullable:true})
@@ -580,7 +590,7 @@ export class OrderMaxAggregateInput {
     @Field(() => Boolean, {nullable:true})
     underDeliveryDate?: true;
     @Field(() => Boolean, {nullable:true})
-    delivedDate?: true;
+    deliveredDate?: true;
 }
 
 @ObjectType()
@@ -592,11 +602,14 @@ export class OrderMaxAggregate {
     @Field(() => Date, {nullable:true})
     orderDate?: Date | string;
     @Field(() => Date, {nullable:true})
+    @Validator.IsOptional()
     paymentDate?: Date | string;
     @Field(() => Date, {nullable:true})
+    @Validator.IsOptional()
     underDeliveryDate?: Date | string;
     @Field(() => Date, {nullable:true})
-    delivedDate?: Date | string;
+    @Validator.IsOptional()
+    deliveredDate?: Date | string;
 }
 
 @InputType()
@@ -612,7 +625,7 @@ export class OrderMaxOrderByAggregateInput {
     @Field(() => SortOrder, {nullable:true})
     underDeliveryDate?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
-    delivedDate?: keyof typeof SortOrder;
+    deliveredDate?: keyof typeof SortOrder;
 }
 
 @InputType()
@@ -628,7 +641,7 @@ export class OrderMinAggregateInput {
     @Field(() => Boolean, {nullable:true})
     underDeliveryDate?: true;
     @Field(() => Boolean, {nullable:true})
-    delivedDate?: true;
+    deliveredDate?: true;
 }
 
 @ObjectType()
@@ -640,11 +653,14 @@ export class OrderMinAggregate {
     @Field(() => Date, {nullable:true})
     orderDate?: Date | string;
     @Field(() => Date, {nullable:true})
+    @Validator.IsOptional()
     paymentDate?: Date | string;
     @Field(() => Date, {nullable:true})
+    @Validator.IsOptional()
     underDeliveryDate?: Date | string;
     @Field(() => Date, {nullable:true})
-    delivedDate?: Date | string;
+    @Validator.IsOptional()
+    deliveredDate?: Date | string;
 }
 
 @InputType()
@@ -660,7 +676,7 @@ export class OrderMinOrderByAggregateInput {
     @Field(() => SortOrder, {nullable:true})
     underDeliveryDate?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
-    delivedDate?: keyof typeof SortOrder;
+    deliveredDate?: keyof typeof SortOrder;
 }
 
 @InputType()
@@ -676,7 +692,7 @@ export class OrderOrderByWithAggregationInput {
     @Field(() => SortOrder, {nullable:true})
     underDeliveryDate?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
-    delivedDate?: keyof typeof SortOrder;
+    deliveredDate?: keyof typeof SortOrder;
     @Field(() => OrderCountOrderByAggregateInput, {nullable:true})
     _count?: InstanceType<typeof OrderCountOrderByAggregateInput>;
     @Field(() => OrderMaxOrderByAggregateInput, {nullable:true})
@@ -708,7 +724,7 @@ export class OrderOrderByWithRelationInput {
     @Field(() => SortOrder, {nullable:true})
     underDeliveryDate?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
-    delivedDate?: keyof typeof SortOrder;
+    deliveredDate?: keyof typeof SortOrder;
 }
 
 @InputType()
@@ -730,7 +746,7 @@ export class OrderScalarWhereWithAggregatesInput {
     @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
     underDeliveryDate?: InstanceType<typeof DateTimeWithAggregatesFilter>;
     @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
-    delivedDate?: InstanceType<typeof DateTimeWithAggregatesFilter>;
+    deliveredDate?: InstanceType<typeof DateTimeWithAggregatesFilter>;
 }
 
 @InputType()
@@ -751,12 +767,15 @@ export class OrderUncheckedCreateInput {
     status!: keyof typeof OrderStatus;
     @Field(() => Date, {nullable:false})
     orderDate!: Date | string;
-    @Field(() => Date, {nullable:false})
-    paymentDate!: Date | string;
-    @Field(() => Date, {nullable:false})
-    underDeliveryDate!: Date | string;
-    @Field(() => Date, {nullable:false})
-    delivedDate!: Date | string;
+    @Field(() => Date, {nullable:true})
+    @Validator.IsOptional()
+    paymentDate?: Date | string;
+    @Field(() => Date, {nullable:true})
+    @Validator.IsOptional()
+    underDeliveryDate?: Date | string;
+    @Field(() => Date, {nullable:true})
+    @Validator.IsOptional()
+    deliveredDate?: Date | string;
 }
 
 @InputType()
@@ -776,11 +795,14 @@ export class OrderUncheckedUpdateManyInput {
     @Field(() => Date, {nullable:true})
     orderDate?: Date | string;
     @Field(() => Date, {nullable:true})
+    @Validator.IsOptional()
     paymentDate?: Date | string;
     @Field(() => Date, {nullable:true})
+    @Validator.IsOptional()
     underDeliveryDate?: Date | string;
     @Field(() => Date, {nullable:true})
-    delivedDate?: Date | string;
+    @Validator.IsOptional()
+    deliveredDate?: Date | string;
 }
 
 @InputType()
@@ -800,11 +822,14 @@ export class OrderUncheckedUpdateInput {
     @Field(() => Date, {nullable:true})
     orderDate?: Date | string;
     @Field(() => Date, {nullable:true})
+    @Validator.IsOptional()
     paymentDate?: Date | string;
     @Field(() => Date, {nullable:true})
+    @Validator.IsOptional()
     underDeliveryDate?: Date | string;
     @Field(() => Date, {nullable:true})
-    delivedDate?: Date | string;
+    @Validator.IsOptional()
+    deliveredDate?: Date | string;
 }
 
 @InputType()
@@ -824,11 +849,14 @@ export class OrderUpdateManyMutationInput {
     @Field(() => Date, {nullable:true})
     orderDate?: Date | string;
     @Field(() => Date, {nullable:true})
+    @Validator.IsOptional()
     paymentDate?: Date | string;
     @Field(() => Date, {nullable:true})
+    @Validator.IsOptional()
     underDeliveryDate?: Date | string;
     @Field(() => Date, {nullable:true})
-    delivedDate?: Date | string;
+    @Validator.IsOptional()
+    deliveredDate?: Date | string;
 }
 
 @InputType()
@@ -848,11 +876,14 @@ export class OrderUpdateInput {
     @Field(() => Date, {nullable:true})
     orderDate?: Date | string;
     @Field(() => Date, {nullable:true})
+    @Validator.IsOptional()
     paymentDate?: Date | string;
     @Field(() => Date, {nullable:true})
+    @Validator.IsOptional()
     underDeliveryDate?: Date | string;
     @Field(() => Date, {nullable:true})
-    delivedDate?: Date | string;
+    @Validator.IsOptional()
+    deliveredDate?: Date | string;
 }
 
 @InputType()
@@ -884,7 +915,7 @@ export class OrderWhereUniqueInput {
     @Field(() => DateTimeFilter, {nullable:true})
     underDeliveryDate?: InstanceType<typeof DateTimeFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
-    delivedDate?: InstanceType<typeof DateTimeFilter>;
+    deliveredDate?: InstanceType<typeof DateTimeFilter>;
 }
 
 @InputType()
@@ -916,7 +947,7 @@ export class OrderWhereInput {
     @Field(() => DateTimeFilter, {nullable:true})
     underDeliveryDate?: InstanceType<typeof DateTimeFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
-    delivedDate?: InstanceType<typeof DateTimeFilter>;
+    deliveredDate?: InstanceType<typeof DateTimeFilter>;
 }
 
 @ObjectType({})
@@ -938,12 +969,12 @@ export class Order {
     status!: keyof typeof OrderStatus;
     @Field(() => Date, {nullable:false})
     orderDate!: Date;
-    @Field(() => Date, {nullable:false})
-    paymentDate!: Date;
-    @Field(() => Date, {nullable:false})
-    underDeliveryDate!: Date;
-    @Field(() => Date, {nullable:false})
-    delivedDate!: Date;
+    @Field(() => Date, {nullable:true})
+    paymentDate!: Date | null;
+    @Field(() => Date, {nullable:true})
+    underDeliveryDate!: Date | null;
+    @Field(() => Date, {nullable:true})
+    deliveredDate!: Date | null;
 }
 
 @ArgsType()
@@ -1292,6 +1323,8 @@ export class DateTimeFilter {
     gte?: Date | string;
     @Field(() => DateTimeFilter, {nullable:true})
     not?: InstanceType<typeof DateTimeFilter>;
+    @Field(() => Boolean, {nullable:true})
+    isSet?: boolean;
 }
 
 @InputType()
@@ -1318,6 +1351,8 @@ export class DateTimeWithAggregatesFilter {
     _min?: InstanceType<typeof DateTimeFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
     _max?: InstanceType<typeof DateTimeFilter>;
+    @Field(() => Boolean, {nullable:true})
+    isSet?: boolean;
 }
 
 @InputType()
@@ -1396,6 +1431,8 @@ export class IntFilter {
     gte?: number;
     @Field(() => IntFilter, {nullable:true})
     not?: InstanceType<typeof IntFilter>;
+    @Field(() => Boolean, {nullable:true})
+    isSet?: boolean;
 }
 
 @InputType()

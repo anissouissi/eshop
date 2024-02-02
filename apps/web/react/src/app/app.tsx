@@ -17,6 +17,7 @@ import PageNotFound from '../pages/page-not-found';
 import AppLayout from '../ui/app-layout';
 import ProtectedRoute from '../ui/protected-route';
 import SignUp from '../pages/sign-up';
+import OrderThankYou from '../pages/order-thank-you';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -44,6 +45,7 @@ function App() {
             >
               <Route path="account" element={<Account />} />
               <Route path="checkout" element={<Checkout />} />
+              <Route path="order-thank-you" element={<OrderThankYou />} />
             </Route>
             <Route element={<AppLayout />}>
               <Route index element={<Navigate replace to="/home" />} />

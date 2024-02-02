@@ -37,10 +37,11 @@ export class AuthController {
     this.authService.logout(response);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get()
+  @UseGuards(JwtAuthGuard)
   @MessagePattern('validate_user')
   async validateUser(@CurrentUser() user: User) {
+    console.log('validate_user');
     return user;
   }
 }

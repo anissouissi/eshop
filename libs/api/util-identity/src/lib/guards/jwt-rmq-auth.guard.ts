@@ -18,7 +18,6 @@ export class JwtRmqAuthGuard implements CanActivate {
     context: ExecutionContext
   ): boolean | Promise<boolean> | Observable<boolean> {
     const authentication = this.getAuthentication(context);
-    //console.log(`authentication = ${authentication}`);
     return this.authClient
       .send('validate_user', {
         Authentication: authentication,

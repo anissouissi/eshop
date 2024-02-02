@@ -4,6 +4,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 
 import { PaymentForm, ShippingForm } from '@aso/web-checkout-ui';
+import { usePlaceOrder } from '@aso/web-checkout-data-access';
+import {
+  AddressCreateInput,
+  PaymentCardCreateInput,
+} from '@aso/api-order-generated-db-types';
+import { useUser } from '@aso/web-auth-data-access';
 
 const schema = z.object({
   firstName: z.string().min(1, 'First name is required'),
@@ -30,8 +36,42 @@ function Checkout() {
     resolver: zodResolver(schema),
   });
 
+  const { placeOrder, isLoading } = usePlaceOrder();
+
+  const { user } = useUser();
+
   function handlePlaceOrder(values: FieldValues) {
-    console.log(values);
+    const shippingAddress: AddressCreateInput = {
+      firstName: values['firstName'],
+      lastName: values['lastName'],
+      address1: values['address1'],
+      address2: values['address2'],
+      city: values['city'],
+      country: values['country'],
+      state: values['state'],
+      postalCode: values['postalCode'],
+      phone: values['phone'],
+    };
+
+    const billingAddress = shippingAddress;
+
+    const payment: PaymentCardCreateInput = {
+      cardNumber: values['cardNumber'],
+      nameOnCard: values['nameOnCard'],
+      expirationDate: values['expirationDate'],
+      cvc: values['cvc'],
+    };
+
+    placeOrder({
+      billingAddress: { set: billingAddress },
+      shippingAddress: { set: shippingAddress },
+      payment: { set: payment },
+      customer: {
+        set: { customerId: user!.id, email: user!.email, name: user!.name! },
+      },
+      orderDate: new Date(),
+      status: 'PLACED',
+    });
   }
 
   return (
@@ -66,7 +106,9 @@ function Checkout() {
             <NavLink to="/basket" className="link cursor-pointer">
               Update your basket
             </NavLink>
-            <button className="btn btn-primary">Place order</button>
+            <button className="btn btn-primary" disabled={isLoading}>
+              Place order
+            </button>
           </div>
         </div>
       </div>

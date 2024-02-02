@@ -100,6 +100,7 @@ type PaymentCard {
 }
 
 enum OrderStatus {
+  CREATED
   PLACED
   PAID
   UNDER_DELIVERY
@@ -125,11 +126,14 @@ model Order {
 
   orderDate DateTime
 
-  paymentDate DateTime
+  /// @Validator.IsOptional()
+  paymentDate DateTime?
 
-  underDeliveryDate DateTime
+  /// @Validator.IsOptional()
+  underDeliveryDate DateTime?
 
-  delivedDate DateTime
+  /// @Validator.IsOptional()
+  deliveredDate DateTime?
 }
 
 generator nestgraphql {

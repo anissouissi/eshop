@@ -106,6 +106,10 @@ services:
     depends_on:
       mongodb-primary:
         condition: service_healthy
+      identity:
+        condition: service_healthy
+      payment:
+        condition: service_healthy
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://ordering:3004/health || exit 1
       interval: 10s
@@ -117,6 +121,31 @@ services:
       - /usr/src/app/node_modules
     ports:
       - '3004:3004'
+
+  payment:
+    build:
+      context: .
+      dockerfile: ./apps/api/payment/Dockerfile
+      target: development
+    command: npm start api-payment
+    env_file:
+      - ./apps/api/payment/.env
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      identity:
+        condition: service_healthy
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://payment:3005/health || exit 1
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - '3005:3005'
 
   postgres:
     image: postgres
