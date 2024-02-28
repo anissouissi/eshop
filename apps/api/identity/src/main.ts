@@ -8,7 +8,7 @@ import { RmqOptions } from '@nestjs/microservices';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const rmqService = app.get<RmqService>(RmqService);
-  app.connectMicroservice<RmqOptions>(rmqService.getOptions('AUTH', true));
+  app.connectMicroservice<RmqOptions>(rmqService.getOptions('IDENTITY'));
   app.useGlobalPipes(new ValidationPipe());
   const configService = app.get(ConfigService);
   await app.startAllMicroservices();

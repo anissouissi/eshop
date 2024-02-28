@@ -1,19 +1,7 @@
-import { OrderCreateInput } from '@aso/api-order-generated-db-types';
+import { OrderCreateInput } from '@aso/data-access-graphql';
+import { gql } from './graphql-client';
 
-const ORDERING_BASE_URL = `${import.meta.env.VITE_API_ORDERING_URL}/Ordering`;
-
-export async function placeOrder(order: OrderCreateInput) {
-  try {
-    const res = await fetch(`${ORDERING_BASE_URL}/place-order`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify(order),
-    });
-    if (!res.ok) {
-      throw new Error('Error occurred, please try again.');
-    }
-  } catch (error) {
-    throw new Error((error as Error).message);
-  }
+export async function placeOrder(orderCreateInput: OrderCreateInput) {
+  const data = await gql.CreateOrder({ data: orderCreateInput });
+  return data.createOrder;
 }

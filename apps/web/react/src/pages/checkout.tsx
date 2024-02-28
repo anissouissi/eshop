@@ -10,6 +10,7 @@ import {
   PaymentCardCreateInput,
 } from '@aso/api-order-generated-db-types';
 import { useUser } from '@aso/web-auth-data-access';
+import { OrderStatus } from '@aso/data-access-graphql';
 
 const schema = z.object({
   firstName: z.string().min(1, 'First name is required'),
@@ -70,7 +71,7 @@ function Checkout() {
         set: { customerId: user!.id, email: user!.email, name: user!.name! },
       },
       orderDate: new Date(),
-      status: 'PLACED',
+      status: OrderStatus.Placed,
     });
   }
 

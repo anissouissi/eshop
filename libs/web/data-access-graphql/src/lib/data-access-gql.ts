@@ -184,3 +184,11 @@ export const REMOVE_CUSTOMER_BASKET = gql`
     }
   }
 `;
+
+export const CREATE_ORDER = gql`
+  mutation CreateOrder($data: OrderCreateInput!) {
+    createOrder(data: $data) {
+      id
+    }
+  }
+`;

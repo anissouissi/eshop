@@ -8,8 +8,6 @@ RUN npm install
 
 COPY . .
 
-RUN npx nx run api-identity-data-access-db:generate-db-types
-
 RUN npm run build api-identity
 
 FROM node:alpine as production

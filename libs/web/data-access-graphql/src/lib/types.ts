@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -14,7 +14,100 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
+  DateTime: { input: any; output: any; }
   _FieldSet: { input: any; output: any; }
+};
+
+export type Address = {
+  __typename?: 'Address';
+  address1: Scalars['String']['output'];
+  address2: Scalars['String']['output'];
+  city: Scalars['String']['output'];
+  country: Scalars['String']['output'];
+  firstName: Scalars['String']['output'];
+  lastName: Scalars['String']['output'];
+  phone: Scalars['String']['output'];
+  postalCode: Scalars['String']['output'];
+  state: Scalars['String']['output'];
+};
+
+export type AddressCompositeFilter = {
+  equals?: InputMaybe<AddressObjectEqualityInput>;
+  is?: InputMaybe<AddressWhereInput>;
+  isNot?: InputMaybe<AddressWhereInput>;
+};
+
+export type AddressCreateEnvelopeInput = {
+  set?: InputMaybe<AddressCreateInput>;
+};
+
+export type AddressCreateInput = {
+  address1: Scalars['String']['input'];
+  address2: Scalars['String']['input'];
+  city: Scalars['String']['input'];
+  country: Scalars['String']['input'];
+  firstName: Scalars['String']['input'];
+  lastName: Scalars['String']['input'];
+  phone: Scalars['String']['input'];
+  postalCode: Scalars['String']['input'];
+  state: Scalars['String']['input'];
+};
+
+export type AddressObjectEqualityInput = {
+  address1: Scalars['String']['input'];
+  address2: Scalars['String']['input'];
+  city: Scalars['String']['input'];
+  country: Scalars['String']['input'];
+  firstName: Scalars['String']['input'];
+  lastName: Scalars['String']['input'];
+  phone: Scalars['String']['input'];
+  postalCode: Scalars['String']['input'];
+  state: Scalars['String']['input'];
+};
+
+export type AddressOrderByInput = {
+  address1?: InputMaybe<SortOrder>;
+  address2?: InputMaybe<SortOrder>;
+  city?: InputMaybe<SortOrder>;
+  country?: InputMaybe<SortOrder>;
+  firstName?: InputMaybe<SortOrder>;
+  lastName?: InputMaybe<SortOrder>;
+  phone?: InputMaybe<SortOrder>;
+  postalCode?: InputMaybe<SortOrder>;
+  state?: InputMaybe<SortOrder>;
+};
+
+export type AddressUpdateEnvelopeInput = {
+  set?: InputMaybe<AddressCreateInput>;
+  update?: InputMaybe<AddressUpdateInput>;
+};
+
+export type AddressUpdateInput = {
+  address1?: InputMaybe<Scalars['String']['input']>;
+  address2?: InputMaybe<Scalars['String']['input']>;
+  city?: InputMaybe<Scalars['String']['input']>;
+  country?: InputMaybe<Scalars['String']['input']>;
+  firstName?: InputMaybe<Scalars['String']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
+  phone?: InputMaybe<Scalars['String']['input']>;
+  postalCode?: InputMaybe<Scalars['String']['input']>;
+  state?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type AddressWhereInput = {
+  AND?: InputMaybe<Array<AddressWhereInput>>;
+  NOT?: InputMaybe<Array<AddressWhereInput>>;
+  OR?: InputMaybe<Array<AddressWhereInput>>;
+  address1?: InputMaybe<StringFilter>;
+  address2?: InputMaybe<StringFilter>;
+  city?: InputMaybe<StringFilter>;
+  country?: InputMaybe<StringFilter>;
+  firstName?: InputMaybe<StringFilter>;
+  lastName?: InputMaybe<StringFilter>;
+  phone?: InputMaybe<StringFilter>;
+  postalCode?: InputMaybe<StringFilter>;
+  state?: InputMaybe<StringFilter>;
 };
 
 export type BasketItem = {
@@ -36,6 +129,13 @@ export type BasketItemObjectEqualityInput = {
 
 export type BasketItemOrderByCompositeAggregateInput = {
   _count?: InputMaybe<SortOrder>;
+};
+
+export type Customer = {
+  __typename?: 'Customer';
+  customerId: Scalars['String']['output'];
+  email: Scalars['String']['output'];
+  name: Scalars['String']['output'];
 };
 
 export type CustomerBasket = {
@@ -105,6 +205,73 @@ export type CustomerBasketWhereUniqueInput = {
   items?: InputMaybe<Array<BasketItemObjectEqualityInput>>;
 };
 
+export type CustomerCompositeFilter = {
+  equals?: InputMaybe<CustomerObjectEqualityInput>;
+  is?: InputMaybe<CustomerWhereInput>;
+  isNot?: InputMaybe<CustomerWhereInput>;
+};
+
+export type CustomerCreateEnvelopeInput = {
+  set?: InputMaybe<CustomerCreateInput>;
+};
+
+export type CustomerCreateInput = {
+  customerId: Scalars['String']['input'];
+  email: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+};
+
+export type CustomerObjectEqualityInput = {
+  customerId: Scalars['String']['input'];
+  email: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+};
+
+export type CustomerOrderByInput = {
+  customerId?: InputMaybe<SortOrder>;
+  email?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+};
+
+export type CustomerUpdateEnvelopeInput = {
+  set?: InputMaybe<CustomerCreateInput>;
+  update?: InputMaybe<CustomerUpdateInput>;
+};
+
+export type CustomerUpdateInput = {
+  customerId?: InputMaybe<Scalars['String']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CustomerWhereInput = {
+  AND?: InputMaybe<Array<CustomerWhereInput>>;
+  NOT?: InputMaybe<Array<CustomerWhereInput>>;
+  OR?: InputMaybe<Array<CustomerWhereInput>>;
+  customerId?: InputMaybe<StringFilter>;
+  email?: InputMaybe<StringFilter>;
+  name?: InputMaybe<StringFilter>;
+};
+
+export type DateTimeFilter = {
+  equals?: InputMaybe<Scalars['DateTime']['input']>;
+  gt?: InputMaybe<Scalars['DateTime']['input']>;
+  gte?: InputMaybe<Scalars['DateTime']['input']>;
+  in?: InputMaybe<Array<Scalars['DateTime']['input']>>;
+  isSet?: InputMaybe<Scalars['Boolean']['input']>;
+  lt?: InputMaybe<Scalars['DateTime']['input']>;
+  lte?: InputMaybe<Scalars['DateTime']['input']>;
+  not?: InputMaybe<DateTimeFilter>;
+  notIn?: InputMaybe<Array<Scalars['DateTime']['input']>>;
+};
+
+export type EnumOrderStatusFilter = {
+  equals?: InputMaybe<OrderStatus>;
+  in?: InputMaybe<Array<OrderStatus>>;
+  not?: InputMaybe<EnumOrderStatusFilter>;
+  notIn?: InputMaybe<Array<OrderStatus>>;
+};
+
 export type FloatFilter = {
   equals?: InputMaybe<Scalars['Float']['input']>;
   gt?: InputMaybe<Scalars['Float']['input']>;
@@ -130,12 +297,15 @@ export type IntFilter = {
 export type Mutation = {
   __typename?: 'Mutation';
   createCustomerBasket: CustomerBasket;
+  createOrder: Order;
   createProduct: Product;
   createUser: User;
   removeCustomerBasket: CustomerBasket;
+  removeOrder: Order;
   removeProduct: Product;
   removeUser: User;
   updateCustomerBasket: CustomerBasket;
+  updateOrder: Order;
   updateProduct: Product;
   updateUser: User;
 };
@@ -143,6 +313,11 @@ export type Mutation = {
 
 export type MutationCreateCustomerBasketArgs = {
   data?: InputMaybe<CustomerBasketCreateInput>;
+};
+
+
+export type MutationCreateOrderArgs = {
+  data: OrderCreateInput;
 };
 
 
@@ -158,6 +333,11 @@ export type MutationCreateUserArgs = {
 
 export type MutationRemoveCustomerBasketArgs = {
   where: CustomerBasketWhereUniqueInput;
+};
+
+
+export type MutationRemoveOrderArgs = {
+  where: OrderWhereUniqueInput;
 };
 
 
@@ -177,6 +357,12 @@ export type MutationUpdateCustomerBasketArgs = {
 };
 
 
+export type MutationUpdateOrderArgs = {
+  data: OrderUpdateInput;
+  where: OrderWhereUniqueInput;
+};
+
+
 export type MutationUpdateProductArgs = {
   data: ProductUpdateInput;
   where: ProductWhereUniqueInput;
@@ -186,6 +372,246 @@ export type MutationUpdateProductArgs = {
 export type MutationUpdateUserArgs = {
   data: UserUpdateInput;
   where: UserWhereUniqueInput;
+};
+
+export type Order = {
+  __typename?: 'Order';
+  billingAddress: Address;
+  customer: Customer;
+  deliveredDate?: Maybe<Scalars['DateTime']['output']>;
+  id: Scalars['ID']['output'];
+  items?: Maybe<Array<OrderItem>>;
+  orderDate: Scalars['DateTime']['output'];
+  payment: PaymentCard;
+  paymentDate?: Maybe<Scalars['DateTime']['output']>;
+  shippingAddress: Address;
+  status: OrderStatus;
+  underDeliveryDate?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type OrderCountAggregate = {
+  __typename?: 'OrderCountAggregate';
+  _all: Scalars['Int']['output'];
+  deliveredDate: Scalars['Int']['output'];
+  id: Scalars['Int']['output'];
+  orderDate: Scalars['Int']['output'];
+  paymentDate: Scalars['Int']['output'];
+  status: Scalars['Int']['output'];
+  underDeliveryDate: Scalars['Int']['output'];
+};
+
+export type OrderCreateInput = {
+  billingAddress: AddressCreateEnvelopeInput;
+  customer: CustomerCreateEnvelopeInput;
+  deliveredDate?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<OrderItemCreateInput>>;
+  orderDate: Scalars['DateTime']['input'];
+  payment: PaymentCardCreateEnvelopeInput;
+  paymentDate?: InputMaybe<Scalars['DateTime']['input']>;
+  shippingAddress: AddressCreateEnvelopeInput;
+  status: OrderStatus;
+  underDeliveryDate?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type OrderItem = {
+  __typename?: 'OrderItem';
+  brand: Scalars['String']['output'];
+  category: Scalars['String']['output'];
+  description: Scalars['String']['output'];
+  discountPercentage: Scalars['Float']['output'];
+  price: Scalars['Float']['output'];
+  productId: Scalars['String']['output'];
+  quantity: Scalars['Int']['output'];
+  thumbnail: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+};
+
+export type OrderItemCreateInput = {
+  brand: Scalars['String']['input'];
+  category: Scalars['String']['input'];
+  description: Scalars['String']['input'];
+  discountPercentage: Scalars['Float']['input'];
+  price: Scalars['Float']['input'];
+  productId: Scalars['String']['input'];
+  quantity: Scalars['Int']['input'];
+  thumbnail: Scalars['String']['input'];
+  title: Scalars['String']['input'];
+};
+
+export type OrderItemObjectEqualityInput = {
+  brand: Scalars['String']['input'];
+  category: Scalars['String']['input'];
+  description: Scalars['String']['input'];
+  discountPercentage: Scalars['Float']['input'];
+  price: Scalars['Float']['input'];
+  productId: Scalars['String']['input'];
+  quantity: Scalars['Int']['input'];
+  thumbnail: Scalars['String']['input'];
+  title: Scalars['String']['input'];
+};
+
+export type OrderItemOrderByCompositeAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export type OrderMaxAggregate = {
+  __typename?: 'OrderMaxAggregate';
+  deliveredDate?: Maybe<Scalars['DateTime']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  orderDate?: Maybe<Scalars['DateTime']['output']>;
+  paymentDate?: Maybe<Scalars['DateTime']['output']>;
+  status?: Maybe<OrderStatus>;
+  underDeliveryDate?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type OrderMinAggregate = {
+  __typename?: 'OrderMinAggregate';
+  deliveredDate?: Maybe<Scalars['DateTime']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  orderDate?: Maybe<Scalars['DateTime']['output']>;
+  paymentDate?: Maybe<Scalars['DateTime']['output']>;
+  status?: Maybe<OrderStatus>;
+  underDeliveryDate?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type OrderOrderByWithRelationInput = {
+  billingAddress?: InputMaybe<AddressOrderByInput>;
+  customer?: InputMaybe<CustomerOrderByInput>;
+  deliveredDate?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  items?: InputMaybe<OrderItemOrderByCompositeAggregateInput>;
+  orderDate?: InputMaybe<SortOrder>;
+  payment?: InputMaybe<PaymentCardOrderByInput>;
+  paymentDate?: InputMaybe<SortOrder>;
+  shippingAddress?: InputMaybe<AddressOrderByInput>;
+  status?: InputMaybe<SortOrder>;
+  underDeliveryDate?: InputMaybe<SortOrder>;
+};
+
+export enum OrderScalarFieldEnum {
+  DeliveredDate = 'deliveredDate',
+  Id = 'id',
+  OrderDate = 'orderDate',
+  PaymentDate = 'paymentDate',
+  Status = 'status',
+  UnderDeliveryDate = 'underDeliveryDate'
+}
+
+export enum OrderStatus {
+  Created = 'CREATED',
+  Delivered = 'DELIVERED',
+  Paid = 'PAID',
+  Placed = 'PLACED',
+  UnderDelivery = 'UNDER_DELIVERY'
+}
+
+export type OrderUpdateInput = {
+  billingAddress?: InputMaybe<AddressUpdateEnvelopeInput>;
+  customer?: InputMaybe<CustomerUpdateEnvelopeInput>;
+  deliveredDate?: InputMaybe<Scalars['DateTime']['input']>;
+  items?: InputMaybe<Array<OrderItemCreateInput>>;
+  orderDate?: InputMaybe<Scalars['DateTime']['input']>;
+  payment?: InputMaybe<PaymentCardUpdateEnvelopeInput>;
+  paymentDate?: InputMaybe<Scalars['DateTime']['input']>;
+  shippingAddress?: InputMaybe<AddressUpdateEnvelopeInput>;
+  status?: InputMaybe<OrderStatus>;
+  underDeliveryDate?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type OrderWhereInput = {
+  AND?: InputMaybe<Array<OrderWhereInput>>;
+  NOT?: InputMaybe<Array<OrderWhereInput>>;
+  OR?: InputMaybe<Array<OrderWhereInput>>;
+  billingAddress?: InputMaybe<AddressCompositeFilter>;
+  customer?: InputMaybe<CustomerCompositeFilter>;
+  deliveredDate?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<StringFilter>;
+  items?: InputMaybe<Array<OrderItemObjectEqualityInput>>;
+  orderDate?: InputMaybe<DateTimeFilter>;
+  payment?: InputMaybe<PaymentCardCompositeFilter>;
+  paymentDate?: InputMaybe<DateTimeFilter>;
+  shippingAddress?: InputMaybe<AddressCompositeFilter>;
+  status?: InputMaybe<EnumOrderStatusFilter>;
+  underDeliveryDate?: InputMaybe<DateTimeFilter>;
+};
+
+export type OrderWhereUniqueInput = {
+  AND?: InputMaybe<Array<OrderWhereInput>>;
+  NOT?: InputMaybe<Array<OrderWhereInput>>;
+  OR?: InputMaybe<Array<OrderWhereInput>>;
+  billingAddress?: InputMaybe<AddressCompositeFilter>;
+  customer?: InputMaybe<CustomerCompositeFilter>;
+  deliveredDate?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<OrderItemObjectEqualityInput>>;
+  orderDate?: InputMaybe<DateTimeFilter>;
+  payment?: InputMaybe<PaymentCardCompositeFilter>;
+  paymentDate?: InputMaybe<DateTimeFilter>;
+  shippingAddress?: InputMaybe<AddressCompositeFilter>;
+  status?: InputMaybe<EnumOrderStatusFilter>;
+  underDeliveryDate?: InputMaybe<DateTimeFilter>;
+};
+
+export type PaymentCard = {
+  __typename?: 'PaymentCard';
+  cardNumber: Scalars['String']['output'];
+  cvc: Scalars['String']['output'];
+  expirationDate: Scalars['String']['output'];
+  nameOnCard: Scalars['String']['output'];
+};
+
+export type PaymentCardCompositeFilter = {
+  equals?: InputMaybe<PaymentCardObjectEqualityInput>;
+  is?: InputMaybe<PaymentCardWhereInput>;
+  isNot?: InputMaybe<PaymentCardWhereInput>;
+};
+
+export type PaymentCardCreateEnvelopeInput = {
+  set?: InputMaybe<PaymentCardCreateInput>;
+};
+
+export type PaymentCardCreateInput = {
+  cardNumber: Scalars['String']['input'];
+  cvc: Scalars['String']['input'];
+  expirationDate: Scalars['String']['input'];
+  nameOnCard: Scalars['String']['input'];
+};
+
+export type PaymentCardObjectEqualityInput = {
+  cardNumber: Scalars['String']['input'];
+  cvc: Scalars['String']['input'];
+  expirationDate: Scalars['String']['input'];
+  nameOnCard: Scalars['String']['input'];
+};
+
+export type PaymentCardOrderByInput = {
+  cardNumber?: InputMaybe<SortOrder>;
+  cvc?: InputMaybe<SortOrder>;
+  expirationDate?: InputMaybe<SortOrder>;
+  nameOnCard?: InputMaybe<SortOrder>;
+};
+
+export type PaymentCardUpdateEnvelopeInput = {
+  set?: InputMaybe<PaymentCardCreateInput>;
+  update?: InputMaybe<PaymentCardUpdateInput>;
+};
+
+export type PaymentCardUpdateInput = {
+  cardNumber?: InputMaybe<Scalars['String']['input']>;
+  cvc?: InputMaybe<Scalars['String']['input']>;
+  expirationDate?: InputMaybe<Scalars['String']['input']>;
+  nameOnCard?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PaymentCardWhereInput = {
+  AND?: InputMaybe<Array<PaymentCardWhereInput>>;
+  NOT?: InputMaybe<Array<PaymentCardWhereInput>>;
+  OR?: InputMaybe<Array<PaymentCardWhereInput>>;
+  cardNumber?: InputMaybe<StringFilter>;
+  cvc?: InputMaybe<StringFilter>;
+  expirationDate?: InputMaybe<StringFilter>;
+  nameOnCard?: InputMaybe<StringFilter>;
 };
 
 export type Product = {
@@ -355,12 +781,14 @@ export type ProductWhereUniqueInput = {
 export type Query = {
   __typename?: 'Query';
   countAllCustomerBaskets: Scalars['Float']['output'];
+  countAllOrders: Scalars['Float']['output'];
   countAllProducts: Scalars['Float']['output'];
   findAllCustomerBaskets: Array<CustomerBasket>;
+  findAllOrders: Array<Order>;
   findAllProducts: Array<Product>;
   findAllUsers: Array<User>;
   findOneCustomerBasket: CustomerBasket;
-  findOneCustomerBasketByCustomerId: CustomerBasket;
+  findOneOrder: Order;
   findOneProduct: Product;
   findOneUser: User;
 };
@@ -373,6 +801,16 @@ export type QueryCountAllCustomerBasketsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<CustomerBasketWhereInput>;
+};
+
+
+export type QueryCountAllOrdersArgs = {
+  cursor?: InputMaybe<OrderWhereUniqueInput>;
+  distinct?: InputMaybe<Array<OrderScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<OrderOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<OrderWhereInput>;
 };
 
 
@@ -396,6 +834,16 @@ export type QueryFindAllCustomerBasketsArgs = {
 };
 
 
+export type QueryFindAllOrdersArgs = {
+  cursor?: InputMaybe<OrderWhereUniqueInput>;
+  distinct?: InputMaybe<Array<OrderScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<OrderOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<OrderWhereInput>;
+};
+
+
 export type QueryFindAllProductsArgs = {
   cursor?: InputMaybe<ProductWhereUniqueInput>;
   distinct?: InputMaybe<Array<ProductScalarFieldEnum>>;
@@ -411,8 +859,8 @@ export type QueryFindOneCustomerBasketArgs = {
 };
 
 
-export type QueryFindOneCustomerBasketByCustomerIdArgs = {
-  customerId: Scalars['String']['input'];
+export type QueryFindOneOrderArgs = {
+  where: OrderWhereUniqueInput;
 };
 
 
@@ -593,12 +1041,22 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  BasketItem: ResolverTypeWrapper<BasketItem>;
+  Address: ResolverTypeWrapper<Address>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
+  AddressCompositeFilter: AddressCompositeFilter;
+  AddressCreateEnvelopeInput: AddressCreateEnvelopeInput;
+  AddressCreateInput: AddressCreateInput;
+  AddressObjectEqualityInput: AddressObjectEqualityInput;
+  AddressOrderByInput: AddressOrderByInput;
+  AddressUpdateEnvelopeInput: AddressUpdateEnvelopeInput;
+  AddressUpdateInput: AddressUpdateInput;
+  AddressWhereInput: AddressWhereInput;
+  BasketItem: ResolverTypeWrapper<BasketItem>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   BasketItemCreateInput: BasketItemCreateInput;
   BasketItemObjectEqualityInput: BasketItemObjectEqualityInput;
   BasketItemOrderByCompositeAggregateInput: BasketItemOrderByCompositeAggregateInput;
+  Customer: ResolverTypeWrapper<Customer>;
   CustomerBasket: ResolverTypeWrapper<CustomerBasket>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   CustomerBasketCountAggregate: ResolverTypeWrapper<CustomerBasketCountAggregate>;
@@ -610,10 +1068,46 @@ export type ResolversTypes = {
   CustomerBasketUpdateInput: CustomerBasketUpdateInput;
   CustomerBasketWhereInput: CustomerBasketWhereInput;
   CustomerBasketWhereUniqueInput: CustomerBasketWhereUniqueInput;
+  CustomerCompositeFilter: CustomerCompositeFilter;
+  CustomerCreateEnvelopeInput: CustomerCreateEnvelopeInput;
+  CustomerCreateInput: CustomerCreateInput;
+  CustomerObjectEqualityInput: CustomerObjectEqualityInput;
+  CustomerOrderByInput: CustomerOrderByInput;
+  CustomerUpdateEnvelopeInput: CustomerUpdateEnvelopeInput;
+  CustomerUpdateInput: CustomerUpdateInput;
+  CustomerWhereInput: CustomerWhereInput;
+  DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
+  DateTimeFilter: DateTimeFilter;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  EnumOrderStatusFilter: EnumOrderStatusFilter;
   FloatFilter: FloatFilter;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   IntFilter: IntFilter;
   Mutation: ResolverTypeWrapper<{}>;
+  Order: ResolverTypeWrapper<Order>;
+  OrderCountAggregate: ResolverTypeWrapper<OrderCountAggregate>;
+  OrderCreateInput: OrderCreateInput;
+  OrderItem: ResolverTypeWrapper<OrderItem>;
+  OrderItemCreateInput: OrderItemCreateInput;
+  OrderItemObjectEqualityInput: OrderItemObjectEqualityInput;
+  OrderItemOrderByCompositeAggregateInput: OrderItemOrderByCompositeAggregateInput;
+  OrderMaxAggregate: ResolverTypeWrapper<OrderMaxAggregate>;
+  OrderMinAggregate: ResolverTypeWrapper<OrderMinAggregate>;
+  OrderOrderByWithRelationInput: OrderOrderByWithRelationInput;
+  OrderScalarFieldEnum: OrderScalarFieldEnum;
+  OrderStatus: OrderStatus;
+  OrderUpdateInput: OrderUpdateInput;
+  OrderWhereInput: OrderWhereInput;
+  OrderWhereUniqueInput: OrderWhereUniqueInput;
+  PaymentCard: ResolverTypeWrapper<PaymentCard>;
+  PaymentCardCompositeFilter: PaymentCardCompositeFilter;
+  PaymentCardCreateEnvelopeInput: PaymentCardCreateEnvelopeInput;
+  PaymentCardCreateInput: PaymentCardCreateInput;
+  PaymentCardObjectEqualityInput: PaymentCardObjectEqualityInput;
+  PaymentCardOrderByInput: PaymentCardOrderByInput;
+  PaymentCardUpdateEnvelopeInput: PaymentCardUpdateEnvelopeInput;
+  PaymentCardUpdateInput: PaymentCardUpdateInput;
+  PaymentCardWhereInput: PaymentCardWhereInput;
   Product: ResolverTypeWrapper<Product>;
   ProductAvgAggregate: ResolverTypeWrapper<ProductAvgAggregate>;
   ProductCountAggregate: ResolverTypeWrapper<ProductCountAggregate>;
@@ -631,7 +1125,6 @@ export type ResolversTypes = {
   SortOrder: SortOrder;
   StringFilter: StringFilter;
   StringListFilter: StringListFilter;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   User: ResolverTypeWrapper<User>;
   UserCountAggregate: ResolverTypeWrapper<UserCountAggregate>;
   UserCreateInput: UserCreateInput;
@@ -644,12 +1137,22 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  BasketItem: BasketItem;
+  Address: Address;
   String: Scalars['String']['output'];
+  AddressCompositeFilter: AddressCompositeFilter;
+  AddressCreateEnvelopeInput: AddressCreateEnvelopeInput;
+  AddressCreateInput: AddressCreateInput;
+  AddressObjectEqualityInput: AddressObjectEqualityInput;
+  AddressOrderByInput: AddressOrderByInput;
+  AddressUpdateEnvelopeInput: AddressUpdateEnvelopeInput;
+  AddressUpdateInput: AddressUpdateInput;
+  AddressWhereInput: AddressWhereInput;
+  BasketItem: BasketItem;
   Int: Scalars['Int']['output'];
   BasketItemCreateInput: BasketItemCreateInput;
   BasketItemObjectEqualityInput: BasketItemObjectEqualityInput;
   BasketItemOrderByCompositeAggregateInput: BasketItemOrderByCompositeAggregateInput;
+  Customer: Customer;
   CustomerBasket: CustomerBasket;
   ID: Scalars['ID']['output'];
   CustomerBasketCountAggregate: CustomerBasketCountAggregate;
@@ -660,10 +1163,44 @@ export type ResolversParentTypes = {
   CustomerBasketUpdateInput: CustomerBasketUpdateInput;
   CustomerBasketWhereInput: CustomerBasketWhereInput;
   CustomerBasketWhereUniqueInput: CustomerBasketWhereUniqueInput;
+  CustomerCompositeFilter: CustomerCompositeFilter;
+  CustomerCreateEnvelopeInput: CustomerCreateEnvelopeInput;
+  CustomerCreateInput: CustomerCreateInput;
+  CustomerObjectEqualityInput: CustomerObjectEqualityInput;
+  CustomerOrderByInput: CustomerOrderByInput;
+  CustomerUpdateEnvelopeInput: CustomerUpdateEnvelopeInput;
+  CustomerUpdateInput: CustomerUpdateInput;
+  CustomerWhereInput: CustomerWhereInput;
+  DateTime: Scalars['DateTime']['output'];
+  DateTimeFilter: DateTimeFilter;
+  Boolean: Scalars['Boolean']['output'];
+  EnumOrderStatusFilter: EnumOrderStatusFilter;
   FloatFilter: FloatFilter;
   Float: Scalars['Float']['output'];
   IntFilter: IntFilter;
   Mutation: {};
+  Order: Order;
+  OrderCountAggregate: OrderCountAggregate;
+  OrderCreateInput: OrderCreateInput;
+  OrderItem: OrderItem;
+  OrderItemCreateInput: OrderItemCreateInput;
+  OrderItemObjectEqualityInput: OrderItemObjectEqualityInput;
+  OrderItemOrderByCompositeAggregateInput: OrderItemOrderByCompositeAggregateInput;
+  OrderMaxAggregate: OrderMaxAggregate;
+  OrderMinAggregate: OrderMinAggregate;
+  OrderOrderByWithRelationInput: OrderOrderByWithRelationInput;
+  OrderUpdateInput: OrderUpdateInput;
+  OrderWhereInput: OrderWhereInput;
+  OrderWhereUniqueInput: OrderWhereUniqueInput;
+  PaymentCard: PaymentCard;
+  PaymentCardCompositeFilter: PaymentCardCompositeFilter;
+  PaymentCardCreateEnvelopeInput: PaymentCardCreateEnvelopeInput;
+  PaymentCardCreateInput: PaymentCardCreateInput;
+  PaymentCardObjectEqualityInput: PaymentCardObjectEqualityInput;
+  PaymentCardOrderByInput: PaymentCardOrderByInput;
+  PaymentCardUpdateEnvelopeInput: PaymentCardUpdateEnvelopeInput;
+  PaymentCardUpdateInput: PaymentCardUpdateInput;
+  PaymentCardWhereInput: PaymentCardWhereInput;
   Product: Product;
   ProductAvgAggregate: ProductAvgAggregate;
   ProductCountAggregate: ProductCountAggregate;
@@ -678,7 +1215,6 @@ export type ResolversParentTypes = {
   Query: {};
   StringFilter: StringFilter;
   StringListFilter: StringListFilter;
-  Boolean: Scalars['Boolean']['output'];
   User: User;
   UserCountAggregate: UserCountAggregate;
   UserCreateInput: UserCreateInput;
@@ -689,10 +1225,30 @@ export type ResolversParentTypes = {
   UserWhereUniqueInput: UserWhereUniqueInput;
 };
 
+export type AddressResolvers<ContextType = any, ParentType extends ResolversParentTypes['Address'] = ResolversParentTypes['Address']> = {
+  address1?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  address2?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  city?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  country?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  phone?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  postalCode?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  state?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type BasketItemResolvers<ContextType = any, ParentType extends ResolversParentTypes['BasketItem'] = ResolversParentTypes['BasketItem']> = {
   product?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType>;
   productId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   quantity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CustomerResolvers<ContextType = any, ParentType extends ResolversParentTypes['Customer'] = ResolversParentTypes['Customer']> = {
+  customerId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -723,16 +1279,90 @@ export type CustomerBasketMinAggregateResolvers<ContextType = any, ParentType ex
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
+  name: 'DateTime';
+}
+
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createCustomerBasket?: Resolver<ResolversTypes['CustomerBasket'], ParentType, ContextType, Partial<MutationCreateCustomerBasketArgs>>;
+  createOrder?: Resolver<ResolversTypes['Order'], ParentType, ContextType, RequireFields<MutationCreateOrderArgs, 'data'>>;
   createProduct?: Resolver<ResolversTypes['Product'], ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'data'>>;
   createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'data'>>;
   removeCustomerBasket?: Resolver<ResolversTypes['CustomerBasket'], ParentType, ContextType, RequireFields<MutationRemoveCustomerBasketArgs, 'where'>>;
+  removeOrder?: Resolver<ResolversTypes['Order'], ParentType, ContextType, RequireFields<MutationRemoveOrderArgs, 'where'>>;
   removeProduct?: Resolver<ResolversTypes['Product'], ParentType, ContextType, RequireFields<MutationRemoveProductArgs, 'where'>>;
   removeUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationRemoveUserArgs, 'where'>>;
   updateCustomerBasket?: Resolver<ResolversTypes['CustomerBasket'], ParentType, ContextType, RequireFields<MutationUpdateCustomerBasketArgs, 'data' | 'where'>>;
+  updateOrder?: Resolver<ResolversTypes['Order'], ParentType, ContextType, RequireFields<MutationUpdateOrderArgs, 'data' | 'where'>>;
   updateProduct?: Resolver<ResolversTypes['Product'], ParentType, ContextType, RequireFields<MutationUpdateProductArgs, 'data' | 'where'>>;
   updateUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'data' | 'where'>>;
+};
+
+export type OrderResolvers<ContextType = any, ParentType extends ResolversParentTypes['Order'] = ResolversParentTypes['Order']> = {
+  billingAddress?: Resolver<ResolversTypes['Address'], ParentType, ContextType>;
+  customer?: Resolver<ResolversTypes['Customer'], ParentType, ContextType>;
+  deliveredDate?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  items?: Resolver<Maybe<Array<ResolversTypes['OrderItem']>>, ParentType, ContextType>;
+  orderDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  payment?: Resolver<ResolversTypes['PaymentCard'], ParentType, ContextType>;
+  paymentDate?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  shippingAddress?: Resolver<ResolversTypes['Address'], ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['OrderStatus'], ParentType, ContextType>;
+  underDeliveryDate?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type OrderCountAggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrderCountAggregate'] = ResolversParentTypes['OrderCountAggregate']> = {
+  _all?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  deliveredDate?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  orderDate?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  paymentDate?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  underDeliveryDate?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type OrderItemResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrderItem'] = ResolversParentTypes['OrderItem']> = {
+  brand?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  category?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  discountPercentage?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  price?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  productId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  quantity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  thumbnail?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type OrderMaxAggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrderMaxAggregate'] = ResolversParentTypes['OrderMaxAggregate']> = {
+  deliveredDate?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  orderDate?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  paymentDate?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['OrderStatus']>, ParentType, ContextType>;
+  underDeliveryDate?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type OrderMinAggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrderMinAggregate'] = ResolversParentTypes['OrderMinAggregate']> = {
+  deliveredDate?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  orderDate?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  paymentDate?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['OrderStatus']>, ParentType, ContextType>;
+  underDeliveryDate?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type PaymentCardResolvers<ContextType = any, ParentType extends ResolversParentTypes['PaymentCard'] = ResolversParentTypes['PaymentCard']> = {
+  cardNumber?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  cvc?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  expirationDate?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  nameOnCard?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ProductResolvers<ContextType = any, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
@@ -812,12 +1442,14 @@ export type ProductSumAggregateResolvers<ContextType = any, ParentType extends R
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   countAllCustomerBaskets?: Resolver<ResolversTypes['Float'], ParentType, ContextType, Partial<QueryCountAllCustomerBasketsArgs>>;
+  countAllOrders?: Resolver<ResolversTypes['Float'], ParentType, ContextType, Partial<QueryCountAllOrdersArgs>>;
   countAllProducts?: Resolver<ResolversTypes['Float'], ParentType, ContextType, Partial<QueryCountAllProductsArgs>>;
   findAllCustomerBaskets?: Resolver<Array<ResolversTypes['CustomerBasket']>, ParentType, ContextType, Partial<QueryFindAllCustomerBasketsArgs>>;
+  findAllOrders?: Resolver<Array<ResolversTypes['Order']>, ParentType, ContextType, Partial<QueryFindAllOrdersArgs>>;
   findAllProducts?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType, Partial<QueryFindAllProductsArgs>>;
   findAllUsers?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
   findOneCustomerBasket?: Resolver<ResolversTypes['CustomerBasket'], ParentType, ContextType, RequireFields<QueryFindOneCustomerBasketArgs, 'where'>>;
-  findOneCustomerBasketByCustomerId?: Resolver<ResolversTypes['CustomerBasket'], ParentType, ContextType, RequireFields<QueryFindOneCustomerBasketByCustomerIdArgs, 'customerId'>>;
+  findOneOrder?: Resolver<ResolversTypes['Order'], ParentType, ContextType, RequireFields<QueryFindOneOrderArgs, 'where'>>;
   findOneProduct?: Resolver<ResolversTypes['Product'], ParentType, ContextType, RequireFields<QueryFindOneProductArgs, 'where'>>;
   findOneUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<QueryFindOneUserArgs, 'where'>>;
 };
@@ -853,12 +1485,21 @@ export type UserMinAggregateResolvers<ContextType = any, ParentType extends Reso
 };
 
 export type Resolvers<ContextType = any> = {
+  Address?: AddressResolvers<ContextType>;
   BasketItem?: BasketItemResolvers<ContextType>;
+  Customer?: CustomerResolvers<ContextType>;
   CustomerBasket?: CustomerBasketResolvers<ContextType>;
   CustomerBasketCountAggregate?: CustomerBasketCountAggregateResolvers<ContextType>;
   CustomerBasketMaxAggregate?: CustomerBasketMaxAggregateResolvers<ContextType>;
   CustomerBasketMinAggregate?: CustomerBasketMinAggregateResolvers<ContextType>;
+  DateTime?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
+  Order?: OrderResolvers<ContextType>;
+  OrderCountAggregate?: OrderCountAggregateResolvers<ContextType>;
+  OrderItem?: OrderItemResolvers<ContextType>;
+  OrderMaxAggregate?: OrderMaxAggregateResolvers<ContextType>;
+  OrderMinAggregate?: OrderMinAggregateResolvers<ContextType>;
+  PaymentCard?: PaymentCardResolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;
   ProductAvgAggregate?: ProductAvgAggregateResolvers<ContextType>;
   ProductCountAggregate?: ProductCountAggregateResolvers<ContextType>;

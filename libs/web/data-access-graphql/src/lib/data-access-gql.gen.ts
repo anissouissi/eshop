@@ -81,6 +81,13 @@ export type RemoveCustomerBasketVariables = Types.Exact<{
 
 export type RemoveCustomerBasket = { __typename?: 'Mutation', removeCustomerBasket: { __typename?: 'CustomerBasket', id: string } };
 
+export type CreateOrderVariables = Types.Exact<{
+  data: Types.OrderCreateInput;
+}>;
+
+
+export type CreateOrder = { __typename?: 'Mutation', createOrder: { __typename?: 'Order', id: string } };
+
 
 export const GetUsersDocument = /*#__PURE__*/ gql`
     query getUsers {
@@ -242,6 +249,13 @@ export const RemoveCustomerBasketDocument = /*#__PURE__*/ gql`
   }
 }
     `;
+export const CreateOrderDocument = /*#__PURE__*/ gql`
+    mutation CreateOrder($data: OrderCreateInput!) {
+  createOrder(data: $data) {
+    id
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -285,6 +299,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     RemoveCustomerBasket(variables: RemoveCustomerBasketVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<RemoveCustomerBasket> {
       return withWrapper((wrappedRequestHeaders) => client.request<RemoveCustomerBasket>(RemoveCustomerBasketDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'RemoveCustomerBasket', 'mutation');
+    },
+    CreateOrder(variables: CreateOrderVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<CreateOrder> {
+      return withWrapper((wrappedRequestHeaders) => client.request<CreateOrder>(CreateOrderDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreateOrder', 'mutation');
     }
   };
 }

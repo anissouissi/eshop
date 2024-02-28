@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Context,
+  GqlExecutionContext,
+} from '@nestjs/graphql';
 import { OrderService } from './order.service';
 import {
   Order,
@@ -8,14 +15,33 @@ import {
   DeleteOneOrderArgs,
   FindManyOrderArgs,
 } from '@aso/api-order-generated-db-types';
+import { ClientProxy } from '@nestjs/microservices';
+import { Inject, UseGuards } from '@nestjs/common';
+import { PAYMENT_SERVICE } from './services';
+import { lastValueFrom } from 'rxjs';
+import { JwtRmqAuthGuard } from '@aso/api-feature-identity';
 
 @Resolver(() => Order)
 export class OrderResolver {
-  constructor(private readonly orderService: OrderService) {}
+  constructor(
+    private readonly orderService: OrderService,
+    @Inject(PAYMENT_SERVICE) private paymentClient: ClientProxy
+  ) {}
 
   @Mutation(() => Order)
-  createOrder(@Args() createOneOrderArgs: CreateOneOrderArgs) {
-    return this.orderService.create(createOneOrderArgs);
+  @UseGuards(JwtRmqAuthGuard)
+  async createOrder(
+    @Args() createOneOrderArgs: CreateOneOrderArgs,
+    @Context() context: any
+  ) {
+    const order = await this.orderService.create(createOneOrderArgs);
+    await lastValueFrom(
+      this.paymentClient.emit('order_placed', {
+        payment: order.payment,
+        Authentication: context.req.headers?.authentication,
+      })
+    );
+    return order;
   }
 
   @Query(() => [Order])

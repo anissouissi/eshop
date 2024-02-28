@@ -1,10 +1,12 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloGatewayDriver, ApolloGatewayDriverConfig } from '@nestjs/apollo';
-import { IntrospectAndCompose } from '@apollo/gateway';
+import { IntrospectAndCompose, RemoteGraphQLDataSource } from '@apollo/gateway';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import Joi from 'joi';
+import cookieParser from 'cookie-parser';
+import { authContext } from './auth.context';
 
 @Module({
   imports: [
@@ -12,26 +14,25 @@ import Joi from 'joi';
       isGlobal: true,
       validationSchema: Joi.object({
         PORT: Joi.number().required(),
-        IDENTITY_URL: Joi.string().required(),
         CATALOG_URL: Joi.string().required(),
         BASKET_URL: Joi.string().required(),
         ORDERING_URL: Joi.string().required(),
+        CORS_ORIGINS: Joi.string().required(),
       }),
       envFilePath: './apps/catalog/.env',
     }),
     GraphQLModule.forRoot<ApolloGatewayDriverConfig>({
       server: {
         playground: false,
-        plugins: [ApolloServerPluginLandingPageLocalDefault()],
+        plugins: [
+          ApolloServerPluginLandingPageLocalDefault({ includeCookies: true }),
+        ],
+        context: authContext,
       },
       driver: ApolloGatewayDriver,
       gateway: {
         supergraphSdl: new IntrospectAndCompose({
           subgraphs: [
-            {
-              name: 'identity',
-              url: process.env.IDENTITY_URL,
-            },
             {
               name: 'catalog',
               url: process.env.CATALOG_URL,
@@ -44,10 +45,29 @@ import Joi from 'joi';
               name: 'ordering',
               url: process.env.ORDERING_URL,
             },
+            {
+              name: 'user',
+              url: process.env.USER_URL,
+            },
           ],
         }),
+        buildService({ url }) {
+          return new RemoteGraphQLDataSource({
+            url,
+            willSendRequest({ request, context }) {
+              request.http.headers.set(
+                'authentication',
+                context.authentication
+              );
+            },
+          });
+        },
       },
     }),
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(cookieParser()).forRoutes('*');
+  }
+}

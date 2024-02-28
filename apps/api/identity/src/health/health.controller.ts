@@ -1,24 +1,28 @@
-import { PrismaService } from '@aso/api-identity-data-access-db';
 import { Controller, Get } from '@nestjs/common';
 import {
-  HealthCheck,
   HealthCheckService,
-  PrismaHealthIndicator,
+  HttpHealthIndicator,
+  HealthCheck,
 } from '@nestjs/terminus';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('health')
 export class HealthController {
   constructor(
     private health: HealthCheckService,
-    private prismaHealth: PrismaHealthIndicator,
-    private prisma: PrismaService
+    private http: HttpHealthIndicator,
+    private configService: ConfigService
   ) {}
 
   @Get()
   @HealthCheck()
   check() {
     return this.health.check([
-      async () => this.prismaHealth.pingCheck('prisma', this.prisma),
+      () =>
+        this.http.pingCheck(
+          'identity',
+          `http://identity:${this.configService.get('PORT')}/test`
+        ),
     ]);
   }
 }

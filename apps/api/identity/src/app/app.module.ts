@@ -1,24 +1,12 @@
-import { Module } from '@nestjs/common';
-import { GraphQLModule } from '@nestjs/graphql';
-import {
-  ApolloFederationDriver,
-  ApolloFederationDriverConfig,
-} from '@nestjs/apollo';
-import { UserModule, UserService } from '@aso/feature-user';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import Joi from 'joi';
 import { HealthModule } from '../health/health.module';
 import { RmqModule } from '@aso/util-rmq';
-import { JwtModule } from '@nestjs/jwt';
-import {
-  JwtStrategy,
-  LocalStrategy,
-  AuthService,
-  AuthModule,
-} from '@aso/util-identity';
-import { AuthController } from './auth.controller';
-import { PrismaService } from '@aso/api-identity-data-access-db';
-import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
+import { IdentityModule } from '@aso/api-feature-identity';
+import { AppService } from './app.service';
+import { AppController } from './app.controller';
+import cookieParser from 'cookie-parser';
 
 @Module({
   imports: [
@@ -32,36 +20,18 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
         JWT_SECRET: Joi.string().required(),
         JWT_EXPIRATION: Joi.string().required(),
         CORS_ORIGINS: Joi.string().required(),
+        RABBIT_MQ_IDENTITY_QUEUE: Joi.string().required(),
+        RABBIT_MQ_USER_QUEUE: Joi.string().required(),
       }),
-      envFilePath: './apps/catalog/.env',
+      envFilePath: './apps/identity/.env',
     }),
-    JwtModule.registerAsync({
-      useFactory: (configService: ConfigService) => ({
-        secret: configService.get<string>('JWT_SECRET'),
-        signOptions: {
-          expiresIn: `${configService.get('JWT_EXPIRATION')}s`,
-        },
-      }),
-      inject: [ConfigService],
-    }),
-    GraphQLModule.forRoot<ApolloFederationDriverConfig>({
-      playground: false,
-      plugins: [ApolloServerPluginLandingPageLocalDefault()],
-      driver: ApolloFederationDriver,
-      autoSchemaFile: {
-        federation: 2,
-      },
-    }),
-    UserModule,
-    AuthModule,
+    IdentityModule,
   ],
-  controllers: [AuthController],
-  providers: [
-    AuthService,
-    LocalStrategy,
-    JwtStrategy,
-    PrismaService,
-    UserService,
-  ],
+  controllers: [AppController],
+  providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(cookieParser()).forRoutes('*');
+  }
+}

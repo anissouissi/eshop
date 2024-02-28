@@ -15,7 +15,7 @@ import { PaymentModule } from '../payment/payment.module';
         PORT: Joi.number().required(),
         RABBIT_MQ_URI: Joi.string().required(),
         RABBIT_MQ_PAYMENT_QUEUE: Joi.string().required(),
-        RABBIT_MQ_AUTH_QUEUE: Joi.string().required(),
+        RABBIT_MQ_IDENTITY_QUEUE: Joi.string().required(),
       }),
       envFilePath: './apps/payment/.env',
     }),

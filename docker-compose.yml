@@ -8,15 +8,11 @@ services:
     env_file:
       - ./apps/api/gateway/.env
     depends_on:
-      identity:
-        condition: service_healthy
       catalog:
         condition: service_healthy
       basket:
         condition: service_healthy
       ordering:
-        condition: service_healthy
-      mongodb-primary:
         condition: service_healthy
     volumes:
       - .:/usr/src/app
@@ -48,6 +44,31 @@ services:
       - /usr/src/app/node_modules
     ports:
       - '3001:3001'
+
+  user:
+    build:
+      context: .
+      dockerfile: ./apps/api/user/Dockerfile
+      target: development
+    command: npm start api-user
+    env_file:
+      - ./apps/api/user/.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://user:3006/health || exit 1
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - '3006:3006'
 
   catalog:
     build:
